@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Dashboard</string>
+    <string name="passwordReset"><u>Forget Password</u></string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="homeButton">Home</string>
+    <string name="activityButton">Activity</string>
+    <string name="settingsButton">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_item_detail_host">Item Detail Host Activity</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="large_text">
+       Yoga is the most favourable method to connect to the nature by balancing the mind-body connection. It is a type of exercise which performed through the balanced body and need to get control over diet, breathing, and physical postures. It is associated with the meditation of body and mind through the relaxation of body. It is very useful to control over mind and body as well as getting proper health of body and mind by reducing the stress and anxiety.
+    </string>
+    <string name="action_settings">Settings</string>
+    <string name="gender_prompt">Gender</string>
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Others</item>
+    </string-array>
+</resources>
