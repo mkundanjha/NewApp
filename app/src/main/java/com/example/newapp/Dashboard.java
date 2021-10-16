@@ -29,13 +29,15 @@ public class Dashboard extends AppCompatActivity {
 
         //title=findViewById(R.id.textView5);
         homeButton.setTextSize(25);
-        replaceFragment(new Home(), android.R.animator.fade_in, android.R.animator.fade_out);
+        replaceFragment(new HomeDashboard(), android.R.animator.fade_in, android.R.animator.fade_out);
+
+        //replaceFragment(new Home(), android.R.animator.fade_in, android.R.animator.fade_out);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setButtonUI(homeButton,activityButton,settingsButton);
-
-                replaceFragment(new Home(), android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+                replaceFragment(new HomeDashboard(), android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+                //replaceFragment(new Home(), android.R.anim.slide_in_left,android.R.anim.slide_out_right);
             }
         });
 

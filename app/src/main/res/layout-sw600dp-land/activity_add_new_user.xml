@@ -101,18 +101,18 @@
         android:id="@+id/addUsrBtn"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:layout_marginStart="700dp"
+        android:layout_marginTop="60dp"
         android:backgroundTint="#525CB9"
         android:clickable="true"
         android:textAlignment="center"
         android:tint="@color/backgroung_grey"
+        app:fabCustomSize="65dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.392"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:srcCompat="@drawable/add_user_btn"
-        tools:ignore="SpeakableTextPresentCheck"
-        app:fabCustomSize="70dp"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView20"

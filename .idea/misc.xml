@@ -44,9 +44,17 @@
         <entry key="..\:/Users/jhaku/AndroidStudioProjects/NewApp/app/src/main/res/layout/new_layot.xml" value="0.15522875816993464" />
         <entry key="..\:/Users/jhaku/AndroidStudioProjects/NewApp/app/src/main/res/layout/spinner_item.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/add_user_btn.xml" value="0.20104166666666667" />
-        <entry key="app/src/main/res/layout-sw600dp-land/activity_add_new_user.xml" value="0.1" />
-        <entry key="app/src/main/res/layout-sw600dp-land/activity_login.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/rounded_corner.xml" value="0.15078125" />
+        <entry key="app/src/main/res/drawable/rounded_search.xml" value="0.15078125" />
+        <entry key="app/src/main/res/layout-land/fragment_home_dashboard.xml" value="0.10625" />
+        <entry key="app/src/main/res/layout-sw600dp-land/activity_add_new_user.xml" value="0.25" />
+        <entry key="app/src/main/res/layout-sw600dp-land/activity_dashboard.xml" value="0.25" />
+        <entry key="app/src/main/res/layout-sw600dp-land/activity_login.xml" value="0.165" />
         <entry key="app/src/main/res/layout-sw600dp-land/activity_login_page.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-sw600dp-land/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-sw600dp-land/fragment_home_dashboard.xml" value="0.34942287513116477" />
+        <entry key="app/src/main/res/layout-sw600dp/fragment_home_dashboard.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home_dashboard.xml" value="0.1" />
       </map>
     </option>
   </component>
@@ -59,7 +67,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.5" />
+        <option name="scale" value="0.165" />
       </ProjectState>
     </option>
   </component>

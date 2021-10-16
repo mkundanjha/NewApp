@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     File file;
     String PATIENT_DATA="PatientData";
     FloatingActionButton goToAddUsrBtn;
+    SearchView serach;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
