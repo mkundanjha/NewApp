@@ -1,5 +1,6 @@
 package com.example.newapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -39,7 +40,7 @@ import java.util.WeakHashMap;
 
 public class HomeDashboard extends Fragment {
 
-    TextView currentDay;
+    TextView currentDay,tvUserName;
     TextView currentDate;
     LineChart romChart;
     BarChart barChart;
@@ -69,8 +70,10 @@ public class HomeDashboard extends Fragment {
         hrCard=view.findViewById(R.id.hrCard);
         romCard.setVisibility(View.INVISIBLE);
         hrCard.setVisibility(View.INVISIBLE);
+        tvUserName=view.findViewById(R.id.usrName);
+        Intent intent=this.getActivity().getIntent();
 
-
+        tvUserName.setText(intent.getStringExtra("user_name"));
 
         //setDateTime(currentDate,currentDay);
 
@@ -87,6 +90,10 @@ public class HomeDashboard extends Fragment {
         barChart=view.findViewById(R.id.barChart);
         gameCard=view.findViewById(R.id.gameCard);
         timeUsagesCard=view.findViewById(R.id.timeUsageCard);
+        tvUserName=view.findViewById(R.id.usrName);
+        Intent intent=this.getActivity().getIntent();
+
+        tvUserName.setText(", "+intent.getStringExtra("user_name"));
 
 
 

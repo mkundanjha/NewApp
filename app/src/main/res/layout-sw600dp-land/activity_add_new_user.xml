@@ -34,7 +34,7 @@
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Name"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:minHeight="48dp"
                 android:text=""
 
@@ -52,9 +52,11 @@
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Age"
-                android:inputType="textPersonName"
+
+                android:inputType="number"
                 android:minHeight="48dp"
                 android:text=""
+
                 app:layout_constraintBottom_toTopOf="@+id/inpWeight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -69,7 +71,7 @@
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Weight"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:minHeight="48dp"
                 android:text=""
                 app:layout_constraintBottom_toTopOf="@+id/selectGender"
@@ -125,6 +127,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

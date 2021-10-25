@@ -56,11 +56,13 @@
                 app:tint="@color/black" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/usrFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="TextView"
+                android:textSize="22sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +101,7 @@
                 app:tint="@color/black" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/usrSecondName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -141,7 +143,7 @@
                 app:tint="@color/black" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/usrThirdName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

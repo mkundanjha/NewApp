@@ -1,3 +1,5 @@
+package com.example.newapp;
+
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -19,7 +21,8 @@ public class FileDataBase {
         this.context=context;
     }
 
-    private void createFile(String folderName, String fileName, String content) {
+    //create new file
+    public void createFile(String folderName, String fileName, String content) {
         try {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -32,7 +35,7 @@ public class FileDataBase {
 
                 Uri uri =context.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);      //important!
 
-                OutputStream outputStream =context.getContentResolver().openOutputStream(uri);
+                OutputStream outputStream =context.getContentResolver().openOutputStream(uri    );
 
                 outputStream.write(content.getBytes());
 
@@ -45,7 +48,8 @@ public class FileDataBase {
         }
     }
 
-    private String  readFile(String folderName,String readFileName){
+    // Read from file
+    public String  readFile(String folderName,String readFileName){
         String returnJsonString="";
 
         try{
@@ -108,5 +112,54 @@ public class FileDataBase {
         return returnJsonString;
     }
 
+    // Update content in the file
+    public void updateFile(String folderName, String inpFileName, String content){
+        Uri contentUri = MediaStore.Files.getContentUri("external");
+
+        String selection = MediaStore.MediaColumns.RELATIVE_PATH + "=?";
+
+        String[] selectionArgs = new String[]{Environment.DIRECTORY_DOCUMENTS + "/"+folderName+"/"};    //must include "/" in front and end
+
+        Cursor cursor = context.getContentResolver().query(contentUri, null, selection, selectionArgs, null);
+
+        Uri uri = null;
+
+        if (cursor.getCount() == 0) {
+            //createFile(folderName,folderName,content);
+            Toast.makeText(context, "No file found in \"" + Environment.DIRECTORY_DOCUMENTS + "/"+folderName+"/", Toast.LENGTH_LONG).show();
+        } else {
+            while (cursor.moveToNext()) {
+                String fileName = cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME));
+
+                if (fileName.equals(inpFileName)) {                          //must include extension
+                    long id = cursor.getLong(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
+
+                    uri = ContentUris.withAppendedId(contentUri, id);
+
+                    break;
+                }
+            }
+
+            if (uri == null) {
+                //createFile(folderName,folderName,content);
+                Toast.makeText(context, inpFileName+" not found", Toast.LENGTH_SHORT).show();
+            } else {
+                try {
+                    OutputStream outputStream = context.getContentResolver().openOutputStream(uri, "rwt");      //overwrite mode, see below
+
+                    outputStream.write(content.getBytes());
+
+                    outputStream.close();
+
+                    Toast.makeText(context, "File updated successfully", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    Toast.makeText(context, "Fail to update file", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
 
 }
+
+
+

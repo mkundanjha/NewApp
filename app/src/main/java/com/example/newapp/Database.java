@@ -79,8 +79,8 @@ public class Database {
             JSONObject jsonObject;
             for(int i=0;i<jsonArray.length();i++){
                 jsonObject=jsonArray.getJSONObject(i);
-                Patients patient=new Patients(jsonObject.getString("Name"),jsonObject.getInt("Id"));
-                patients.add(patient);
+                //Patients patient=new Patients(jsonObject.getString("Name"),jsonObject.getInt("Id"));
+                //patients.add(patient);
             }
         }catch (JSONException e){
             e.printStackTrace();
