@@ -10,8 +10,9 @@
         android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="35dp"
         app:cardCornerRadius="40dp"
+        app:cardElevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -19,25 +20,26 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="500dp"
-            android:layout_height="400dp"
-            android:background="#68C091"
+            android:layout_width="600dp"
+            android:layout_height="500dp"
+            android:background="#7c64a1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintTop_toTopOf="parent">
 
             <EditText
                 android:id="@+id/inpName"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
+                android:layout_width="350dp"
+                android:layout_height="70dp"
                 android:background="@drawable/rounded_corner"
                 android:ems="10"
+                android:fontFamily="@font/surce_sans_pro_regular"
                 android:gravity="center"
                 android:hint="Name"
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:text=""
-
+                android:textSize="25dp"
                 app:layout_constraintBottom_toTopOf="@+id/inpAge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -46,16 +48,17 @@
 
             <EditText
                 android:id="@+id/inpAge"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
+                android:layout_width="350dp"
+                android:layout_height="70dp"
                 android:background="@drawable/rounded_corner"
                 android:ems="10"
+                android:fontFamily="@font/surce_sans_pro_regular"
                 android:gravity="center"
                 android:hint="Age"
-
                 android:inputType="number"
                 android:minHeight="48dp"
                 android:text=""
+                android:textSize="25dp"
 
                 app:layout_constraintBottom_toTopOf="@+id/inpWeight"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,15 +68,17 @@
 
             <EditText
                 android:id="@+id/inpWeight"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
+                android:layout_width="350dp"
+                android:layout_height="70dp"
                 android:background="@drawable/rounded_corner"
                 android:ems="10"
+                android:fontFamily="@font/surce_sans_pro_regular"
                 android:gravity="center"
                 android:hint="Weight"
                 android:inputType="number"
                 android:minHeight="48dp"
                 android:text=""
+                android:textSize="25dp"
                 app:layout_constraintBottom_toTopOf="@+id/selectGender"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -82,14 +87,15 @@
 
             <Spinner
                 android:id="@+id/selectGender"
-                android:layout_width="300dp"
-                android:layout_height="48dp"
+                android:layout_width="350dp"
+                android:layout_height="70dp"
                 android:background="@drawable/rounded_corner"
                 android:entries="@array/gender"
                 android:gravity="center_horizontal"
                 android:paddingLeft="0dp"
                 android:prompt="@string/gender_prompt"
                 android:textAlignment="center"
+                android:textSize="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -103,7 +109,7 @@
         android:id="@+id/addUsrBtn"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:backgroundTint="#525CB9"
         android:clickable="true"
         android:textAlignment="center"
@@ -120,15 +126,36 @@
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Your Details Here"
-        android:textSize="30dp"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:text="New User"
+        android:textSize="50dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView20"
+        app:layout_constraintEnd_toStartOf="@+id/textView20"
+        app:layout_constraintHorizontal_bias="0.316"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView20"
+        app:layout_constraintVertical_bias="0.0">
 
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:foregroundGravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

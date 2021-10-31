@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class AddNewUser extends AppCompatActivity {
 
@@ -26,7 +30,8 @@ public class AddNewUser extends AppCompatActivity {
     EditText inpName,inpAge,inpWeight;
     File file;
     String PATIENT_DATA="PatientData";
-    Patients patient;
+
+    ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,7 @@ public class AddNewUser extends AppCompatActivity {
         inpName=findViewById(R.id.inpName);
         inpAge=findViewById(R.id.inpAge);
         inpWeight=findViewById(R.id.inpWeight);
+        backButton=findViewById(R.id.backButton);
         file=new File(this.getFilesDir(), PATIENT_DATA);
 
         btnAdd=findViewById(R.id.addUsrBtn);
@@ -45,18 +51,67 @@ public class AddNewUser extends AppCompatActivity {
         Toast.makeText(this,response,Toast.LENGTH_SHORT);
         File file=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
         File dir=new File(file.getAbsolutePath()+"/Galanto/","data.json");
+        ArrayList<String> arrayList=new ArrayList<>();
+        arrayList.add("Male");
+        arrayList.add("Female");
+        arrayList.add("Others");
 
 
 
 
-//        SpinnerAdapter adapter= new ArrayAdapter<String>(this, R.layout.spinner_item, new String[]{"Male","Female","Others"});
-//        selectGender.setAdapter(adapter);
+        SpinnerAdapter adapter= new ArrayAdapter(this,R.layout.spinner_item,arrayList);
+        selectGender.setAdapter(adapter);
+
+        backButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                backButton.requestLayout();
+                backButton.getLayoutParams().height=70;
+                backButton.getLayoutParams().width=50;
+                }else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    backButton.requestLayout();
+                    backButton.getLayoutParams().height=100;
+                    backButton.getLayoutParams().width=80;
+                    onBackPressed();
+                }
+                return true;
+            }
+
+
+        });
+
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{
-                   // patient=new Patients(inpName.getText().toString(),1);
+                    if(TextUtils.isEmpty(inpName.getText().toString())) {
+                        inpName.setError("Please Enter Name");
+                        return;
+                    }
+                    if(TextUtils.isEmpty(inpAge.getText().toString())) {
+                        inpAge.setError("Please Enter Age");
+                        return;
+                    }
+                    if(TextUtils.isEmpty(inpWeight.getText().toString())) {
+                        inpWeight.setError("Please Enter Weight");
+                        return;
+                    }
+//
+//                    if(inpName.getText().length()==0){
+//                        Toast.makeText(getApplicationContext(),"Please enter name",Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+//                    if(inpAge.getText().length()==0){
+//                        Toast.makeText(getApplicationContext(),"Please enter name",Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+//                    if(inpWeight.getText().length()==0){
+//                        Toast.makeText(getApplicationContext(),"Please enter name",Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+
                     if (dir.exists()){
                         fileDataBase.updateFile("Galanto","data.json",appendData());
                     }else {
@@ -107,6 +162,7 @@ public class AddNewUser extends AppCompatActivity {
     public String appendData(){
         String name,gender;
         int age,weight;
+        int lastId=0;
         JSONArray jsonArray=null;
         FileDataBase fileDataBase=new FileDataBase(this);
         String response=fileDataBase.readFile("Galanto","data.json");
@@ -114,6 +170,9 @@ public class AddNewUser extends AppCompatActivity {
             //read json array from stored data
             if (response!=""){
                 jsonArray=new JSONArray(response);
+                if (jsonArray.length()>0) {
+                    lastId = jsonArray.getJSONObject(jsonArray.length()-1).getInt("p_id");
+                }
             }else {
                 jsonArray=new JSONArray();
             }
@@ -124,7 +183,7 @@ public class AddNewUser extends AppCompatActivity {
             gender = selectGender.getSelectedItem().toString();
             Patients patient = new Patients(name, 1, age, weight, gender);
 
-            jsonObject.put("p_id",1);
+            jsonObject.put("p_id",lastId+1);
             jsonObject.put("name",name);
             jsonObject.put("age",age);
             jsonObject.put("weight",weight);

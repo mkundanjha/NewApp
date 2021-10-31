@@ -32,14 +32,14 @@ public class Home extends Fragment {
 
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_home, container, false);
-        yogaCard=view.findViewById(R.id.yogaCard);
-        yogaCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replaceFragment(new YogaFragment(), android.R.anim.slide_in_left,android.R.anim.slide_out_right);
-
-            }
-        });
+        //yogaCard=view.findViewById(R.id.yogaCard);
+//        yogaCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                replaceFragment(new YogaFragment(), android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+//
+//            }
+//        });
         return view;
     }
     @Override

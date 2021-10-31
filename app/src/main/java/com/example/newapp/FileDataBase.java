@@ -97,7 +97,7 @@ public class FileDataBase {
 
                         String jsonString = new String(bytes, StandardCharsets.UTF_8);
                         returnJsonString=jsonString;
-                        Toast.makeText(context.getApplicationContext(),jsonString,Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context.getApplicationContext(),jsonString,Toast.LENGTH_LONG).show();
 
                     } catch (IOException e) {
                         Toast.makeText(context.getApplicationContext(), "Fail to read file", Toast.LENGTH_SHORT).show();

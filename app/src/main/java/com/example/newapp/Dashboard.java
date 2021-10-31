@@ -1,10 +1,13 @@
 package com.example.newapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,7 +18,7 @@ import android.widget.TextView;
 import com.example.newapp.ui.Activity;
 
 public class Dashboard extends AppCompatActivity {
-    private Button homeButton,settingsButton,activityButton;
+    private Button homeButton,settingsButton,activityButton,btnUsrScreen;
     private TextView title;
 
     @Override
@@ -25,6 +28,7 @@ public class Dashboard extends AppCompatActivity {
         homeButton=findViewById(R.id.home);
         settingsButton=findViewById(R.id.settings);
         activityButton=findViewById(R.id.activity);
+        btnUsrScreen=findViewById(R.id.btnUsrScreen);
         homeButton.setEnabled(false);
 
         //title=findViewById(R.id.textView5);
@@ -57,6 +61,15 @@ public class Dashboard extends AppCompatActivity {
                 setButtonUI(activityButton,homeButton,settingsButton);
 
                 replaceFragment(new Activity(),android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+            }
+        });
+
+        btnUsrScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setButtonUI(btnUsrScreen,homeButton,activityButton);
+                goToUsrScreen();
+
             }
         });
     }
@@ -97,4 +110,37 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
+    public void goToUsrScreen(){
+        Intent intent =new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
+
+
+    public void onBackPressed(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setMessage("Do you really want to exit?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton(
+                "Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        moveTaskToBack(true);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        //Dashboard.this.finishAndRemoveTask();
+                        System.exit(1);
+
+                    }
+                }
+        );
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 }

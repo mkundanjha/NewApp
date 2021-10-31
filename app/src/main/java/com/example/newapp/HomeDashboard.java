@@ -10,8 +10,10 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,19 +36,17 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
-import java.util.WeakHashMap;
 
 
 public class HomeDashboard extends Fragment {
 
-    TextView currentDay,tvUserName;
+    TextView currentDay,tvUserName,tvFingerNames,tvIndexFgName,tvMiddleFgName,tvRingFgName,tvLittleFgName,tvWristFgName;
     TextView currentDate;
-    LineChart romChart;
+    LineChart romChart,mcpLineChart;
     BarChart barChart;
     CardView gameCard,timeUsagesCard,romCard,hrCard;
     Animate animate;
-
+    ImageView ivThumbIndicator,ivIndexIndicator,ivMiddleIndicator,ivRingIndicator,ivLittleIndicator,ivWristIndicator;
 
 
     public HomeDashboard() {
@@ -67,6 +67,8 @@ public class HomeDashboard extends Fragment {
         currentDate=view.findViewById(R.id.tvCurrentDate);
         currentDay=(TextView) view.findViewById(R.id.tvCurrentDay);
         romCard=view.findViewById(R.id.romCard);
+        mcpLineChart=view.findViewById(R.id.mcpChart);
+
         hrCard=view.findViewById(R.id.hrCard);
         romCard.setVisibility(View.INVISIBLE);
         hrCard.setVisibility(View.INVISIBLE);
@@ -87,44 +89,143 @@ public class HomeDashboard extends Fragment {
         currentDate=view.findViewById(R.id.tvCurrentDate);
         currentDay=(TextView) view.findViewById(R.id.tvCurrentDay);
         romChart=view.findViewById(R.id.romChart);
-        barChart=view.findViewById(R.id.barChart);
+        mcpLineChart=view.findViewById(R.id.mcpChart);
+
+        ivThumbIndicator =view.findViewById(R.id.thumbIndicator);
+        ivIndexIndicator=view.findViewById(R.id.indexFgIndicator);
+        ivMiddleIndicator=view.findViewById(R.id.middleFgIndicator);
+        ivRingIndicator=view.findViewById(R.id.ringFgIndicator);
+        ivLittleIndicator=view.findViewById(R.id.littleFgIndicator);
+        ivWristIndicator=view.findViewById(R.id.wristIndicator);
+        tvFingerNames=view.findViewById(R.id.fingName);
+
+        //barChart=view.findViewById(R.id.barChart);
         gameCard=view.findViewById(R.id.gameCard);
-        timeUsagesCard=view.findViewById(R.id.timeUsageCard);
+        //timeUsagesCard=view.findViewById(R.id.timeUsageCard);
         tvUserName=view.findViewById(R.id.usrName);
+
         Intent intent=this.getActivity().getIntent();
 
         tvUserName.setText(", "+intent.getStringExtra("user_name"));
 
-
-
-
         animate=new Animate(getContext());
 
-        animate.runAnimation(gameCard,500);
-        animate.runAnimation(timeUsagesCard,500);
-        animate.runAnimation(romCard,700);
-        animate.runAnimation(hrCard,700);
+
+        setPiPData("PIP of Index");
+        setMcpData("MCP of Index");
+
 
         setDateTime(currentDate,currentDay);
 
-        if (romCard.getVisibility()==View.VISIBLE){
-            setRomChartData();
-        }
+        ivThumbIndicator.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                setClickAnimation(ivThumbIndicator,event,55,90,55,90);
+                setPiPData("PIP of Thumb");
+                setMcpData("MCP of Thumb");
+                tvFingerNames.setText("Thumb\nFinger");
+                tvFingerNames.setTextSize(30);
+                return true;
+            }
+        });
 
-        if (hrCard.getVisibility()==View.VISIBLE){
-            setBarChartData();
-        }
+        ivIndexIndicator.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                setClickAnimation(ivIndexIndicator,event,55,90,55,90);
+                setPiPData("PIP of Index");
+                setMcpData("MCP of Index");
+                tvFingerNames.setText("Index\nFinger");
+                tvFingerNames.setTextSize(30);
+                return true;
+            }
+        });
+
+        ivMiddleIndicator.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                setClickAnimation(ivMiddleIndicator,event,55,90,55,90);
+                setPiPData("PIP of Middle");
+                setMcpData("MCP of Middle");
+                tvFingerNames.setText("Middle\nFinger");
+                tvFingerNames.setTextSize(30);
+                return true;
+            }
+        });
+
+        ivRingIndicator.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                setClickAnimation(ivRingIndicator,event,55,80,55,80);
+                setPiPData("PIP of Ring");
+                setMcpData("MCP of Ring");
+                tvFingerNames.setText("Ring\nFinger");
+                tvFingerNames.setTextSize(30);
+                return true;
+            }
+        });
+
+        ivLittleIndicator.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                setClickAnimation(ivLittleIndicator,event,55,75,55,75);
+                setPiPData("PIP of Little");
+                setMcpData("MCP of Little");
+                tvFingerNames.setText("Little\nFinger");
+                tvFingerNames.setTextSize(30);
+                return true;
+            }
+        });
+
+        ivWristIndicator.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                setClickAnimation(ivWristIndicator,event,55,100,55,100);
+                setPiPData("PIP of Wrist");
+                setMcpData("MCP of Wrist");
+                tvFingerNames.setText("Wrist");
+                tvFingerNames.setTextSize(30);
+                return true;
+            }
+        });
+
 
 
     }
-    public  void setRomChartData(){
+        public void setClickAnimation(ImageView figIndicator,MotionEvent event,int minHeight,int maxHeight,int minWidth,int maxWidth){
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                figIndicator.requestLayout();
+                figIndicator.getLayoutParams().height=maxHeight;
+                figIndicator.getLayoutParams().width=minWidth;
+            }else if (event.getAction() == MotionEvent.ACTION_UP) {
+                figIndicator.requestLayout();
+                figIndicator.getLayoutParams().height=maxHeight;
+                figIndicator.getLayoutParams().width=maxWidth;
+
+            }
+        }
+
+    public void setPiPData(String label){
         ArrayList<Entry> romData=new ArrayList<>();
 
         for (int i=0;i<50;i++){
             romData.add(new Entry(i,Float.parseFloat(String.valueOf(Math.random()*10))));
         }
+        createLineChart(romChart,romData,label,Color.RED);
+    }
+    public void setMcpData(String label){
+        ArrayList<Entry> romData=new ArrayList<>();
 
-        XAxis xAxis=romChart.getXAxis();
+        for (int i=0;i<50;i++){
+            romData.add(new Entry(i,Float.parseFloat(String.valueOf(Math.random()*10))));
+        }
+        createLineChart(mcpLineChart,romData,label,Color.GREEN);
+    }
+
+    public  void createLineChart(LineChart chart,ArrayList<Entry> graphData,String legendText,int graphColor){
+
+
+        XAxis xAxis=chart.getXAxis();
         xAxis.setDrawGridLines(false);      // remove vertical grid lines
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);      // set bottom x-axis
         xAxis.setTextColor(Color.GRAY);
@@ -134,25 +235,25 @@ public class HomeDashboard extends Fragment {
         xAxis.setSpaceMin(2f);
         //xAxis.setGranularity(1);
 
-        romChart.getAxisRight().setEnabled(false);
+        chart.getAxisRight().setEnabled(false);
 
-        YAxis yAxis=romChart.getAxisLeft();
+        YAxis yAxis=chart.getAxisLeft();
         yAxis.setTextColor(Color.GRAY);
 
         yAxis.setDrawAxisLine(false);
         yAxis.setDrawGridLines(false);
         yAxis.setAxisMaximum(10);
-        yAxis.setAxisMinimum(0.5f);
+        yAxis.setAxisMinimum(0.01f);
         yAxis.setAxisLineWidth(5);
         yAxis.setSpaceMin(2f);
 
 
-        LineDataSet set =new LineDataSet(romData,"ROM of Fingers");
+        LineDataSet set =new LineDataSet(graphData,legendText);
         set.setDrawHighlightIndicators(false);
         set.setFillAlpha(30);
-        set.setLineWidth(5);
+        set.setLineWidth(3);
 
-        //set.setColor(Color.BLUE);
+        set.setColor(graphColor);
         set.setDrawValues(false);
         set.setDrawCircles(false);
 
@@ -162,12 +263,12 @@ public class HomeDashboard extends Fragment {
         LineData data= new LineData(dataSets);
         data.setDrawValues(false);
 
-        romChart.setData(data);
-        romChart.getDescription().setEnabled(false);
-        romChart.setTouchEnabled(false);
-        romChart.animateX(1500);
+        chart.setData(data);
+        chart.getDescription().setEnabled(false);
+        chart.setTouchEnabled(false);
+        chart.animateX(1000);
 
-        Legend legend=romChart.getLegend();
+        Legend legend=chart.getLegend();
         legend.setTextSize(20);
 
     }

@@ -2,12 +2,21 @@ package com.example.newapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -15,47 +24,98 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
-    CardView usr1,usr2,usr3;
+    ConstraintLayout scrollViewContainer;
+    ImageView rightArrowIv,leftArrowIv;
+    NestedScrollView usrIconScrollview;
     TextView username1,username2,username3;
     File file;
     String PATIENT_DATA="PatientData";
     FloatingActionButton goToAddUsrBtn;
     SearchView serach;
+    RecyclerView recyclerView;
+    ArrayList<Patients> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setTheme(R.style.splashscreen);
         setContentView(R.layout.activity_login);
 
+        try {
+            recyclerView = findViewById(R.id.recyclerView);
+        usrIconScrollview=findViewById(R.id.usrIconsScrollView);
+        rightArrowIv=findViewById(R.id.rightArrow);
+        leftArrowIv=findViewById(R.id.leftArrow);
+        rightArrowIv.setVisibility(View.INVISIBLE);
+        //scrollViewContainer=findViewById(R.id.constraintLayout);
 
 
-        usr1=findViewById(R.id.usrCard);
-        usr2=findViewById(R.id.userCard2);
-        usr3=findViewById(R.id.userCard3);
-        username1=findViewById(R.id.usrFirstName);
-        username2=findViewById(R.id.usrSecondName);
-        username3=findViewById(R.id.usrThirdName);
-        goToAddUsrBtn=findViewById(R.id.gotoAddUsrBtn);
-        file=new File(LoginActivity.this.getFilesDir(), PATIENT_DATA);
 
-        setUserProfileData();
+//        int scrollViewHeight=usrIconScrollview.getHeight();
+//        int containerHeight=usrIconScrollview.getChildAt(0).getHeight();
 
-        usr1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToDashboard();
-            }
-        });
+//        if (containerHeight==scrollViewHeight || scrollViewHeight>containerHeight){
+//            leftArrowIv.setVisibility(View.INVISIBLE);
+//        }else{
+//            leftArrowIv.setVisibility(View.VISIBLE);
+//        }
 
-        goToAddUsrBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToAddUser();
-            }
-        });
+//        if (canScroll()){
+//            leftArrowIv.setVisibility(View.VISIBLE);
+//        }else{
+//            leftArrowIv.setVisibility(View.INVISIBLE);
+//        }
+
+
+            arrayList = new ArrayList<>();
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+            //add data to arraylist
+            setUserProfileData();
+
+            CustomAdaptar adapter = new CustomAdaptar(this, arrayList);
+            recyclerView.setAdapter(adapter);
+
+
+//        usr2=findViewById(R.id.userCard2);
+//        usr3=findViewById(R.id.userCard3);
+//        username1=findViewById(R.id.usrFirstName);
+//        username2=findViewById(R.id.usrSecondName);
+//        username3=findViewById(R.id.usrThirdName);
+            goToAddUsrBtn = findViewById(R.id.gotoAddUsrBtn);
+            //file = new File(LoginActivity.this.getFilesDir(), PATIENT_DATA);
+        }catch (Exception e){
+            Toast.makeText(this,"Error: "+e.toString(),Toast.LENGTH_LONG).show();
+            Log.d("Error",e.toString());
+        }
+
+
+//        usr1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                goToDashboard();
+//            }
+//        });
+
+        usrIconScrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                                                        @Override
+                                                        public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                                                            rightArrowIv.setVisibility(View.VISIBLE);
+                                                        }
+                                                    });
+
+                goToAddUsrBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        goToAddUser();
+                    }
+                });
     }
 
     public void goToDashboard(){
@@ -70,20 +130,57 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void setUserProfileData(){
         FileDataBase fileDataBase=new FileDataBase(this);
+
         try {
             String response = fileDataBase.readFile("Galanto", "data.json");
             JSONArray jsonArray=new JSONArray(response);
-            JSONObject jsonObject1,jsonObject2,jsonObject3;
-            jsonObject1= jsonArray.getJSONObject(0);
-            //jsonObject2= jsonArray.getJSONObject(1);
-            //jsonObject3= jsonArray.getJSONObject(2);
-            username1.setText(jsonObject1.getString("name"));
-            //username2.setText(jsonObject2.getString("name"));
-            //username3.setText(jsonObject3.getString("name"));
+            JSONObject jsonObject;
+
+
+            for(int i=0;i<jsonArray.length();i++){
+                jsonObject=jsonArray.getJSONObject(i);
+                Patients patients=new Patients(jsonObject.getString("name"),jsonObject.getInt("p_id"),jsonObject.getInt("weight"),jsonObject.getInt("age"),jsonObject.getString("gender"));
+
+                arrayList.add(patients);
+            }
+
         }catch (Exception ex){
             ex.printStackTrace();
         }
     }
 
+    public void  setUsrIconScrollviewArrowIndicator(){
+        int maxScrollX=usrIconScrollview.getChildAt(0).getMeasuredWidth()-usrIconScrollview.getMeasuredWidth();
 
+        if (usrIconScrollview.getScrollX() == 0) {
+            rightArrowIv.setVisibility(View.INVISIBLE);
+            leftArrowIv.setVisibility(View.VISIBLE);
+        }else{
+            rightArrowIv.setVisibility(View.VISIBLE);
+            leftArrowIv.setVisibility(View.VISIBLE);
+        }
+
+        if (usrIconScrollview.getScrollX() == maxScrollX) {
+            leftArrowIv.setVisibility(View.INVISIBLE);
+            rightArrowIv.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+//    private boolean canScroll() {
+//        View child = usrIconScrollview.getChildAt(0);
+//        if (child != null) {
+//            int childHeight = child.getHeight();
+//            return usrIconScrollview.getHeight() < childHeight;
+//        }
+//        return false;
+//    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
+    }
 }
