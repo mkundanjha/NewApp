@@ -404,7 +404,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="60dp"
                     android:fontFamily="@font/source_sans_pro_bold"
-                    android:text="Press on\nred dot\nto get the\nfinger info"
+                    android:text="Press on\nred dots to\nget fingers\ninfo"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView16"
                     app:layout_constraintEnd_toEndOf="@+id/imageView16"
@@ -420,11 +420,191 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginBottom="15dp"
-            android:fontFamily="@font/surce_sans_pro_regular"
+            android:fontFamily="@font/source_sans_pro_bold"
             android:text="Excersise and Stats"
             android:textSize="20dp"
+            android:textColor="#9476c2"
             app:layout_constraintBottom_toTopOf="@+id/gameCard"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/hrCard"
+            app:layout_constraintStart_toEndOf="@+id/romCard"
+            app:layout_constraintTop_toTopOf="@+id/romCard">
+
+            <LinearLayout
+                android:layout_width="180dp"
+                android:layout_height="250dp"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:background="#9476c2">
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:padding="10dp"
+                    android:text="Range of Motion"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="30dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/mcpTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/surce_sans_pro_regular"
+                        android:padding="10dp"
+                        android:text="MCP"
+                        android:textAlignment="center"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pipTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/surce_sans_pro_regular"
+                        android:padding="10dp"
+                        android:text="PIP"
+                        android:textAlignment="center"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/mcpScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:padding="10dp"
+                        android:text="25"
+                        android:textAlignment="center"
+                        android:textColor="#4db09c"
+                        android:textSize="45dp" />
+
+                    <TextView
+                        android:id="@+id/pipScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:padding="10dp"
+                        android:text="40"
+                        android:textAlignment="center"
+                        android:textColor="#a65e5e"
+                        android:textSize="45dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/hrCard"
+            app:layout_constraintStart_toEndOf="@+id/mcp_chart"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+            <LinearLayout
+                android:layout_width="180dp"
+                android:layout_height="250dp"
+                android:orientation="vertical"
+                android:padding="25dp">
+
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Last Session"
+
+                    android:textSize="20dp"
+                    android:textColor="#9476c2"
+                    android:fontFamily="@font/source_sans_pro_bold"/>
+
+                <TextView
+                    android:id="@+id/textView33"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="13 min"
+                    android:textStyle="bold"
+                    android:textColor="#a35050"
+                    android:textSize="25dp"
+                    android:fontFamily="@font/surce_sans_pro_regular"/>
+
+                <TextView
+                    android:id="@+id/textView35"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hit Rate"
+
+                    android:textSize="20dp"
+                    android:paddingTop="10dp"
+                    android:textColor="#9476c2"
+                    android:fontFamily="@font/source_sans_pro_bold"/>
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="25"
+                    android:textStyle="bold"
+                    android:textSize="25dp"
+                    android:textColor="#4da372"
+                    android:fontFamily="@font/surce_sans_pro_regular"/>
+
+                <TextView
+                    android:id="@+id/textView36"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Reaction Time"
+                    android:paddingTop="10dp"
+                    android:textSize="20dp"
+                    android:textColor="#9476c2"
+                    android:fontFamily="@font/source_sans_pro_bold"/>
+
+                <TextView
+                    android:id="@+id/textView37"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0.8 s"
+                    android:textStyle="bold"
+                    android:textColor="#4d83a3"
+                    android:textSize="25dp"
+                    android:fontFamily="@font/surce_sans_pro_regular"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -40,7 +40,7 @@ import java.util.Date;
 
 public class HomeDashboard extends Fragment {
 
-    TextView currentDay,tvUserName,tvFingerNames,tvIndexFgName,tvMiddleFgName,tvRingFgName,tvLittleFgName,tvWristFgName;
+    TextView currentDay,tvUserName,tvFingerNames,tvMcpScore,tvPIPScore,tvMcpTilte,tvPipTitle;
     TextView currentDate;
     LineChart romChart,mcpLineChart;
     BarChart barChart;
@@ -75,6 +75,7 @@ public class HomeDashboard extends Fragment {
         tvUserName=view.findViewById(R.id.usrName);
         Intent intent=this.getActivity().getIntent();
 
+
         tvUserName.setText(intent.getStringExtra("user_name"));
 
         //setDateTime(currentDate,currentDay);
@@ -99,13 +100,17 @@ public class HomeDashboard extends Fragment {
         ivWristIndicator=view.findViewById(R.id.wristIndicator);
         tvFingerNames=view.findViewById(R.id.fingName);
 
+        tvMcpTilte=view.findViewById(R.id.mcpTitle);
+        tvPipTitle=view.findViewById(R.id.pipTitle);
+        tvMcpScore=view.findViewById(R.id.mcpScore);
+        tvPIPScore=view.findViewById(R.id.pipScore);
+
         //barChart=view.findViewById(R.id.barChart);
         gameCard=view.findViewById(R.id.gameCard);
         //timeUsagesCard=view.findViewById(R.id.timeUsageCard);
         tvUserName=view.findViewById(R.id.usrName);
 
         Intent intent=this.getActivity().getIntent();
-
         tvUserName.setText(", "+intent.getStringExtra("user_name"));
 
         animate=new Animate(getContext());
@@ -125,6 +130,11 @@ public class HomeDashboard extends Fragment {
                 setMcpData("MCP of Thumb");
                 tvFingerNames.setText("Thumb\nFinger");
                 tvFingerNames.setTextSize(30);
+                tvMcpTilte.setText("MCP");
+                tvPipTitle.setText("PIP");
+
+                tvMcpScore.setText("34");
+                tvPIPScore.setText("16");
                 return true;
             }
         });
@@ -137,6 +147,10 @@ public class HomeDashboard extends Fragment {
                 setMcpData("MCP of Index");
                 tvFingerNames.setText("Index\nFinger");
                 tvFingerNames.setTextSize(30);
+                tvMcpTilte.setText("MCP");
+                tvPipTitle.setText("PIP");
+                tvMcpScore.setText("23");
+                tvPIPScore.setText("35");
                 return true;
             }
         });
@@ -149,6 +163,10 @@ public class HomeDashboard extends Fragment {
                 setMcpData("MCP of Middle");
                 tvFingerNames.setText("Middle\nFinger");
                 tvFingerNames.setTextSize(30);
+                tvMcpTilte.setText("MCP");
+                tvPipTitle.setText("PIP");
+                tvMcpScore.setText("11");
+                tvPIPScore.setText("16");
                 return true;
             }
         });
@@ -161,6 +179,10 @@ public class HomeDashboard extends Fragment {
                 setMcpData("MCP of Ring");
                 tvFingerNames.setText("Ring\nFinger");
                 tvFingerNames.setTextSize(30);
+                tvMcpTilte.setText("MCP");
+                tvPipTitle.setText("PIP");
+                tvMcpScore.setText("9");
+                tvPIPScore.setText("17");
                 return true;
             }
         });
@@ -173,6 +195,10 @@ public class HomeDashboard extends Fragment {
                 setMcpData("MCP of Little");
                 tvFingerNames.setText("Little\nFinger");
                 tvFingerNames.setTextSize(30);
+                tvMcpTilte.setText("MCP");
+                tvPipTitle.setText("PIP");
+                tvMcpScore.setText("46");
+                tvPIPScore.setText("67");
                 return true;
             }
         });
@@ -181,10 +207,15 @@ public class HomeDashboard extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 setClickAnimation(ivWristIndicator,event,55,100,55,100);
-                setPiPData("PIP of Wrist");
-                setMcpData("MCP of Wrist");
+                setPiPData("Flex of Wrist");
+                //setMcpData("MCP of Wrist");
+                mcpLineChart.setVisibility(View.INVISIBLE);
                 tvFingerNames.setText("Wrist");
                 tvFingerNames.setTextSize(30);
+                tvMcpTilte.setText("Flex");
+                tvPipTitle.setText("");
+                tvMcpScore.setText("13");
+                tvPIPScore.setText("");
                 return true;
             }
         });
@@ -211,6 +242,7 @@ public class HomeDashboard extends Fragment {
         for (int i=0;i<50;i++){
             romData.add(new Entry(i,Float.parseFloat(String.valueOf(Math.random()*10))));
         }
+        romChart.setVisibility(View.VISIBLE);
         createLineChart(romChart,romData,label,Color.RED);
     }
     public void setMcpData(String label){
@@ -219,6 +251,7 @@ public class HomeDashboard extends Fragment {
         for (int i=0;i<50;i++){
             romData.add(new Entry(i,Float.parseFloat(String.valueOf(Math.random()*10))));
         }
+        mcpLineChart.setVisibility(View.VISIBLE);
         createLineChart(mcpLineChart,romData,label,Color.GREEN);
     }
 

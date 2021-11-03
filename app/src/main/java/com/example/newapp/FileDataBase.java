@@ -57,7 +57,7 @@ public class FileDataBase {
 
             String selection = MediaStore.MediaColumns.RELATIVE_PATH + "=?";
 
-            String[] selectionArgs = new String[]{Environment.DIRECTORY_DOCUMENTS + "/Galanto/"};
+            String[] selectionArgs = new String[]{Environment.DIRECTORY_DOCUMENTS + "/"+folderName+"/"};
 
             Cursor cursor =context.getContentResolver().query(contentUri, null, selection, selectionArgs, null);
 

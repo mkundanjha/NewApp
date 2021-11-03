@@ -47,10 +47,10 @@ public class AddNewUser extends AppCompatActivity {
         btnAdd=findViewById(R.id.addUsrBtn);
 
         FileDataBase fileDataBase=new FileDataBase(this);
-        String response=fileDataBase.readFile("Galanto","data.json");
+        String response=fileDataBase.readFile("Galanto/RehabRelive","patients.json");
         Toast.makeText(this,response,Toast.LENGTH_SHORT);
         File file=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-        File dir=new File(file.getAbsolutePath()+"/Galanto/","data.json");
+        File dir=new File(file.getAbsolutePath()+"/Galanto/RehabRelive/","patients.json");
         ArrayList<String> arrayList=new ArrayList<>();
         arrayList.add("Male");
         arrayList.add("Female");
@@ -113,9 +113,9 @@ public class AddNewUser extends AppCompatActivity {
 //                    }
 
                     if (dir.exists()){
-                        fileDataBase.updateFile("Galanto","data.json",appendData());
+                        fileDataBase.updateFile("Galanto/RehabRelive","patients.json",appendData());
                     }else {
-                        fileDataBase.createFile("Galanto","data.json",appendData());
+                        fileDataBase.createFile("Galanto/RehabRelive","patients.json",appendData());
 
                     }
 
@@ -165,7 +165,7 @@ public class AddNewUser extends AppCompatActivity {
         int lastId=0;
         JSONArray jsonArray=null;
         FileDataBase fileDataBase=new FileDataBase(this);
-        String response=fileDataBase.readFile("Galanto","data.json");
+        String response=fileDataBase.readFile("Galanto/RehabRelive","patients.json");
         try {
             //read json array from stored data
             if (response!=""){

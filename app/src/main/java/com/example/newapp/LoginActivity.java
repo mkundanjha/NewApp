@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         rightArrowIv=findViewById(R.id.rightArrow);
         leftArrowIv=findViewById(R.id.leftArrow);
         rightArrowIv.setVisibility(View.INVISIBLE);
+        leftArrowIv.setVisibility(View.INVISIBLE);
         //scrollViewContainer=findViewById(R.id.constraintLayout);
 
 
@@ -132,10 +133,13 @@ public class LoginActivity extends AppCompatActivity {
         FileDataBase fileDataBase=new FileDataBase(this);
 
         try {
-            String response = fileDataBase.readFile("Galanto", "data.json");
+            String response = fileDataBase.readFile("Galanto/RehabRelive", "patients.json");
             JSONArray jsonArray=new JSONArray(response);
             JSONObject jsonObject;
 
+            if (jsonArray.length()>4){
+                leftArrowIv.setVisibility(View.VISIBLE);
+            }
 
             for(int i=0;i<jsonArray.length();i++){
                 jsonObject=jsonArray.getJSONObject(i);
