@@ -1,4 +1,4 @@
-package com.example.newapp;
+package com.galanto.GalantoHealth;
 
 public class Patients {
     String p_name;

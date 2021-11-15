@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:padding="10dp"
     android:background="#ebebeb"
-    tools:context=".Dashboard">
+    tools:context="com.galanto.GalantoHealth.Dashboard">
 
 
     <LinearLayout

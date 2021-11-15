@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#501769"
     android:foregroundTint="#D55D5D"
-    tools:context=".LoginActivity">
+    tools:context="com.galanto.GalantoHealth.LoginActivity">
 
 
     <TextView

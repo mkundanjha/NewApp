@@ -1,14 +1,20 @@
-package com.example.newapp;
+package com.galanto.GalantoHealth;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +23,8 @@ import java.nio.charset.StandardCharsets;
 
 public class FileDataBase {
     Context context;
+    private Settings settings=new Settings();
+
     public FileDataBase(Context context) {
         this.context=context;
     }
@@ -34,11 +42,8 @@ public class FileDataBase {
                 values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS + "/"+folderName);     //end "/" is not mandatory
 
                 Uri uri =context.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);      //important!
-
                 OutputStream outputStream =context.getContentResolver().openOutputStream(uri    );
-
                 outputStream.write(content.getBytes());
-
                 outputStream.close();
 
                 Toast.makeText(context, "File created successfully", Toast.LENGTH_SHORT).show();
@@ -49,20 +54,33 @@ public class FileDataBase {
     }
 
     // Read from file
-    public String  readFile(String folderName,String readFileName){
+
+    public String  readFile(String folderName, String readFileName){
         String returnJsonString="";
+//        ActivityCompat.requestPermissions((Activity) context,
+//                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+//                        Manifest.permission.MANAGE_EXTERNAL_STORAGE}, 1);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()==false) {
+
+//                Intent intent = new Intent();
+//                intent.setAction();
+//                Uri uri = Uri.fromParts("package", context.getPackageName(), null);
+//                intent.setData(uri);
+//                context.startActivity(intent);
+
+            }
+        }
+
 
         try{
             Uri contentUri = MediaStore.Files.getContentUri("external");
-
             String selection = MediaStore.MediaColumns.RELATIVE_PATH + "=?";
-
             String[] selectionArgs = new String[]{Environment.DIRECTORY_DOCUMENTS + "/"+folderName+"/"};
 
             Cursor cursor =context.getContentResolver().query(contentUri, null, selection, selectionArgs, null);
 
             Uri uri = null;
-            //Toast.makeText(getApplicationContext(), "files count:"+cursor.getCount(), Toast.LENGTH_LONG).show();
 
             if (cursor.getCount() == 0) {
                 Toast.makeText(context, "No file found in \"" + Environment.DIRECTORY_DOCUMENTS + "/"+folderName+"\""+cursor.getCount(), Toast.LENGTH_LONG).show();
@@ -97,18 +115,16 @@ public class FileDataBase {
 
                         String jsonString = new String(bytes, StandardCharsets.UTF_8);
                         returnJsonString=jsonString;
-                        //Toast.makeText(context.getApplicationContext(),jsonString,Toast.LENGTH_LONG).show();
 
                     } catch (IOException e) {
                         Toast.makeText(context.getApplicationContext(), "Fail to read file", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
-
+        cursor=null;
         }catch (Exception ex){
             Toast.makeText(context.getApplicationContext(),"Error: "+ex.toString(),Toast.LENGTH_SHORT).show();
         }
-
         return returnJsonString;
     }
 
@@ -151,7 +167,7 @@ public class FileDataBase {
 
                     outputStream.close();
 
-                    Toast.makeText(context, "File updated successfully", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "File updated successfully", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     Toast.makeText(context, "Fail to update file", Toast.LENGTH_SHORT).show();
                 }

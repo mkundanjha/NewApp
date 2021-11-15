@@ -1,4 +1,4 @@
-package com.example.newapp.placeholder;
+package com.galanto.GalantoHealth.placeholder;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -3,15 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.newapp">
 
+    <queries>
+        <package android:name="com.kundan.testopenapp" />
+        <package android:name="com.Galanto.Game1" />
+        <package android:name="com.Galanto.Calibration" />
+        <package android:name="com.galanto.GalantoHealth" />
+    </queries>
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28"
+        android:maxSdkVersion="30"
         tools:ignore="ScopedStorage" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28"
+        android:maxSdkVersion="30"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"
+        tools:ignore="ScopedStorage"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage"
+        android:maxSdkVersion="30"/>
 
     <application
         android:allowBackup="true"
@@ -21,7 +32,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewApp">
         <activity
-            android:name=".SplashScreen"
+            android:name="com.galanto.GalantoHealth.SplashScreen"
             android:exported="true"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
@@ -32,11 +43,11 @@
 
         </activity>
         <activity
-            android:name=".AddNewUser"
+            android:name="com.galanto.GalantoHealth.AddNewUser"
             android:exported="true"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.galanto.GalantoHealth.LoginActivity"
             android:exported="true"
             android:screenOrientation="sensorLandscape">
 <!--            <intent-filter>-->
@@ -46,17 +57,13 @@
 <!--            </intent-filter>-->
         </activity>
         <activity
-            android:name=".loginPage"
-            android:exported="true"
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".MainActivity2"
+            android:name="com.galanto.GalantoHealth.MainActivity2"
             android:screenOrientation="sensorLandscape" /> <!-- <activity android:name=".Dashboard" /> -->
         <activity
-            android:name=".MainActivity"
+            android:name="com.galanto.GalantoHealth.MainActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".Dashboard"
+            android:name="com.galanto.GalantoHealth.Dashboard"
             android:screenOrientation="sensorLandscape">
 
             <!-- <activity android:name=".MainActivity2"> -->

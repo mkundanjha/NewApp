@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp"
-    tools:context=".HomeDashboard"
+    tools:context="com.galanto.GalantoHealth.HomeDashboard"
     android:id="@+id/home_dashboard">
 
 
@@ -21,6 +21,7 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/source_sans_pro_bold"
             android:text="@string/home_greetings"
+            android:textColor="@color/dark_blue"
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,13 +31,13 @@
             android:id="@+id/tvCurrentDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="55dp"
+            android:fontFamily="@font/source_sans_pro_bold"
             android:text="TextView"
             android:textColor="@color/dark_blue"
             android:textSize="22dp"
             android:textStyle="bold"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,6 +45,7 @@
             android:id="@+id/tvCurrentDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_bold"
             android:text="TextView"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -56,555 +58,993 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/surce_sans_pro_regular"
             android:text=", Kundan"
+            android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textHomeGreeting"
             app:layout_constraintStart_toEndOf="@+id/textHomeGreeting" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/gameCard"
+            android:id="@+id/cardView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-
-            android:layout_marginTop="50dp"
+            android:layout_marginStart="20dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/usrName">
+            app:cardElevation="10dp"
+            app:layout_constraintStart_toEndOf="@+id/game1Card"
+            app:layout_constraintTop_toTopOf="@+id/game1Card">
 
             <LinearLayout
-                android:layout_width="400dp"
-                android:layout_height="110dp"
-                android:background="#9476c2"
-                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gradient_blue"
+                android:orientation="vertical">
 
-                android:paddingLeft="15dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    app:cardCornerRadius="20dp"
-                    tools:ignore="SpeakableTextPresentCheck">
-
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="90dp"
-
-                        android:background="@drawable/gradient_green"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView12"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:padding="7dp"
-                            android:src="@drawable/ic2" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    app:cardCornerRadius="20dp">
-
-                    <LinearLayout
-                        android:layout_width="90dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/gradient_blue"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView13"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:padding="7dp"
-                            android:src="@drawable/ic5" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    app:cardCornerRadius="20dp">
-
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="90dp"
-                        android:background="@drawable/gradient_while"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView14"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:padding="7dp"
-                            android:src="@drawable/ic1" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    app:cardCornerRadius="20dp">
-
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="90dp"
-                        android:background="@drawable/gradient_yellow"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView15"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:padding="7dp"
-                            android:src="@drawable/ic6" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/imageView13"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:padding="7dp"
+                    android:src="@drawable/ic5" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/romCard"
+            android:id="@+id/game1Card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gameCard">
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <LinearLayout
-                android:layout_width="400dp"
-                android:layout_height="250dp"
-                android:background="#F8F8F8"
-                android:orientation="horizontal"
-                android:padding="20dp">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/romChart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp" />
+                android:background="@drawable/gradient_green"
+                android:orientation="vertical">
 
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:padding="7dp"
+                    android:src="@drawable/ic2" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/mcp_chart"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="30dp"
-            app:cardElevation="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/romCard">
-
-            <LinearLayout
-                android:layout_width="400dp"
-                android:layout_height="250dp"
-                android:background="#F8F8F8"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/mcpChart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp" />
-
-            </LinearLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/hrCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-
-            app:cardCornerRadius="30dp"
-            app:cardElevation="10dp"
+            android:background="#F8F8F8"
+            android:orientation="horizontal"
+            android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="390dp"
+                android:layout_height="550dp"
+                android:layout_weight="1"
+
+                android:src="@drawable/hand_org_img"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#F8F8F8"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:id="@+id/constraintLayout4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="270dp"
+                android:layout_marginBottom="110dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.091"
+                app:layout_constraintStart_toStartOf="@+id/imageView16"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imageView16"
-                    android:layout_width="400dp"
-                    android:layout_height="580dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/hand_org_img"
+                    android:id="@+id/thumbIndicator"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="0.5"
+                    android:src="@drawable/hand_idc"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="12dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView16"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.091"
-                    app:layout_constraintStart_toStartOf="@+id/imageView16"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/thumbIndicator"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:alpha="0.5"
-                        android:src="@drawable/hand_idc"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="122dp"
-                    android:layout_marginTop="120dp"
-                    app:layout_constraintStart_toStartOf="@+id/imageView16"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/indexFgIndicator"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:alpha="0.5"
-                        android:src="@drawable/hand_idc"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout2"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginTop="120dp"
-                    app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/middleFgIndicator"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:alpha="0.5"
-                        android:src="@drawable/hand_idc"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout3"
-                    android:layout_width="55dp"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="130dp"
-                    app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/ringFgIndicator"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:alpha="0.5"
-                        android:src="@drawable/hand_idc"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="180dp"
-                    app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/littleFgIndicator"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:alpha="0.5"
-                        android:src="@drawable/hand_idc"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="420dp"
-                    app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/wristIndicator"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:alpha="0.5"
-                        android:src="@drawable/hand_idc"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/fingName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="60dp"
-                    android:fontFamily="@font/source_sans_pro_bold"
-                    android:text="Press on\nred dots to\nget fingers\ninfo"
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView16"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView16"
-                    app:layout_constraintHorizontal_bias="0.075"
-                    app:layout_constraintStart_toStartOf="@+id/imageView16" />
+                    app:layout_constraintVertical_bias="0.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="115dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView16"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/indexFgIndicator"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="0.5"
+                    android:src="@drawable/hand_idc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/middleFgIndicator"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="0.5"
+                    android:src="@drawable/hand_idc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="55dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="28dp"
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ringFgIndicator"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="0.5"
+                    android:src="@drawable/hand_idc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="120dp"
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/littleFgIndicator"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="0.5"
+                    android:src="@drawable/hand_idc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="420dp"
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/wristIndicator"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="0.5"
+                    android:src="@drawable/hand_idc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/fingName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:text="Press on\nred dots to\nget fingers\ninfo"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView16"
+                app:layout_constraintEnd_toEndOf="@+id/imageView16"
+                app:layout_constraintHorizontal_bias="0.075"
+                app:layout_constraintStart_toStartOf="@+id/imageView16" />
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="100dp"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:text="Range of Motion"
+                android:textColor="#9476c2"
+
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivThumbMCP"
+                android:layout_width="10dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="64dp"
+                android:src="@drawable/hand_idc"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintStart_toStartOf="@+id/imageView16"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+                app:tint="@color/black" />
+
+            <ImageView
+                android:id="@+id/ivThumbPIP"
+                android:layout_width="10dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="12dp"
+
+                android:src="@drawable/hand_idc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.155"
+                app:layout_constraintStart_toStartOf="@+id/imageView16"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+                app:tint="@color/black" />
+
+            <ImageView
+                android:id="@+id/ivIndexPIP"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="65dp"
+                android:layout_marginTop="45dp"
+                android:src="@drawable/hand_idc"
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                app:tint="@color/dark_blue" />
+
+            <ImageView
+                android:id="@+id/ivIndexMCP"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="75dp"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/hand_idc"
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
+                app:layout_constraintTop_toBottomOf="@+id/ivIndexPIP"
+                app:tint="@color/dark_blue" />
+
+            <ImageView
+                android:id="@+id/ivMiddlePIP"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="55dp"
+
+                android:src="@drawable/hand_idc"
+                app:layout_constraintStart_toEndOf="@+id/ivIndexPIP"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                app:tint="@color/dark_blue" />
+
+            <ImageView
+                android:id="@+id/ivMiddleMCP"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="50dp"
+
+                android:src="@drawable/hand_idc"
+                app:layout_constraintStart_toEndOf="@+id/ivIndexMCP"
+                app:layout_constraintTop_toBottomOf="@+id/ivMiddlePIP"
+                app:tint="@color/dark_blue" />
+
+            <ImageView
+                android:id="@+id/ivRingPIP"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="50dp"
+
+                android:src="@drawable/hand_idc"
+                app:layout_constraintStart_toEndOf="@+id/ivMiddlePIP"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+                app:tint="@color/dark_blue" />
+
+            <ImageView
+                android:id="@+id/ivRingMCP"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="50dp"
+
+                android:src="@drawable/hand_idc"
+                app:layout_constraintStart_toEndOf="@+id/ivMiddleMCP"
+                app:layout_constraintTop_toBottomOf="@+id/ivRingPIP"
+                app:tint="@color/dark_blue" />
+
+            <ImageView
+                android:id="@+id/ivLittlePIP"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="17dp"
+
+                android:src="@drawable/hand_idc"
+                app:layout_constraintStart_toEndOf="@+id/ivRingPIP"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+                app:tint="@color/dark_blue" />
+
+            <ImageView
+                android:id="@+id/ivLittleMCP"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="65dp"
+
+                android:src="@drawable/hand_idc"
+                app:layout_constraintStart_toEndOf="@+id/ivRingMCP"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+                app:tint="@color/dark_blue" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/source_sans_pro_bold"
-            android:text="Excersise and Stats"
-            android:textSize="20dp"
+            android:text="Your Excersise"
             android:textColor="#9476c2"
-            app:layout_constraintBottom_toTopOf="@+id/gameCard"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usrName" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="20dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/hrCard"
-            app:layout_constraintStart_toEndOf="@+id/romCard"
-            app:layout_constraintTop_toTopOf="@+id/romCard">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
-                android:layout_width="180dp"
-                android:layout_height="250dp"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:background="#9476c2">
-
-                <TextView
-                    android:id="@+id/textView27"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/source_sans_pro_bold"
-                    android:padding="10dp"
-                    android:text="Range of Motion"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="30dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/mcpTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/surce_sans_pro_regular"
-                        android:padding="10dp"
-                        android:text="MCP"
-                        android:textAlignment="center"
-                        android:textSize="25dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/pipTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/surce_sans_pro_regular"
-                        android:padding="10dp"
-                        android:text="PIP"
-                        android:textAlignment="center"
-                        android:textSize="25dp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/mcpScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/source_sans_pro_bold"
-                        android:padding="10dp"
-                        android:text="25"
-                        android:textAlignment="center"
-                        android:textColor="#4db09c"
-                        android:textSize="45dp" />
-
-                    <TextView
-                        android:id="@+id/pipScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/source_sans_pro_bold"
-                        android:padding="10dp"
-                        android:text="40"
-                        android:textAlignment="center"
-                        android:textColor="#a65e5e"
-                        android:textSize="45dp" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="30dp"
-            app:cardElevation="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/hrCard"
-            app:layout_constraintStart_toEndOf="@+id/mcp_chart"
-            app:layout_constraintTop_toBottomOf="@+id/cardView2">
-
-            <LinearLayout
-                android:layout_width="180dp"
-                android:layout_height="250dp"
+                android:layout_width="350dp"
+                android:layout_height="420dp"
+                android:background="@color/dark_blue"
                 android:orientation="vertical"
                 android:padding="25dp">
 
                 <TextView
-                    android:id="@+id/textView32"
+                    android:id="@+id/textView46"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/pip_tab"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:gravity="center"
+                    android:text="Last Game"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="18dp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    app:cardCornerRadius="10dp"
+
+                    tools:layout_editor_absoluteX="30dp"
+                    tools:layout_editor_absoluteY="400dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="300dp"
+                        android:layout_height="120dp"
+                        android:background="@drawable/gradient_blue">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/gradient_yellow"
+                            android:orientation="vertical"
+
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/imageView19"
+                                android:layout_width="90dp"
+                                android:layout_height="70dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/ic5" />
+
+                            <TextView
+                                android:id="@+id/lastGameName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/surce_sans_pro_regular"
+                                android:gravity="center"
+                                android:paddingTop="5dp"
+                                android:text="Game 1"
+                                android:textAlignment="gravity"
+                                android:textSize="18dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView44"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/surce_sans_pro_regular"
+                            android:text="Congrats! You're a"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView45"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="40dp"
+                            android:fontFamily="@font/source_sans_pro_bold"
+                            android:text="Performer"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="35dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+                            app:layout_constraintTop_toBottomOf="@+id/textView44" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Last Session"
+                    android:background="@drawable/blue_bottom_border"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
 
-                    android:textSize="20dp"
-                    android:textColor="#9476c2"
-                    android:fontFamily="@font/source_sans_pro_bold"/>
+                    <TextView
+                        android:id="@+id/textView30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:text="Last\nSession"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
 
-                <TextView
-                    android:id="@+id/textView33"
+                        />
+
+                    <TextView
+                        android:id="@+id/lastSsnTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/surce_sans_pro_regular"
+                        android:gravity="right"
+                        android:text="13 min"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/light_grey"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="13 min"
-                    android:textStyle="bold"
-                    android:textColor="#a35050"
-                    android:textSize="25dp"
-                    android:fontFamily="@font/surce_sans_pro_regular"/>
+                    android:background="@drawable/blue_bottom_border"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
 
-                <TextView
-                    android:id="@+id/textView35"
+                    <TextView
+                        android:id="@+id/textView32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:text="Success \nRate"
+                        android:textColor="@color/white"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/textView33"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/surce_sans_pro_regular"
+                        android:gravity="right"
+                        android:text="23 %"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/light_grey"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hit Rate"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
 
-                    android:textSize="20dp"
-                    android:paddingTop="10dp"
-                    android:textColor="#9476c2"
-                    android:fontFamily="@font/source_sans_pro_bold"/>
+                    <TextView
+                        android:id="@+id/textView34"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:text="Reaction\nTime"
+                        android:textColor="@color/white"
+                        android:textSize="20dp" />
 
-                <TextView
-                    android:id="@+id/textView34"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="25"
-                    android:textStyle="bold"
-                    android:textSize="25dp"
-                    android:textColor="#4da372"
-                    android:fontFamily="@font/surce_sans_pro_regular"/>
-
-                <TextView
-                    android:id="@+id/textView36"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Reaction Time"
-                    android:paddingTop="10dp"
-                    android:textSize="20dp"
-                    android:textColor="#9476c2"
-                    android:fontFamily="@font/source_sans_pro_bold"/>
-
-                <TextView
-                    android:id="@+id/textView37"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0.8 s"
-                    android:textStyle="bold"
-                    android:textColor="#4d83a3"
-                    android:textSize="25dp"
-                    android:fontFamily="@font/surce_sans_pro_regular"/>
+                    <TextView
+                        android:id="@+id/textView35"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/surce_sans_pro_regular"
+                        android:gravity="right"
+                        android:text="0.55"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/light_grey"
+                        android:textSize="20dp" />
+                </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Your Stats"
+            android:textColor="#9476c2"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/cardView2"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/cardScrollview"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout7">
+
+            <LinearLayout
+                android:layout_width="270dp"
+                android:layout_height="170dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/successRateBarChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="130dp"
+                android:background="@color/white"
+                android:gravity="center"
+
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_border"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+
+                    >
+
+                    <TextView
+                        android:id="@+id/textView36"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:gravity="left"
+                        android:text="Hand Imp"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="20dp"
+
+
+                        />
+
+                    <TextView
+                        android:id="@+id/textView37"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/surce_sans_pro_regular"
+                        android:gravity="right"
+                        android:text="Right"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/grey"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_border"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/textView38"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:gravity="left"
+                        android:text="Age"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/textView39"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/surce_sans_pro_regular"
+                        android:gravity="right"
+                        android:text="32 yrs"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/grey"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+
+                    >
+
+                    <TextView
+                        android:id="@+id/genderText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:gravity="left"
+                        android:text="Sex"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/genderValueText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/surce_sans_pro_regular"
+
+                        android:gravity="right"
+
+                        android:text="Male"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/grey"
+                        android:textSize="20dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Patient Info"
+            android:textColor="#9476c2"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/cardView3"
+            app:layout_constraintStart_toStartOf="@+id/cardView3"
+            app:layout_constraintTop_toBottomOf="@+id/usrName" />
+
+        <ScrollView
+            android:id="@+id/cardScrollview"
+            android:layout_width="270dp"
+            android:layout_height="230dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:paddingBottom="5dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout7">
+
+            <LinearLayout
+                android:id="@+id/cardParent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/romCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="5dp">
+
+                    <LinearLayout
+                        android:layout_width="270dp"
+                        android:layout_height="220dp"
+                        android:background="#b02a21"
+                        android:orientation="horizontal"
+                        android:padding="20dp">
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/romChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="10dp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/mcp_chart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="10dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="5dp">
+
+                    <LinearLayout
+                        android:layout_width="270dp"
+                        android:layout_height="220dp"
+                        android:background="#4a9150"
+                        android:orientation="horizontal"
+                        android:padding="20dp">
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/mcpChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="10dp" />
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
+
+
+        <Button
+            android:id="@+id/refreshBtn"
+            android:layout_width="90dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#4a60cf"
+            android:text="Refresh"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCurrentDate"
+            app:layout_constraintEnd_toStartOf="@+id/tvCurrentDay"
+            app:layout_constraintTop_toTopOf="@+id/tvCurrentDay" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/calibrateCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="30dp"
+
+            app:cardElevation="10dp"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout6"
+            app:layout_constraintTop_toTopOf="@+id/cardView5">
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+                android:background="#00bf73"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:gravity="center"
+                    android:text="Calibrate"
+                    android:textAlignment="gravity"
+                    android:textSize="17dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/noticeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/surce_sans_pro_regular"
+            android:text=""
+            android:textColor="#00bf73"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/hrCard"
+            app:layout_constraintEnd_toEndOf="@+id/hrCard"
+            app:layout_constraintStart_toStartOf="@+id/hrCard" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout6"
+            android:layout_width="1dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="30dp"
+            android:background="@color/light_grey"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView5"
+            app:layout_constraintStart_toEndOf="@+id/cardView5"
+            app:layout_constraintTop_toTopOf="@+id/cardView5">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/pip_score_layot"
+            android:layout_width="110dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/pip_tab"
+            android:orientation="horizontal"
+
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
+            app:layout_constraintEnd_toStartOf="@+id/mcp_score_layout">
+
+            <TextView
+                android:id="@+id/pipTitle"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:gravity="center"
+                android:text="PIP"
+                android:textAlignment="gravity"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/pipScore"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:gravity="center"
+                android:text="30"
+                android:textAlignment="gravity"
+                android:textColor="#ff6666"
+                android:textSize="30dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mcp_score_layout"
+            android:layout_width="110dp"
+            android:layout_height="45dp"
+            android:background="@drawable/pip_tab"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout7">
+
+            <TextView
+                android:id="@+id/mcpTitle"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:gravity="center"
+                android:text="MCP"
+                android:textAlignment="gravity"
+                android:textColor="@color/light_grey"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/mcpScore"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="20"
+                android:textAlignment="gravity"
+                android:textColor="@color/light_grey"
+                android:textSize="30dp" />
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

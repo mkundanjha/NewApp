@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/NewApp/app/src/main/res/drawable/blue_bottom_border.xml" value="0.11625" />
+        <entry key="..\:/Projects/NewApp/app/src/main/res/drawable/bottom_border.xml" value="0.11625" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/drawable/button_tab.xml" value="0.114375" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/drawable/ic_arrow right_background.xml" value="0.114375" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/drawable/ic_arrow right_foreground.xml" value="0.1" />
@@ -10,6 +12,7 @@
         <entry key="..\:/Projects/NewApp/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.114375" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.114375" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.11625" />
+        <entry key="..\:/Projects/NewApp/app/src/main/res/drawable/pip_tab.xml" value="0.11625" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/drawable/rounded_buttons.xml" value="0.114375" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/drawable/rounded_corner.xml" value="0.114375" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/drawable/rounded_search.xml" value="0.114375" />
@@ -22,7 +25,7 @@
         <entry key="..\:/Projects/NewApp/app/src/main/res/layout-sw600dp-land/activity_login_page.xml" value="0.1" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/layout-sw600dp-land/activity_splash_screen.xml" value="0.335" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/layout-sw600dp-land/fragment_home.xml" value="0.165" />
-        <entry key="..\:/Projects/NewApp/app/src/main/res/layout-sw600dp-land/fragment_home_dashboard.xml" value="0.24344176285414482" />
+        <entry key="..\:/Projects/NewApp/app/src/main/res/layout-sw600dp-land/fragment_home_dashboard.xml" value="0.375" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/layout-sw600dp/activity_splash_screen.xml" value="0.1" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/layout-sw600dp/dashboard2.xml" value="0.1" />
         <entry key="..\:/Projects/NewApp/app/src/main/res/layout/activity_login_page.xml" value="0.1" />

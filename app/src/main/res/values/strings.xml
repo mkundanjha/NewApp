@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dashboard</string>
+    <string name="app_name">Galanto Health</string>
     <string name="passwordReset"><u>Forget Password</u></string>
     <string name="title_activity_main2">MainActivity2</string>
     <string name="tab_text_1">Tab 1</string>

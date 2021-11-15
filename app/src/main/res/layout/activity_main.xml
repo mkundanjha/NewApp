@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg7"
     android:orientation="horizontal"
-    tools:context=".MainActivity">
+    tools:context="com.galanto.GalantoHealth.MainActivity">
     <ImageView
         android:id="@+id/main_backgroundImage"
         android:layout_width="match_parent"

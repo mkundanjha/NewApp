@@ -1,10 +1,12 @@
-package com.example.newapp;
+package com.galanto.GalantoHealth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.newapp.R;
 
 public class SplashScreen extends AppCompatActivity {
 

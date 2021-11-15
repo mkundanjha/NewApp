@@ -1,11 +1,9 @@
-package com.example.newapp;
+package com.galanto.GalantoHealth;
 
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +15,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.newapp.R;
 
 import org.json.JSONArray;
 
@@ -133,24 +131,34 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
         // Method used to delete patient or create current patient file on the basis of flag
         // flag=0 then delete flag=1 the create curr patient
         public void deleteOrCurrPatient(int p_id,int flag){
+
+            // create new current patient file
             File file= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-            File dir=new File(file.getAbsolutePath()+"/Galanto/RehabRelive/","curr_patient.json");
+            File dir=new File(file.getAbsolutePath()+"/Galanto/RehabRelive/","current_patient.json");
             fileDataBase=new FileDataBase(context);
+
+            //read the existing all patients file
             String response = fileDataBase.readFile("Galanto/RehabRelive", "patients.json");
+
             try {
                 JSONArray jsonArray = new JSONArray(response);
                 for (int i=0;i<jsonArray.length();i++){
                     if (jsonArray.getJSONObject(i).getInt("p_id")==p_id) {
+
+                        // For delete case
                         if(flag==0) {
                             jsonArray.remove(i);
                             Toast.makeText(cv.getContext(),"Patient deleted",Toast.LENGTH_SHORT).show();
                             break;
 
                         }else {
+                            // For creating current patent
+
+                            //if current patient file exist then update else create new
                             if (dir.exists()){
-                                fileDataBase.updateFile("Galanto/RehabRelive","curr_patient.json",jsonArray.getJSONObject(i).toString());
+                                fileDataBase.updateFile("Galanto/RehabRelive","current_patient.json",jsonArray.getJSONObject(i).toString());
                             }else {
-                                fileDataBase.createFile("Galanto/RehabRelive","curr_patient.json",jsonArray.getJSONObject(i).toString());
+                                fileDataBase.createFile("Galanto/RehabRelive","current_patient.json",jsonArray.getJSONObject(i).toString());
                             }
                             break;
                         }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:orientation="horizontal"
-    tools:context=".Settings">
+    tools:context="com.galanto.GalantoHealth.Settings">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
