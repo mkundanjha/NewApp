@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class AddNewUser extends AppCompatActivity {
 
-    Spinner selectGender;
+    Spinner selectGender,hndImp;
     FloatingActionButton btnAdd;
     EditText inpName,inpAge,inpWeight;
     File file;
@@ -39,6 +39,7 @@ public class AddNewUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_user);
         selectGender=findViewById(R.id.selectGender);
+        hndImp=findViewById(R.id.hndImp);
         inpName=findViewById(R.id.inpName);
         inpAge=findViewById(R.id.inpAge);
         inpWeight=findViewById(R.id.inpWeight);
@@ -56,12 +57,45 @@ public class AddNewUser extends AppCompatActivity {
         arrayList.add("Male");
         arrayList.add("Female");
         arrayList.add("Others");
+        arrayList.add("Gender");
+        ArrayList<String> arrayList2=new ArrayList<>();
+        arrayList2.add("Left");
+        arrayList2.add("Right");
+        arrayList2.add("Both");
+        arrayList2.add("Hand Impaired");
 
 
 
 
-        SpinnerAdapter adapter= new ArrayAdapter(this,R.layout.spinner_item,arrayList);
+
+
+        SpinnerAdapter adapter= new ArrayAdapter(this,R.layout.spinner_item,arrayList){
+            @Override
+            public int getCount() {
+                // to show hint "Select Gender" and don't able to select
+                return arrayList.size()-1;
+            }
+        };
         selectGender.setAdapter(adapter);
+        selectGender.setSelection(arrayList.size()-1);
+
+
+        SpinnerAdapter adapter2= new ArrayAdapter(this,R.layout.spinner_item,arrayList2){
+            @Override
+            public int getCount() {
+                // to show hint "Select Gender" and don't able to select
+                return arrayList2.size()-1;
+            }
+
+        };
+
+        hndImp.setAdapter(adapter2);
+        hndImp.setSelection(arrayList2.size()-1);
+
+
+
+
+
 
         backButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -75,6 +109,7 @@ public class AddNewUser extends AppCompatActivity {
                     backButton.getLayoutParams().height=100;
                     backButton.getLayoutParams().width=80;
                     onBackPressed();
+                    finish();
                 }
                 return true;
             }
@@ -99,25 +134,29 @@ public class AddNewUser extends AppCompatActivity {
                         inpWeight.setError("Please Enter Weight");
                         return;
                     }
-//
-//                    if(inpName.getText().length()==0){
-//                        Toast.makeText(getApplicationContext(),"Please enter name",Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                    if(inpAge.getText().length()==0){
-//                        Toast.makeText(getApplicationContext(),"Please enter name",Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                    if(inpWeight.getText().length()==0){
-//                        Toast.makeText(getApplicationContext(),"Please enter name",Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
+
+                    if (!(selectGender.getSelectedItem()=="Male" || selectGender.getSelectedItem()=="Female" || selectGender.getSelectedItem()=="Others")){
+                        Toast.makeText(getApplicationContext(),"Please select Gender",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if(!(hndImp.getSelectedItem()=="Left" || hndImp.getSelectedItem()=="Right" || hndImp.getSelectedItem()=="Both" )){
+                        Toast.makeText(getApplicationContext(),"Please select Hand Impairment ",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     if (dir.exists()){
                         fileDataBase.updateFile("Galanto/RehabRelive","patients.json",appendData());
+                        Toast.makeText(getApplicationContext(),"New User Added",Toast.LENGTH_SHORT).show();
+                        inpName.setText("");
+                        inpAge.setText("");
+                        inpWeight.setText("");
                     }else {
                         fileDataBase.createFile("Galanto/RehabRelive","patients.json",appendData());
-
+                        Toast.makeText(getApplicationContext(),"New User Added",Toast.LENGTH_SHORT).show();
+                        inpName.setText("");
+                        inpAge.setText("");
+                        inpWeight.setText("");
                     }
 
 
@@ -131,7 +170,7 @@ public class AddNewUser extends AppCompatActivity {
     }
 
     public String getDataInput(){
-        String name,gender;
+        String name,gender,handImp;
         int age,weight;
         JSONArray jsonArray=new JSONArray();
 
@@ -141,7 +180,9 @@ public class AddNewUser extends AppCompatActivity {
             age = Integer.parseInt(inpAge.getText().toString());
             weight = Integer.parseInt(inpWeight.getText().toString());
             gender = selectGender.getSelectedItem().toString();
-            Patients patient = new Patients(name, 1, age, weight, gender);
+            handImp=hndImp.getSelectedItem().toString();
+
+            Patients patient = new Patients(name, 1, age, weight, gender,handImp);
 
 
 
@@ -150,6 +191,7 @@ public class AddNewUser extends AppCompatActivity {
             jsonObject.put("age",age);
             jsonObject.put("weight",weight);
             jsonObject.put("gender",gender);
+            jsonObject.put("handImp",handImp);
 
             jsonArray.put(jsonObject);
 
@@ -161,7 +203,7 @@ public class AddNewUser extends AppCompatActivity {
     }
 
     public String appendData(){
-        String name,gender;
+        String name,gender,handImp;
         int age,weight;
         int lastId=0;
         JSONArray jsonArray=null;
@@ -182,13 +224,16 @@ public class AddNewUser extends AppCompatActivity {
             age = Integer.parseInt(inpAge.getText().toString());
             weight = Integer.parseInt(inpWeight.getText().toString());
             gender = selectGender.getSelectedItem().toString();
-            Patients patient = new Patients(name, 1, age, weight, gender);
+            handImp=hndImp.getSelectedItem().toString();
+
+            Patients patient = new Patients(name, 1, age, weight, gender,handImp);
 
             jsonObject.put("p_id",lastId+1);
             jsonObject.put("name",name);
             jsonObject.put("age",age);
             jsonObject.put("weight",weight);
             jsonObject.put("gender",gender);
+            jsonObject.put("handImp",handImp);
 
             jsonArray.put(jsonObject);
 

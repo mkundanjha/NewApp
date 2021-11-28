@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Environment;
+import android.os.FileUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
     int p_id=0;
     ArrayList<Patients> arrayList;
     int selected_position=0;
+    int age=0;
+    String handImp,gender;
 
     public CustomAdaptar(Context context, ArrayList<Patients> arrayList) {
         this.context = context;
@@ -41,6 +44,7 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
 
     @Override
     public CustomAdaptar.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view= LayoutInflater.from(context).inflate(R.layout.user_profile_cardview,parent,false);
         return new ViewHolder(view);
 
@@ -52,6 +56,10 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.usrName.setText(arrayList.get(position).getName());
+        handImp=arrayList.get(position).getHandImp();
+        gender=arrayList.get(position).getGender();
+        age=arrayList.get(position).getAge();
+
 
 
     }
@@ -82,6 +90,7 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
                 public void onClick(View v) {
                     p_id=arrayList.get(getAdapterPosition()).getP_id();
                     deleteOrCurrPatient(p_id,1);
+                    createOrDeletePatientFolder(p_id,1);
                     goToDashboard();
                 }
             });
@@ -107,6 +116,7 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
                                     arrayList.remove(position);
                                     notifyItemRemoved(position);
 
+
                                     //cv.setCardBackgroundColor(null);
 
                                 }
@@ -126,6 +136,29 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
                 }
             });
 
+        }
+        //flag 1: create
+        //flag 0: delete
+        public void createOrDeletePatientFolder(int p_id,int flag){
+
+            try{
+                String folderName="patient_"+String.valueOf(p_id);
+                File file= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                File dir=new File(file.getAbsolutePath()+"/Galanto/RehabRelive/",folderName);
+                if(flag==1) {
+                    if (!dir.exists()) {
+                        dir.mkdir();
+
+                    }
+                }else if(flag==0){
+                    if (!dir.exists()) {
+                        //dir.delete();
+                        fileDataBase.deleteFolder("Galanto/RehabRelive/patient_"+String.valueOf(p_id));
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
         // Method used to delete patient or create current patient file on the basis of flag
@@ -147,6 +180,7 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
 
                         // For delete case
                         if(flag==0) {
+                            createOrDeletePatientFolder(p_id,0);
                             jsonArray.remove(i);
                             Toast.makeText(cv.getContext(),"Patient deleted",Toast.LENGTH_SHORT).show();
                             break;
@@ -181,8 +215,13 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
             Intent intent=new Intent(context, Dashboard.class);
             intent.putExtra("user_name",usrName.getText().toString());
             intent.putExtra("p_id",String.valueOf( p_id));
+            intent.putExtra("hand_imp",handImp);
+            intent.putExtra("gender",gender);
+            intent.putExtra("age",String.valueOf(age));
+
 
             context.startActivity(intent);
+
 
         }
 

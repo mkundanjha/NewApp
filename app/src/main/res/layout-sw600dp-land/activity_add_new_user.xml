@@ -10,9 +10,9 @@
         android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="20dp"
         app:cardCornerRadius="40dp"
-        app:cardElevation="20dp"
+        app:cardElevation="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -20,8 +20,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="600dp"
-            android:layout_height="500dp"
+            android:layout_width="500dp"
+            android:layout_height="550dp"
             android:background="#7c64a1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -96,11 +96,23 @@
                 android:prompt="@string/gender_prompt"
                 android:textAlignment="center"
                 android:textSize="25dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/hndImp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inpWeight" />
+
+            <Spinner
+                android:id="@+id/hndImp"
+                android:layout_width="350dp"
+                android:layout_height="70dp"
+
+                android:background="@drawable/rounded_corner"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/selectGender" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -109,7 +121,7 @@
         android:id="@+id/addUsrBtn"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:backgroundTint="#525CB9"
         android:clickable="true"
         android:textAlignment="center"
@@ -126,9 +138,9 @@
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/source_sans_pro_bold"
-        android:text="New User"
+        android:text="Create New User"
         android:textSize="50dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"

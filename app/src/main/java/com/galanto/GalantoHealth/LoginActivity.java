@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
 
             for(int i=0;i<jsonArray.length();i++){
                 jsonObject=jsonArray.getJSONObject(i);
-                Patients patients=new Patients(jsonObject.getString("name"),jsonObject.getInt("p_id"),jsonObject.getInt("weight"),jsonObject.getInt("age"),jsonObject.getString("gender"));
+                Patients patients=new Patients(jsonObject.getString("name"),jsonObject.getInt("p_id"),jsonObject.getInt("weight"),jsonObject.getInt("age"),jsonObject.getString("gender"),jsonObject.getString("handImp"));
 
                 arrayList.add(patients);
             }

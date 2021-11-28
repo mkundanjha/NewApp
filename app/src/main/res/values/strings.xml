@@ -21,6 +21,9 @@
     <string name="home_greetings">Hi</string>
     <string name="home_games">Your Games</string>
     <string name="home_stats">Your Stats</string>
+    <string name="welcome_text">
+        We welcome you to our Galanto Family.\n\nWe are a small group of young individual galloping our way to help people with disabilities. With your help and effort you and us both have a brighter way ahead.\n\n So why wait start your training Now!
+    </string>
     <string-array name="gender">
         <item>Male</item>
         <item>Female</item>

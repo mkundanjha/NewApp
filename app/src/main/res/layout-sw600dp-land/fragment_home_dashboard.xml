@@ -2,30 +2,74 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_dashboard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:foregroundTint="@color/bgreen"
     android:padding="5dp"
-    tools:context="com.galanto.GalantoHealth.HomeDashboard"
-    android:id="@+id/home_dashboard">
+    tools:context="com.galanto.GalantoHealth.HomeDashboard">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textHomeGreeting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout9"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/source_sans_pro_bold"
-            android:text="@string/home_greetings"
-            android:textColor="@color/dark_blue"
-            android:textSize="30dp"
-            android:textStyle="bold"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/yourStatsHeader">
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/scorePiechart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout10"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout9"
+            app:layout_constraintTop_toBottomOf="@+id/yourStatsHeader">
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/mvScorePiechart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout11"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout10"
+            app:layout_constraintTop_toBottomOf="@+id/yourStatsHeader">
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/romPiechart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tvCurrentDay"
@@ -33,10 +77,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="55dp"
-            android:fontFamily="@font/source_sans_pro_bold"
+            android:fontFamily="@font/quicksand_bold"
             android:text="TextView"
             android:textColor="@color/dark_blue"
-            android:textSize="22dp"
+            android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,9 +89,9 @@
             android:id="@+id/tvCurrentDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/source_sans_pro_bold"
+            android:fontFamily="@font/quicksand_semibold"
             android:text="TextView"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/tvCurrentDay"
             app:layout_constraintTop_toBottomOf="@+id/tvCurrentDay" />
@@ -56,38 +100,85 @@
             android:id="@+id/usrName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/surce_sans_pro_regular"
-            android:text=", Kundan"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Kundan"
             android:textColor="@color/black"
-            android:textSize="30dp"
+            android:textSize="35dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/textHomeGreeting"
-            app:layout_constraintStart_toEndOf="@+id/textHomeGreeting" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView5"
+            android:id="@+id/newUserCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="20dp"
+            android:visibility="invisible"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="650dp"
+                android:layout_height="430dp"
+                android:background="@drawable/gradient_blue">
+
+                <TextView
+                    android:id="@+id/welcome_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:text="Welcome"
+                    android:textSize="50dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/welcome_message"
+                    android:layout_width="500dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:fontFamily="@font/surce_sans_pro_regular"
+                    android:text="@string/welcome_text"
+                    android:textAlignment="center"
+
+                    android:textSize="25dp"
+                    android:textStyle="italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/welcome_header" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/game2Card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
-            app:cardElevation="10dp"
+            app:cardElevation="30dp"
             app:layout_constraintStart_toEndOf="@+id/game1Card"
             app:layout_constraintTop_toTopOf="@+id/game1Card">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/gradient_blue"
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+                android:background="@color/grey"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/imageView13"
-                    android:layout_width="80dp"
-                    android:layout_height="90dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:padding="7dp"
-                    android:src="@drawable/ic5" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/game2_icon" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -100,24 +191,25 @@
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
-            app:cardElevation="10dp"
+            app:cardElevation="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
             tools:ignore="SpeakableTextPresentCheck">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:background="@drawable/gradient_green"
-                android:orientation="vertical">
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+                android:background="@color/black"
+                android:orientation="vertical"
+                android:layout_gravity="center">
 
                 <ImageView
                     android:id="@+id/imageView12"
-                    android:layout_width="80dp"
+                    android:layout_width="match_parent"
                     android:layout_height="90dp"
-                    android:padding="7dp"
-                    android:src="@drawable/ic2" />
+                    android:padding="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/game1_crp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -140,6 +232,7 @@
                 android:layout_height="550dp"
                 android:layout_weight="1"
 
+                android:foregroundTint="#FF5722"
                 android:src="@drawable/hand_org_img"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -177,9 +270,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
-                android:layout_width="60dp"
+                android:layout_width="70dp"
                 android:layout_height="60dp"
-                android:layout_marginStart="115dp"
+                android:layout_marginStart="110dp"
                 android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="@+id/imageView16"
                 app:layout_constraintTop_toTopOf="parent">
@@ -200,7 +293,7 @@
                 android:id="@+id/constraintLayout2"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout"
                 app:layout_constraintTop_toTopOf="parent">
@@ -221,7 +314,7 @@
                 android:id="@+id/constraintLayout3"
                 android:layout_width="55dp"
                 android:layout_height="60dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="28dp"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
                 app:layout_constraintTop_toTopOf="parent">
@@ -243,7 +336,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="115dp"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -263,7 +356,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="420dp"
+                android:layout_marginTop="400dp"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -284,7 +377,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="60dp"
-                android:fontFamily="@font/source_sans_pro_bold"
+                android:fontFamily="@font/quicksand_bold"
                 android:text="Press on\nred dots to\nget fingers\ninfo"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView16"
@@ -307,35 +400,35 @@
 
             <ImageView
                 android:id="@+id/ivThumbMCP"
-                android:layout_width="10dp"
+                android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="44dp"
                 android:src="@drawable/hand_idc"
 
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintHorizontal_bias="0.239"
                 app:layout_constraintStart_toStartOf="@+id/imageView16"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
-                app:tint="@color/black" />
+                app:tint="@color/dark_blue" />
 
             <ImageView
                 android:id="@+id/ivThumbPIP"
-                android:layout_width="10dp"
+                android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="4dp"
 
                 android:src="@drawable/hand_idc"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.155"
+                app:layout_constraintHorizontal_bias="0.157"
                 app:layout_constraintStart_toStartOf="@+id/imageView16"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
-                app:tint="@color/black" />
+                app:tint="@color/dark_blue" />
 
             <ImageView
                 android:id="@+id/ivIndexPIP"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="65dp"
+                android:layout_marginStart="55dp"
                 android:layout_marginTop="45dp"
                 android:src="@drawable/hand_idc"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
@@ -346,7 +439,7 @@
                 android:id="@+id/ivIndexMCP"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="75dp"
+                android:layout_marginStart="65dp"
                 android:layout_marginTop="50dp"
                 android:src="@drawable/hand_idc"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
@@ -369,7 +462,7 @@
                 android:id="@+id/ivMiddleMCP"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="45dp"
                 android:layout_marginTop="50dp"
 
                 android:src="@drawable/hand_idc"
@@ -381,7 +474,7 @@
                 android:id="@+id/ivRingPIP"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="45dp"
                 android:layout_marginTop="50dp"
 
                 android:src="@drawable/hand_idc"
@@ -393,9 +486,9 @@
                 android:id="@+id/ivRingMCP"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginStart="30dp"
 
+                android:layout_marginTop="50dp"
                 android:src="@drawable/hand_idc"
                 app:layout_constraintStart_toEndOf="@+id/ivMiddleMCP"
                 app:layout_constraintTop_toBottomOf="@+id/ivRingPIP"
@@ -417,7 +510,7 @@
                 android:id="@+id/ivLittleMCP"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="28dp"
                 android:layout_marginTop="65dp"
 
                 android:src="@drawable/hand_idc"
@@ -434,123 +527,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/source_sans_pro_bold"
             android:text="Your Excersise"
             android:textColor="#9476c2"
-            android:textSize="20dp"
+            android:textSize="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/usrName" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView2"
+            android:id="@+id/statsCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="130dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toEndOf="@+id/calibrateCard"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:layout_width="350dp"
-                android:layout_height="420dp"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
                 android:background="@color/dark_blue"
                 android:orientation="vertical"
                 android:padding="25dp">
-
-                <TextView
-                    android:id="@+id/textView46"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/pip_tab"
-                    android:fontFamily="@font/source_sans_pro_bold"
-                    android:gravity="center"
-                    android:text="Last Game"
-                    android:textAlignment="gravity"
-                    android:textColor="@color/dark_blue"
-                    android:textSize="18dp" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    app:cardCornerRadius="10dp"
-
-                    tools:layout_editor_absoluteX="30dp"
-                    tools:layout_editor_absoluteY="400dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="300dp"
-                        android:layout_height="120dp"
-                        android:background="@drawable/gradient_blue">
-
-                        <LinearLayout
-                            android:id="@+id/linearLayout3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/gradient_yellow"
-                            android:orientation="vertical"
-
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:id="@+id/imageView19"
-                                android:layout_width="90dp"
-                                android:layout_height="70dp"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
-                                android:src="@drawable/ic5" />
-
-                            <TextView
-                                android:id="@+id/lastGameName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/surce_sans_pro_regular"
-                                android:gravity="center"
-                                android:paddingTop="5dp"
-                                android:text="Game 1"
-                                android:textAlignment="gravity"
-                                android:textSize="18dp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/textView44"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/surce_sans_pro_regular"
-                            android:text="Congrats! You're a"
-                            android:textColor="@color/black"
-                            android:textSize="20dp"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/linearLayout3"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textView45"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="40dp"
-                            android:fontFamily="@font/source_sans_pro_bold"
-                            android:text="Performer"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="35dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/linearLayout3"
-                            app:layout_constraintTop_toBottomOf="@+id/textView44" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -574,7 +577,7 @@
                     <TextView
                         android:id="@+id/lastSsnTime"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:fontFamily="@font/surce_sans_pro_regular"
                         android:gravity="right"
@@ -584,96 +587,37 @@
                         android:textSize="20dp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/blue_bottom_border"
-                    android:orientation="horizontal"
-                    android:paddingBottom="10dp">
-
-                    <TextView
-                        android:id="@+id/textView32"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/source_sans_pro_bold"
-                        android:text="Success \nRate"
-                        android:textColor="@color/white"
-                        android:textSize="20dp" />
-
-                    <TextView
-                        android:id="@+id/textView33"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/surce_sans_pro_regular"
-                        android:gravity="right"
-                        android:text="23 %"
-                        android:textAlignment="gravity"
-                        android:textColor="@color/light_grey"
-                        android:textSize="20dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="10dp">
-
-                    <TextView
-                        android:id="@+id/textView34"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/source_sans_pro_bold"
-                        android:text="Reaction\nTime"
-                        android:textColor="@color/white"
-                        android:textSize="20dp" />
-
-                    <TextView
-                        android:id="@+id/textView35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/surce_sans_pro_regular"
-                        android:gravity="right"
-                        android:text="0.55"
-                        android:textAlignment="gravity"
-                        android:textColor="@color/light_grey"
-                        android:textSize="20dp" />
-                </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/textView28"
+            android:id="@+id/yourStatsHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
             android:fontFamily="@font/source_sans_pro_bold"
             android:text="Your Stats"
             android:textColor="#9476c2"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/cardView2"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textSize="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/game1Card" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView6"
+            android:id="@+id/barGraphCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginStart="20dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/cardScrollview"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout7">
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout11"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout11">
 
             <LinearLayout
-                android:layout_width="270dp"
-                android:layout_height="170dp"
+                android:layout_width="190dp"
+                android:layout_height="140dp"
                 android:orientation="horizontal"
                 android:padding="10dp">
 
@@ -686,155 +630,22 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView3"
+            android:id="@+id/infoCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="15dp"
+            android:layout_marginEnd="40dp"
+            app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/calibrateCard"
             app:layout_constraintEnd_toStartOf="@+id/constraintLayout7"
-            app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-            <LinearLayout
-                android:layout_width="250dp"
-                android:layout_height="130dp"
-                android:background="@color/white"
-                android:gravity="center"
-
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bottom_border"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
-
-                    >
-
-                    <TextView
-                        android:id="@+id/textView36"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/source_sans_pro_bold"
-                        android:gravity="left"
-                        android:text="Hand Imp"
-                        android:textAlignment="gravity"
-                        android:textColor="@color/dark_blue"
-                        android:textSize="20dp"
-
-
-                        />
-
-                    <TextView
-                        android:id="@+id/textView37"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/surce_sans_pro_regular"
-                        android:gravity="right"
-                        android:text="Right"
-                        android:textAlignment="gravity"
-                        android:textColor="@color/grey"
-                        android:textSize="20dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bottom_border"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:id="@+id/textView38"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/source_sans_pro_bold"
-                        android:gravity="left"
-                        android:text="Age"
-                        android:textAlignment="gravity"
-                        android:textColor="@color/dark_blue"
-                        android:textSize="20dp" />
-
-                    <TextView
-                        android:id="@+id/textView39"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/surce_sans_pro_regular"
-                        android:gravity="right"
-                        android:text="32 yrs"
-                        android:textAlignment="gravity"
-                        android:textColor="@color/grey"
-                        android:textSize="20dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
-
-                    >
-
-                    <TextView
-                        android:id="@+id/genderText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/source_sans_pro_bold"
-                        android:gravity="left"
-                        android:text="Sex"
-                        android:textAlignment="gravity"
-                        android:textColor="@color/dark_blue"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/genderValueText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/surce_sans_pro_regular"
-
-                        android:gravity="right"
-
-                        android:text="Male"
-                        android:textAlignment="gravity"
-                        android:textColor="@color/grey"
-                        android:textSize="20dp" />
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/textView40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/source_sans_pro_bold"
-            android:text="Patient Info"
-            android:textColor="#9476c2"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/cardView3"
-            app:layout_constraintStart_toStartOf="@+id/cardView3"
-            app:layout_constraintTop_toBottomOf="@+id/usrName" />
+            app:layout_constraintTop_toTopOf="@+id/calibrateCard" />
 
         <ScrollView
             android:id="@+id/cardScrollview"
-            android:layout_width="270dp"
-            android:layout_height="230dp"
+            android:layout_width="wrap_content"
+            android:layout_height="370dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="50dp"
             android:paddingBottom="5dp"
             android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -846,74 +657,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/romCard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    app:cardCornerRadius="30dp"
-                    app:cardElevation="5dp">
 
-                    <LinearLayout
-                        android:layout_width="270dp"
-                        android:layout_height="220dp"
-                        android:background="#b02a21"
-                        android:orientation="horizontal"
-                        android:padding="20dp">
-
-                        <com.github.mikephil.charting.charts.LineChart
-                            android:id="@+id/romChart"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="10dp" />
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/mcp_chart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginTop="10dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    app:cardCornerRadius="30dp"
-                    app:cardElevation="5dp">
-
-                    <LinearLayout
-                        android:layout_width="270dp"
-                        android:layout_height="220dp"
-                        android:background="#4a9150"
-                        android:orientation="horizontal"
-                        android:padding="20dp">
-
-                        <com.github.mikephil.charting.charts.LineChart
-                            android:id="@+id/mcpChart"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="10dp" />
-
-                    </LinearLayout>
-
-
-                </androidx.cardview.widget.CardView>
             </LinearLayout>
         </ScrollView>
 
-
-        <Button
-            android:id="@+id/refreshBtn"
-            android:layout_width="90dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="20dp"
-            android:backgroundTint="#4a60cf"
-            android:text="Refresh"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/tvCurrentDate"
-            app:layout_constraintEnd_toStartOf="@+id/tvCurrentDay"
-            app:layout_constraintTop_toTopOf="@+id/tvCurrentDay" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/calibrateCard"
@@ -926,7 +673,7 @@
 
             app:cardElevation="10dp"
             app:layout_constraintStart_toEndOf="@+id/constraintLayout6"
-            app:layout_constraintTop_toTopOf="@+id/cardView5">
+            app:layout_constraintTop_toTopOf="@+id/game2Card">
 
             <LinearLayout
                 android:layout_width="80dp"
@@ -966,9 +713,9 @@
             android:layout_height="80dp"
             android:layout_marginStart="30dp"
             android:background="@color/light_grey"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView5"
-            app:layout_constraintStart_toEndOf="@+id/cardView5"
-            app:layout_constraintTop_toTopOf="@+id/cardView5">
+            app:layout_constraintBottom_toBottomOf="@+id/game2Card"
+            app:layout_constraintStart_toEndOf="@+id/game2Card"
+            app:layout_constraintTop_toTopOf="@+id/game2Card">
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -976,14 +723,13 @@
             android:id="@+id/pip_score_layot"
             android:layout_width="110dp"
             android:layout_height="45dp"
-            android:layout_marginEnd="20dp"
             android:background="@drawable/pip_tab"
-            android:orientation="horizontal"
 
+            android:orientation="horizontal"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
-            app:layout_constraintEnd_toStartOf="@+id/mcp_score_layout">
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout7">
 
             <TextView
                 android:id="@+id/pipTitle"
@@ -993,7 +739,7 @@
                 android:gravity="center"
                 android:text="PIP"
                 android:textAlignment="gravity"
-                android:textColor="@color/black"
+                android:textColor="#cf5151"
                 android:textSize="25dp" />
 
             <TextView
@@ -1013,6 +759,7 @@
             android:id="@+id/mcp_score_layout"
             android:layout_width="110dp"
             android:layout_height="45dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/pip_tab"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
@@ -1028,7 +775,7 @@
                 android:gravity="center"
                 android:text="MCP"
                 android:textAlignment="gravity"
-                android:textColor="@color/light_grey"
+                android:textColor="@color/grey"
                 android:textSize="25dp" />
 
             <TextView
@@ -1041,9 +788,232 @@
                 android:padding="0dp"
                 android:text="20"
                 android:textAlignment="gravity"
-                android:textColor="@color/light_grey"
+                android:textColor="@color/grey"
                 android:textSize="30dp" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/ageValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/quicksand_bold"
+            android:gravity="right"
+            android:text="32 yrs"
+            android:textAlignment="gravity"
+            android:textColor="@color/dark_blue"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usrName" />
+
+        <TextView
+            android:id="@+id/genderValueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/quicksand_bold"
+            android:gravity="right"
+            android:text="Male"
+            android:textAlignment="gravity"
+            android:textColor="@color/dark_blue"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ageValue"
+            app:layout_constraintStart_toEndOf="@+id/ageValue"
+            app:layout_constraintTop_toTopOf="@+id/ageValue" />
+
+        <ImageButton
+            android:id="@+id/refreshBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="50dp"
+            android:src="@drawable/ic_refresh"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCurrentDate"
+            app:layout_constraintEnd_toStartOf="@+id/tvCurrentDay"
+            app:layout_constraintTop_toTopOf="@+id/tvCurrentDay" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/romCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="10dp"
+
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:id="@+id/pipChartLayout"
+                android:layout_width="300dp"
+                android:layout_height="170dp"
+                android:background="@drawable/gradient_yellow"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/romChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/mcpCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/romCard">
+
+            <LinearLayout
+                android:id="@+id/mcpChartLayout"
+                android:layout_width="300dp"
+                android:layout_height="170dp"
+                android:background="@drawable/gradient_green"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/mcpChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp" />
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Success Rate"
+            android:textColor="@color/dark_blue"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout9"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout9"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout9" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Movement Score"
+            android:textColor="@color/dark_blue"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout10"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout9"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout10" />
+
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Average ROM"
+            android:textColor="@color/dark_blue"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout11"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout10"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout11" />
+
+        <LinearLayout
+            android:id="@+id/pipPointerLayout"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/pip_tab"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/mcpPointerLayout"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/pipMarkerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:text="PIP"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mcpPointerLayout"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/pip_tab_grey"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/mcpMarkerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:text="MCP"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/romPointerScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="23"
+            android:textColor="@color/dark_blue"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout7" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="deg"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/romPointerScore"
+            app:layout_constraintStart_toEndOf="@+id/romPointerScore" />
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Game Score(last 3 ssn)"
+            android:textSize="18dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:textColor="@color/dark_blue"
+            app:layout_constraintEnd_toEndOf="@+id/barGraphCard"
+            app:layout_constraintStart_toStartOf="@+id/barGraphCard"
+            app:layout_constraintTop_toBottomOf="@+id/barGraphCard" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
