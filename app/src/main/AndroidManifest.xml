@@ -10,19 +10,20 @@
         <package android:name="com.galanto.GalantoHealth" />
     </queries>
 
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<!--        android:maxSdkVersion="30"-->
+<!--        tools:ignore="ScopedStorage" />-->
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="30"
-        tools:ignore="ScopedStorage" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="30"
-        tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"
-        tools:ignore="ScopedStorage"/>
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage"
-        android:maxSdkVersion="30"/>
+        android:maxSdkVersion="29"/>
+<!--        tools:ignore="ScopedStorage" />-->
+<!--    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"-->
+<!--        tools:ignore="ScopedStorage"/>-->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+<!--        tools:ignore="ScopedStorage"/>-->
+<!--        android:maxSdkVersion="30"/>-->
 
     <application
         android:allowBackup="true"

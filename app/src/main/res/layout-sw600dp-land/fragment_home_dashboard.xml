@@ -34,31 +34,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout10"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout9"
-            app:layout_constraintTop_toBottomOf="@+id/yourStatsHeader">
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/mvScorePiechart"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout11"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout10"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout9"
             app:layout_constraintTop_toBottomOf="@+id/yourStatsHeader">
 
             <com.github.mikephil.charting.charts.PieChart
@@ -76,11 +56,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="55dp"
+            android:layout_marginEnd="30dp"
             android:fontFamily="@font/quicksand_bold"
             android:text="TextView"
             android:textColor="@color/dark_blue"
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -91,7 +71,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand_semibold"
             android:text="TextView"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/tvCurrentDay"
             app:layout_constraintTop_toBottomOf="@+id/tvCurrentDay" />
@@ -104,7 +84,7 @@
             android:fontFamily="@font/source_sans_pro_bold"
             android:text="Kundan"
             android:textColor="@color/black"
-            android:textSize="35dp"
+            android:textSize="40dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -529,9 +509,9 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/source_sans_pro_bold"
-            android:text="Your Excersise"
-            android:textColor="#9476c2"
-            android:textSize="25dp"
+            android:text="Excersise &amp; Sessions"
+            android:textColor="@color/light_purple"
+            android:textSize="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/usrName" />
 
@@ -540,13 +520,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="130dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/calibrateCard"
             app:layout_constraintStart_toEndOf="@+id/calibrateCard"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/calibrateCard">
 
             <LinearLayout
                 android:layout_width="250dp"
@@ -557,20 +537,46 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView38"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:text="Total Play Time"
+                        android:textColor="@color/white"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/totalPlayTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/surce_sans_pro_regular"
+                        android:gravity="right"
+                        android:text="100 min"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/light_grey"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/blue_bottom_border"
-                    android:orientation="horizontal"
-                    android:paddingBottom="10dp">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView30"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:fontFamily="@font/source_sans_pro_bold"
-                        android:text="Last\nSession"
+                        android:text="Last Play Time"
                         android:textColor="@color/white"
-                        android:textSize="20dp"
+                        android:textSize="15dp"
 
                         />
 
@@ -599,7 +605,7 @@
             android:fontFamily="@font/source_sans_pro_bold"
             android:text="Your Stats"
             android:textColor="#9476c2"
-            android:textSize="25dp"
+            android:textSize="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/game1Card" />
 
@@ -607,13 +613,13 @@
             android:id="@+id/barGraphCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout11"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout11">
+            app:layout_constraintEnd_toEndOf="@+id/cardScrollview">
 
             <LinearLayout
                 android:layout_width="190dp"
@@ -803,7 +809,7 @@
             android:text="32 yrs"
             android:textAlignment="gravity"
             android:textColor="@color/dark_blue"
-            android:textSize="18dp"
+            android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/usrName" />
 
@@ -817,7 +823,7 @@
             android:text="Male"
             android:textAlignment="gravity"
             android:textColor="@color/dark_blue"
-            android:textSize="18dp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/ageValue"
             app:layout_constraintStart_toEndOf="@+id/ageValue"
             app:layout_constraintTop_toTopOf="@+id/ageValue" />
@@ -913,14 +919,14 @@
             android:id="@+id/textView31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="25dp"
             android:fontFamily="@font/source_sans_pro_bold"
-            android:text="Movement Score"
+            android:text="Game Score"
             android:textColor="@color/dark_blue"
             android:textSize="18dp"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout10"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout9"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout10" />
+            app:layout_constraintEnd_toEndOf="@+id/gameScoreCard"
+            app:layout_constraintStart_toStartOf="@+id/gameScoreCard"
+            app:layout_constraintTop_toBottomOf="@+id/gameScoreCard" />
 
         <TextView
             android:id="@+id/textView32"
@@ -932,7 +938,7 @@
             android:textColor="@color/dark_blue"
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout11"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout10"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout11"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout11" />
 
         <LinearLayout
@@ -1007,13 +1013,109 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Game Score(last 3 ssn)"
+            android:text="Movement Score(last 3 ssn)"
             android:textSize="18dp"
             android:fontFamily="@font/source_sans_pro_bold"
             android:textColor="@color/dark_blue"
             app:layout_constraintEnd_toEndOf="@+id/barGraphCard"
             app:layout_constraintStart_toStartOf="@+id/barGraphCard"
             app:layout_constraintTop_toBottomOf="@+id/barGraphCard" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/quicksand_semibold"
+            android:text="ROM/Joint"
+
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/romPointerScore" />
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="horizontal"
+            android:background="@color/lighter_gray"
+            app:layout_constraintBottom_toTopOf="@+id/textView33"
+            app:layout_constraintEnd_toEndOf="@+id/textView33"
+            app:layout_constraintStart_toStartOf="@+id/textView33"></LinearLayout>
+
+        <ImageView
+            android:id="@+id/romIncreaseIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:scaleType="fitXY"
+            android:visibility="invisible"
+
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout11"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout11"
+            app:layout_constraintTop_toTopOf="@+id/gameScoreCard" />
+
+        <TextView
+            android:id="@+id/romIncreaseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="18%"
+            android:textColor="@color/purple_500"
+            android:textSize="15dp"
+
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/romIncreaseIcon"
+            app:layout_constraintEnd_toEndOf="@+id/romIncreaseIcon"
+            app:layout_constraintStart_toStartOf="@+id/romIncreaseIcon"
+            app:layout_constraintTop_toBottomOf="@+id/romIncreaseIcon" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/gameScoreCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/barGraphCard"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout11"
+            app:layout_constraintTop_toTopOf="@+id/barGraphCard">
+
+            <LinearLayout
+                android:id="@+id/gameScoreLayout"
+                android:layout_width="100dp"
+                android:layout_height="110dp"
+                android:background="#5d6acf"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/gameScoreText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:gravity="center"
+                    android:text="25"
+                    android:textAlignment="center"
+
+                    android:textColor="@color/white"
+                    android:textSize="40dp"
+
+
+                    />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/pidText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="PID| 1"
+            android:textColor="@color/lighter_gray"
+            app:layout_constraintEnd_toEndOf="@+id/tvCurrentDate"
+            app:layout_constraintTop_toBottomOf="@+id/tvCurrentDate" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

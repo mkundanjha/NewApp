@@ -51,14 +51,17 @@ public class GraphPlot {
 
 
         YAxis yAxis=chart.getAxisLeft();
-        yAxis.setTextColor(Color.WHITE);
-
-        yAxis.setDrawAxisLine(false);
-        yAxis.setDrawGridLines(false);
-        yAxis.setAxisMaximum(maxY+1);
-        yAxis.setAxisMinimum(miny-1);
-        yAxis.setAxisLineWidth(5);
+        yAxis.setTextColor(Color.GRAY);
+        yAxis.setGranularity(20f);
+        yAxis.setAxisLineColor(Color.BLACK);
+        yAxis.setGridColor(Color.parseColor("#d4d4d4"));
+        yAxis.setDrawAxisLine(true);
+        yAxis.setDrawGridLines(true);
+        yAxis.setAxisMaximum(maxY+10);
+        yAxis.setAxisMinimum(miny-10);
+        yAxis.setAxisLineWidth(1);
         yAxis.setSpaceMin(2f);
+        yAxis.setDrawAxisLine(false);
 
 
         LineDataSet set =new LineDataSet(graphData,legendText);
@@ -80,7 +83,7 @@ public class GraphPlot {
         chart.animateX(1000);
         chart.setExtraOffsets(3f,5f,5f,10f);
         chart.getXAxis().setEnabled(false);
-        chart.getAxisLeft().setEnabled(false);
+        chart.getAxisLeft().setEnabled(true);
 
 
         Legend legend=chart.getLegend();
@@ -144,7 +147,7 @@ public class GraphPlot {
         barChart.setData(data);
         barChart.getDescription().setEnabled(false);
         barChart.setTouchEnabled(false);
-        barChart.animateY(700);
+        barChart.animateY(1000);
         barChart.setExtraOffsets(3f,5f,5f,10f);
         barChart.getDescription().setTextSize(10f);
 
@@ -196,7 +199,7 @@ public class GraphPlot {
         l.setDrawInside(false);
         l.setEnabled(false);
 
-        pieChart.animateY(1400, Easing.EaseInOutQuad);
+        pieChart.animateY(1000, Easing.EaseInOutQuad);
     }
 
 

@@ -31,6 +31,7 @@ public class Dashboard extends AppCompatActivity {
         btnUsrScreen=findViewById(R.id.btnUsrScreen);
         homeButton.setEnabled(false);
 
+
         //title=findViewById(R.id.textView5);
         homeButton.setTextSize(25);
         replaceFragment(new HomeDashboard(), android.R.animator.fade_in, android.R.animator.fade_out);

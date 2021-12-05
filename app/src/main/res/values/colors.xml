@@ -14,4 +14,6 @@
     <color name="light_grey">#dedede</color>
     <color name="backgroung_grey">#e6eaed</color>
     <color name="lighter_gray">#CFCFCF</color>
+    <color name="dar_purple">#501769</color>
+    <color name="light_purple">#9476c2</color>
 </resources>

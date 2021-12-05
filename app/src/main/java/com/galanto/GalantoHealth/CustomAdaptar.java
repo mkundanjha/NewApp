@@ -54,8 +54,10 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        holder.usrName.setText(arrayList.get(position).getName());
+        String usrNameText=arrayList.get(position).getName();
+        String arr[]=usrNameText.split(" ",2);
+        String firstName=arr[0];
+        holder.usrName.setText(firstName);
         handImp=arrayList.get(position).getHandImp();
         gender=arrayList.get(position).getGender();
         age=arrayList.get(position).getAge();
@@ -145,9 +147,17 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
                 String folderName="patient_"+String.valueOf(p_id);
                 File file= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
                 File dir=new File(file.getAbsolutePath()+"/Galanto/RehabRelive/",folderName);
+                File file2=new File(file.getAbsolutePath()+"/Galanto/RehabRelive/"+folderName+"/","all_sessions.json");
+                File file3=new File(file.getAbsolutePath()+"/Galanto/RehabRelive/"+folderName+"/","all_rom.json");
                 if(flag==1) {
                     if (!dir.exists()) {
                         dir.mkdir();
+                        if(!file2.exists()){
+                            fileDataBase.createFile("Galanto/RehabRelive/"+folderName,"all_sessions.json","");
+                        }
+                        if(!file3.exists()){
+                            fileDataBase.createFile("Galanto/RehabRelive/"+folderName,"all_rom.json","");
+                        }
 
                     }
                 }else if(flag==0){
