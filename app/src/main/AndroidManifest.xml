@@ -6,6 +6,7 @@
     <queries>
         <package android:name="com.kundan.testopenapp" />
         <package android:name="com.Galanto.Game1" />
+        <package android:name="com.Galanto.Juice" />
         <package android:name="com.Galanto.Calibration" />
         <package android:name="com.galanto.GalantoHealth" />
     </queries>

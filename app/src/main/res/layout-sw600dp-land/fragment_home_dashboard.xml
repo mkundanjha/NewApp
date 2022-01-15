@@ -6,21 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:foregroundTint="@color/bgreen"
-    android:padding="5dp"
-    tools:context="com.galanto.GalantoHealth.HomeDashboard">
+    android:padding="0dp"
+    tools:context="com.galanto.GalantoHealth.HomeDashboard"
+    android:background="@color/white">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout9"
+
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/romIncreaseText"
             app:layout_constraintTop_toBottomOf="@+id/yourStatsHeader">
 
             <com.github.mikephil.charting.charts.PieChart
@@ -37,8 +40,9 @@
             android:id="@+id/constraintLayout11"
             android:layout_width="130dp"
             android:layout_height="130dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout9"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/yourStatsHeader">
 
             <com.github.mikephil.charting.charts.PieChart
@@ -167,7 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
@@ -179,9 +183,9 @@
             <LinearLayout
                 android:layout_width="80dp"
                 android:layout_height="90dp"
+                android:layout_gravity="center"
                 android:background="@color/black"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/imageView12"
@@ -200,7 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:background="#F8F8F8"
+
             android:orientation="horizontal"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -372,7 +376,7 @@
                 android:layout_marginEnd="100dp"
                 android:fontFamily="@font/source_sans_pro_bold"
                 android:text="Range of Motion"
-                android:textColor="#9476c2"
+                android:textColor="@color/dark_blue"
 
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -519,7 +523,7 @@
             android:id="@+id/statsCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="70dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
@@ -531,7 +535,7 @@
             <LinearLayout
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:background="@color/dark_blue"
+                android:background="@color/light_purple2"
                 android:orientation="vertical"
                 android:padding="25dp">
 
@@ -548,7 +552,7 @@
                         android:fontFamily="@font/source_sans_pro_bold"
                         android:text="Total Play Time"
                         android:textColor="@color/white"
-                        android:textSize="15dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/totalPlayTime"
@@ -576,7 +580,7 @@
                         android:fontFamily="@font/source_sans_pro_bold"
                         android:text="Last Play Time"
                         android:textColor="@color/white"
-                        android:textSize="15dp"
+                        android:textSize="18dp"
 
                         />
 
@@ -601,9 +605,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/source_sans_pro_bold"
-            android:text="Your Stats"
+            android:text="Your Performance"
             android:textColor="#9476c2"
             android:textSize="30dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -804,12 +808,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_weight="1"
-            android:fontFamily="@font/quicksand_bold"
+            android:fontFamily="@font/source_sans_pro_bold"
             android:gravity="right"
             android:text="32 yrs"
             android:textAlignment="gravity"
             android:textColor="@color/dark_blue"
-            android:textSize="15dp"
+            android:textSize="22dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/usrName" />
 
@@ -818,12 +822,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/quicksand_bold"
+            android:fontFamily="@font/source_sans_pro_bold"
             android:gravity="right"
             android:text="Male"
             android:textAlignment="gravity"
             android:textColor="@color/dark_blue"
-            android:textSize="15dp"
+            android:textSize="22dp"
             app:layout_constraintBottom_toBottomOf="@+id/ageValue"
             app:layout_constraintStart_toEndOf="@+id/ageValue"
             app:layout_constraintTop_toTopOf="@+id/ageValue" />
@@ -843,14 +847,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
 
+            android:layout_marginBottom="10dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
             app:cardElevation="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView27">
 
             <LinearLayout
                 android:id="@+id/pipChartLayout"
@@ -875,13 +881,15 @@
             android:layout_height="wrap_content"
 
             android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
             app:cardElevation="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/romCard">
+            app:layout_constraintStart_toEndOf="@+id/romCard"
+            app:layout_constraintTop_toBottomOf="@+id/textView31">
 
             <LinearLayout
                 android:id="@+id/mcpChartLayout"
@@ -1013,10 +1021,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Movement Score(last 3 ssn)"
-            android:textSize="18dp"
             android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Movement Score"
             android:textColor="@color/dark_blue"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="@+id/barGraphCard"
             app:layout_constraintStart_toStartOf="@+id/barGraphCard"
             app:layout_constraintTop_toBottomOf="@+id/barGraphCard" />
@@ -1046,11 +1054,9 @@
             android:id="@+id/romIncreaseIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="20dp"
+
             android:scaleType="fitXY"
             android:visibility="invisible"
-
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout11"
             app:layout_constraintStart_toEndOf="@+id/constraintLayout11"
             app:layout_constraintTop_toTopOf="@+id/gameScoreCard" />
 
@@ -1062,8 +1068,8 @@
             android:fontFamily="@font/quicksand_bold"
             android:text="18%"
             android:textColor="@color/purple_500"
-            android:textSize="15dp"
 
+            android:textSize="20dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/romIncreaseIcon"
             app:layout_constraintEnd_toEndOf="@+id/romIncreaseIcon"
@@ -1074,11 +1080,12 @@
             android:id="@+id/gameScoreCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginEnd="20dp"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/barGraphCard"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout11"
+            app:layout_constraintEnd_toStartOf="@+id/barGraphCard"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout9"
             app:layout_constraintTop_toTopOf="@+id/barGraphCard">
 
             <LinearLayout
@@ -1112,10 +1119,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="PID| 1"
+            android:text="USRID| 1"
             android:textColor="@color/lighter_gray"
             app:layout_constraintEnd_toEndOf="@+id/tvCurrentDate"
             app:layout_constraintTop_toBottomOf="@+id/tvCurrentDate" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Runman"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:textColor="@color/dark_blue"
+            app:layout_constraintEnd_toEndOf="@+id/game1Card"
+            app:layout_constraintStart_toStartOf="@+id/game1Card"
+            app:layout_constraintTop_toBottomOf="@+id/game1Card" />
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Squeezy"
+            android:textColor="@color/dark_blue"
+            android:fontFamily="@font/source_sans_pro_bold"
+            app:layout_constraintEnd_toEndOf="@+id/game2Card"
+            app:layout_constraintStart_toStartOf="@+id/game2Card"
+            app:layout_constraintTop_toBottomOf="@+id/game2Card" />
+
+        <Spinner
+            android:id="@+id/sessionSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/rounded_corner"
+            app:layout_constraintBottom_toBottomOf="@+id/refreshBtn"
+            app:layout_constraintEnd_toStartOf="@+id/refreshBtn"
+            app:layout_constraintTop_toTopOf="@+id/refreshBtn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

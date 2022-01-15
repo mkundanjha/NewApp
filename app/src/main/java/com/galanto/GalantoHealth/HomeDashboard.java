@@ -20,10 +20,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +38,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,8 +52,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.AbstractQueue;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 
 public class HomeDashboard extends Fragment {
@@ -69,8 +76,10 @@ public class HomeDashboard extends Fragment {
     boolean isTextClicked=false,isNewUser=true;
     GraphPlot graphPlot =new GraphPlot();
     ImageButton refreshBtn;
+    Spinner sessionSpinner;
     int p_id=0,totalFiles=0,gmScore1=0,gmScore2=0,gmScore3=0,fingerIndex=1;
-
+    ArrayList<Integer> gameScore,successRate;
+    ArrayList<String> handSegment;
     int tPipScore=0,iPipScore=0,mPipScore=0,rPipScore=0,lPipScore=0,tMcpScore=0,iMcpScore=0,mMcpScore=0,rMcpScore=0,lMcpScore=0,wScore=0;
     int[] pipScoreList,mcpScoreList;
     FileDataBase fileDataBase;
@@ -78,7 +87,7 @@ public class HomeDashboard extends Fragment {
     Long timeElapsedSession,totalTimePlayed;
     Float hitRate,avRomScore;
     int movementScore1=0,movementScore2=0,movementScore3=0,romPercChange=0;
-    String handSegment;
+    //String handSegment;
     public HomeDashboard() {
         // Required empty public constructor
     }
@@ -127,6 +136,7 @@ public class HomeDashboard extends Fragment {
         romIncreaseText=view.findViewById(R.id.romIncreaseText);
         gameScoreLayout=view.findViewById(R.id.gameScoreLayout);
         totalPlayTime=view.findViewById(R.id.totalPlayTime);
+        sessionSpinner=view.findViewById(R.id.sessionSpinner);
 
         ivThumbIndicator =view.findViewById(R.id.thumbIndicator);
         ivIndexIndicator=view.findViewById(R.id.indexFgIndicator);
@@ -169,51 +179,74 @@ public class HomeDashboard extends Fragment {
         fileDataBase=new FileDataBase(getActivity().getApplicationContext());
 
 
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                Environment.isExternalStorageManager();
+            }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            Environment.isExternalStorageManager();
-        }
+            tvUserName = view.findViewById(R.id.usrName);
 
-        tvUserName=view.findViewById(R.id.usrName);
-
-        Intent intent=this.getActivity().getIntent();
+            Intent intent = this.getActivity().getIntent();
 
 //        tvUserName.setText(intent.getStringExtra("user_name"));
-        p_id= Integer.parseInt(intent.getStringExtra("p_id"));
+            p_id = Integer.parseInt(intent.getStringExtra("p_id"));
 //        ageValueText.setText(intent.getStringExtra("age")+" yrs, ");
 //        genderValueText.setText(intent.getStringExtra("gender"));
-        setPatient_info();
-        tvUserName.setText(intent.getStringExtra("user_name"));
-        pidText.setText("PID: "+p_id);
+            setPatient_info();
+            String userName = intent.getStringExtra("user_name");
+            tvUserName.setText(userName.substring(0, 1).toUpperCase() + userName.substring(1));
+            pidText.setText("UsrID: " + p_id);
 
 
-        animate=new Animate(getContext());
-        hitRate=0f;
-        movementScore1=0;
+            animate = new Animate(getContext());
+            hitRate = 0f;
+            movementScore1 = 0;
 
-        readSessionsData();
-        setRomData(p_id);
+            readSessionsData();
+            setRomData(p_id);
+            setSpinnerData();
 
-        if(hitRate<=0){
-            hitRate=0.4f;
-        }
+            if (hitRate <= 0) {
+                hitRate = 0.4f;
+            }
 //        if(movementScore1<=0){
 //            movementScore1=0;
 //        }
 
 
-        if (isNewUser) {
-            animate.runAnimation(welcome_header, 1000);
-            animate.runAnimation(welcome_message, 1200);
-            animate.runAnimation(game1Card, 200);
-            animate.runAnimation(game2Card, 400);
-            animate.runAnimation(calibrateCard, 600);
-            newUserCard.setVisibility(View.VISIBLE);
-            romCard.setVisibility(View.INVISIBLE);
-            mcpChartCard.setVisibility(View.INVISIBLE);
-            statsHeader.setVisibility(View.INVISIBLE);
+            if (isNewUser) {
+                animate.runAnimation(welcome_header, 1000);
+                animate.runAnimation(welcome_message, 1200);
+                animate.runAnimation(game1Card, 200);
+                animate.runAnimation(game2Card, 400);
+                animate.runAnimation(calibrateCard, 600);
+                newUserCard.setVisibility(View.VISIBLE);
+                romCard.setVisibility(View.INVISIBLE);
+                mcpChartCard.setVisibility(View.INVISIBLE);
+                statsHeader.setVisibility(View.INVISIBLE);
 
-            romPointerScore.setVisibility(View.INVISIBLE);
+                romPointerScore.setVisibility(View.INVISIBLE);
+                ivThumbIndicator.setVisibility(View.INVISIBLE);
+                ivIndexIndicator.setVisibility(View.INVISIBLE);
+                ivMiddleIndicator.setVisibility(View.INVISIBLE);
+                ivRingIndicator.setVisibility(View.INVISIBLE);
+                ivLittleIndicator.setVisibility(View.INVISIBLE);
+                ivWristIndicator.setVisibility(View.INVISIBLE);
+                pipLayout.setVisibility(View.INVISIBLE);
+                mcpLayout.setVisibility(View.INVISIBLE);
+
+                newUserCard.setVisibility(View.VISIBLE);
+                statsCard.setVisibility(View.INVISIBLE);
+                barGraphCard.setVisibility(View.INVISIBLE);
+                svCardScroll.setVisibility(View.INVISIBLE);
+                gameScoreCard.setVisibility(View.INVISIBLE);
+                pipPointer.setClickable(false);
+                mcpPointer.setClickable(false);
+                fingerIndex = 0;
+                mcpPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab));
+                //animate.runAnimation(patient_info_card, 800);
+            }
+
             ivThumbIndicator.setVisibility(View.INVISIBLE);
             ivIndexIndicator.setVisibility(View.INVISIBLE);
             ivMiddleIndicator.setVisibility(View.INVISIBLE);
@@ -227,422 +260,514 @@ public class HomeDashboard extends Fragment {
             statsCard.setVisibility(View.INVISIBLE);
             barGraphCard.setVisibility(View.INVISIBLE);
             svCardScroll.setVisibility(View.INVISIBLE);
-            gameScoreCard.setVisibility(View.INVISIBLE);
-            pipPointer.setClickable(false);
-            mcpPointer.setClickable(false);
-            fingerIndex=0;
-            mcpPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab));
-            //animate.runAnimation(patient_info_card, 800);
-        }
-
-        ivThumbIndicator.setVisibility(View.INVISIBLE);
-        ivIndexIndicator.setVisibility(View.INVISIBLE);
-        ivMiddleIndicator.setVisibility(View.INVISIBLE);
-        ivRingIndicator.setVisibility(View.INVISIBLE);
-        ivLittleIndicator.setVisibility(View.INVISIBLE);
-        ivWristIndicator.setVisibility(View.INVISIBLE);
-        pipLayout.setVisibility(View.INVISIBLE);
-        mcpLayout.setVisibility(View.INVISIBLE);
-
-        newUserCard.setVisibility(View.VISIBLE);
-        statsCard.setVisibility(View.INVISIBLE);
-        barGraphCard.setVisibility(View.INVISIBLE);
-        svCardScroll.setVisibility(View.INVISIBLE);
 
 
-        if(!isNewUser) {
-            ArrayList<BarEntry> barData=new ArrayList<>();
-            barData.add(new BarEntry(0,Math.round(movementScore1)));
-            barData.add(new BarEntry(1,Math.round(movementScore2)));
-            barData.add(new BarEntry(2,Math.round(movementScore3)));
+            if (!isNewUser) {
+                ArrayList<BarEntry> barData = new ArrayList<>();
+                barData.add(new BarEntry(0, Math.round(movementScore1)));
+                barData.add(new BarEntry(1, Math.round(movementScore2)));
+                barData.add(new BarEntry(2, Math.round(movementScore3)));
 
-            int maxYaxis=0;
-            if(movementScore1>movementScore2 ){
-                if(movementScore1>movementScore3){
-                    maxYaxis=movementScore1;
-                }else {
-                    maxYaxis=movementScore3;
+                int maxYaxis = 0;
+                if (movementScore1 > movementScore2) {
+                    if (movementScore1 > movementScore3) {
+                        maxYaxis = movementScore1;
+                    } else {
+                        maxYaxis = movementScore3;
+                    }
+                } else if (movementScore2 > movementScore3) {
+                    maxYaxis = movementScore2;
+                } else {
+                    maxYaxis = movementScore3;
                 }
-            }else if(movementScore2>movementScore3){
-                maxYaxis=movementScore2;
-            }else {
-                maxYaxis=movementScore3;
-            }
 
 
-            //Data for pie charts
-            ArrayList<PieEntry> entries=new ArrayList<>();
-            ArrayList<PieEntry> mvEntries=new ArrayList<>();
-            ArrayList<PieEntry> avRomEntries=new ArrayList<>();
+                //Data for pie charts
+                ArrayList<PieEntry> entries = new ArrayList<>();
+                ArrayList<PieEntry> mvEntries = new ArrayList<>();
+                ArrayList<PieEntry> avRomEntries = new ArrayList<>();
 
-            entries.add(new PieEntry(hitRate));
-            entries.add(new PieEntry(100-hitRate));
-
-
-            //demo if rom file is blank
+                entries.add(new PieEntry(hitRate));
+                entries.add(new PieEntry(100 - hitRate));
 
 
-            avRomEntries.add(new PieEntry(avRomScore));
-            avRomEntries.add(new PieEntry(100-avRomScore));
+                //demo if rom file is blank
 
-            //game score
-            startCountAnimation(gmScore3,gameScoreText);
 
-            pipLayout.setVisibility(View.VISIBLE);
-            mcpLayout.setVisibility(View.VISIBLE);
-            ivThumbIndicator.setVisibility(View.VISIBLE);
-            ivIndexIndicator.setVisibility(View.VISIBLE);
-            ivMiddleIndicator.setVisibility(View.VISIBLE);
-            ivRingIndicator.setVisibility(View.VISIBLE);
-            ivLittleIndicator.setVisibility(View.VISIBLE);
-            ivWristIndicator.setVisibility(View.VISIBLE);
+                avRomEntries.add(new PieEntry(avRomScore));
+                avRomEntries.add(new PieEntry(100 - avRomScore));
 
-            setVisibility(2);
-            setAlpha(0);
-            statsCard.setVisibility(View.VISIBLE);
-            barGraphCard.setVisibility(View.VISIBLE);
-            svCardScroll.setVisibility(View.VISIBLE);
-            newUserCard.setVisibility(View.INVISIBLE);
+                //game score
+                startCountAnimation(gmScore3, gameScoreText);
 
-            handSegment="W";
+                pipLayout.setVisibility(View.VISIBLE);
+                mcpLayout.setVisibility(View.VISIBLE);
+                ivThumbIndicator.setVisibility(View.VISIBLE);
+                ivIndexIndicator.setVisibility(View.VISIBLE);
+                ivMiddleIndicator.setVisibility(View.VISIBLE);
+                ivRingIndicator.setVisibility(View.VISIBLE);
+                ivLittleIndicator.setVisibility(View.VISIBLE);
+                ivWristIndicator.setVisibility(View.VISIBLE);
 
-            //set rom percentage change
-            if(romPercChange!=0){
-                romIncreaseIcon.setVisibility(View.VISIBLE);
-                romIncreaseText.setVisibility(View.VISIBLE);
-                romIncreaseText.setText(String.valueOf(romPercChange)+"%");
+                setVisibility(2);
+                setAlpha(0);
+                statsCard.setVisibility(View.VISIBLE);
+                barGraphCard.setVisibility(View.VISIBLE);
+                svCardScroll.setVisibility(View.VISIBLE);
+                newUserCard.setVisibility(View.INVISIBLE);
 
-                if(romPercChange>0){
-                    romIncreaseIcon.setBackground(getResources().getDrawable(R.drawable.ic_baseline_arrow_drop_up_24));
-                }else {
-                    romIncreaseIcon.setBackground(getResources().getDrawable(R.drawable.ic_baseline_arrow_drop_down_24));
+                //handSegment.add("W");
+
+                //set rom percentage change
+                if (romPercChange != 0) {
+                    romIncreaseIcon.setVisibility(View.VISIBLE);
+                    romIncreaseText.setVisibility(View.VISIBLE);
+                    romIncreaseText.setText(String.valueOf(romPercChange) + "%");
+
+                    if (romPercChange > 0) {
+                        romIncreaseIcon.setBackground(getResources().getDrawable(R.drawable.ic_baseline_arrow_drop_up_24));
+                    } else {
+                        romIncreaseIcon.setBackground(getResources().getDrawable(R.drawable.ic_baseline_arrow_drop_down_24));
+                    }
                 }
-            }
 
 
-            pipScoreList=new int[]{wScore,tPipScore,iPipScore,mPipScore,rPipScore,lPipScore};
-            mcpScoreList=new int[]{wScore,tMcpScore,iMcpScore,mMcpScore,rMcpScore,lMcpScore};
-            setFingerDataOnScreenLoad(handSegment);
-            romPointerScore.setText(String.valueOf(pipScoreList[fingerIndex]));
+                pipScoreList = new int[]{wScore, tPipScore, iPipScore, mPipScore, rPipScore, lPipScore};
+                mcpScoreList = new int[]{wScore, tMcpScore, iMcpScore, mMcpScore, rMcpScore, lMcpScore};
+
+                if (handSegment.size() != 0) {
+                    setFingerDataOnScreenLoad(handSegment.get(handSegment.size() - 1));
+                } else {
+                    setFingerDataOnScreenLoad("W");
+                }
+                popChartLayout(pipChartLayout, 275, 465);
+                romPointerScore.setText(String.valueOf(pipScoreList[fingerIndex]));
 //            setLineChart("PIP of Index", pipIndex);
 //            setMcpData("MCP of Index");
-            graphPlot.setBarChartData(successRateBarChart,"Last 3 game score",barData,maxYaxis);
-            graphPlot.createPieChart(successScorePieChart,entries, String.valueOf(Math.round(hitRate)),Color.parseColor("#48a36c"));
-            graphPlot.createPieChart(romPC,avRomEntries,String.valueOf(Math.round( avRomScore)),Color.parseColor("#cc5656"));
+                graphPlot.setBarChartData(successRateBarChart, "Last 3 game score", barData, maxYaxis);
+                graphPlot.createPieChart(successScorePieChart, entries, String.valueOf(Math.round(hitRate)), Color.parseColor("#48a36c"));
+                graphPlot.createPieChart(romPC, avRomEntries, String.valueOf(Math.round(avRomScore)), Color.parseColor("#cc5656"));
 
-            lastSessionTime.setText(String.valueOf(timeElapsedSession)+" min");
-            totalPlayTime.setText(String.valueOf(totalTimePlayed)+" min");
-        }
-        pipLayout.setVisibility(View.INVISIBLE);
-        mcpLayout.setVisibility(View.INVISIBLE);
-        setDateTime(currentDate,currentDay);
-
-        refreshBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refreshActivity();
-
+                lastSessionTime.setText(String.valueOf(timeElapsedSession) + " min");
+                totalPlayTime.setText(String.valueOf(totalTimePlayed) + " min");
             }
-        });
+            pipLayout.setVisibility(View.INVISIBLE);
+            mcpLayout.setVisibility(View.INVISIBLE);
+            setDateTime(currentDate, currentDay);
 
+            refreshBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    refreshActivity();
 
-
-
-        game1Card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!checkCalibrateExist(p_id)){
-                    showCalibrateDialoge();
-                    return;
                 }
-                createSessionFile();
-                openGame("com.Galanto.Game1");
-                //noticeTv.setText("Please refresh to get the latest data.");
-            }
-        });
+            });
 
-        game2Card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!checkCalibrateExist(p_id)){
-                    showCalibrateDialoge();
-                    return;
+
+            game1Card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!checkCalibrateExist(p_id)) {
+                        showCalibrateDialoge();
+                        return;
+                    }
+                    createSessionFile();
+                    openGame("com.Galanto.Game1");
+                    //noticeTv.setText("Please refresh to get the latest data.");
                 }
-                createSessionFile();
-                openGame("com.Galanto.Juice");
-                //noticeTv.setText("Please refresh to get the latest data.");
-            }
-        });
+            });
 
-        calibrateCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createSessionFile();
-                openGame("com.Galanto.Calibration");
-                noticeTv.setText("Please refresh to get the latest data.");
-            }
-        });
-
-        pipPointer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (fingerIndex==0){
-                    return;
+            game2Card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!checkCalibrateExist(p_id)) {
+                        showCalibrateDialoge();
+                        return;
+                    }
+                    createSessionFile();
+                    openGame("com.Galanto.Juice");
+                    //noticeTv.setText("Please refresh to get the latest data.");
                 }
-                setPIP();
+            });
 
-                popChartLayout(pipChartLayout,275,465);
-                popChartLayout(mcpChartLayout,250,450);
-                romPointerScore.setText(String.valueOf(pipScoreList[fingerIndex]));
-                pipPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab));
-                mcpPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
-            }
-        });
-
-        mcpPointer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (fingerIndex==0){
-                    return;
+            calibrateCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    createSessionFile();
+                    openGame("com.Galanto.Calibration");
+                    noticeTv.setText("Please refresh to get the latest data.");
                 }
-                setMcp();
-                romPointerScore.setText(String.valueOf(mcpScoreList[fingerIndex]));
-                popChartLayout(mcpChartLayout,275,465);
-                popChartLayout(pipChartLayout,250,450);
-                //romPointerScore.setText("88");
-                mcpPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab));
-                pipPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
-            }
-        });
+            });
 
-        pipLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //setPIP();
+            pipPointer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (fingerIndex == 0) {
+                        return;
+                    }
+                    setPIP();
 
-                isTextClicked=true;
-                svCardScroll.smoothScrollTo(0,cardParent.getTop());
-
-            }
-        });
-
-        mcpLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //setMcp();
-                isTextClicked=true;
-                svCardScroll.smoothScrollTo(0,cardParent.getBottom());
-
-            }
-        });
-
-
-
-
-        // check if scrollview has been triggered by touch
-        svCardScroll.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                isTextClicked=false;
-                return false;
-            }
-        });
-
-
-        svCardScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                // for scrollview triggered by title click then return
-                if (isTextClicked){
-                    return;
+                    popChartLayout(pipChartLayout, 275, 465);
+                    popChartLayout(mcpChartLayout, 250, 450);
+                    romPointerScore.setText(String.valueOf(pipScoreList[fingerIndex]));
+                    pipPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab));
+                    mcpPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
                 }
-                pipLayout.setVisibility(View.VISIBLE);
-                int x = scrollY - oldScrollY;
-                if (x > 0) {
-                    //scroll up
-                    setAlpha(0);
-                    tvPipTitle.setTextColor(getResources().getColor(R.color.black));
-                    tvMcpTilte.setTextColor(getResources().getColor(R.color.light_grey));
+            });
 
-                    tvPIPScore.setTextColor(Color.parseColor("#ff6666"));
-                    tvMcpScore.setTextColor(getResources().getColor(R.color.light_grey));
-
-                } else if (x < 0) {
-                    //scroll down
-                    setAlpha(1);
-                    tvPipTitle.setTextColor(getResources().getColor(R.color.light_grey));
-                    tvMcpTilte.setTextColor(getResources().getColor(R.color.black));
-
-                    tvPIPScore.setTextColor(getResources().getColor(R.color.light_grey));
-                    tvMcpScore.setTextColor(Color.parseColor("#ff6666"));
-                } else {
-                    tvPipCartTitle.setTextColor(getResources().getColor(R.color.light_grey));
-                    tvMcpChartTitle.setTextColor(getResources().getColor(R.color.light_grey));
+            mcpPointer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (fingerIndex == 0) {
+                        return;
+                    }
+                    setMcp();
+                    romPointerScore.setText(String.valueOf(mcpScoreList[fingerIndex]));
+                    popChartLayout(mcpChartLayout, 275, 465);
+                    popChartLayout(pipChartLayout, 250, 450);
+                    //romPointerScore.setText("88");
+                    mcpPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab));
+                    pipPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
                 }
+            });
 
-            }
-        });
+            pipLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //setPIP();
 
-        ivThumbIndicator.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                //pipLayout.setVisibility(View.VISIBLE);
-                setClickAnimation(ivThumbIndicator,event,55,130,55,115);
-                ivIndexIndicator.setColorFilter(null);
-                ivThumbIndicator.setColorFilter(Color.RED);
-                ivMiddleIndicator.setColorFilter(null);
-                ivRingIndicator.setColorFilter(null);
-                ivLittleIndicator.setColorFilter(null);
-                ivWristIndicator.setColorFilter(null);
+                    isTextClicked = true;
+                    svCardScroll.smoothScrollTo(0, cardParent.getTop());
+
+                }
+            });
+
+            mcpLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //setMcp();
+                    isTextClicked = true;
+                    svCardScroll.smoothScrollTo(0, cardParent.getBottom());
+
+                }
+            });
+
+
+            // check if scrollview has been triggered by touch
+            svCardScroll.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    isTextClicked = false;
+                    return false;
+                }
+            });
+
+
+            svCardScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    // for scrollview triggered by title click then return
+                    if (isTextClicked) {
+                        return;
+                    }
+                    pipLayout.setVisibility(View.VISIBLE);
+                    int x = scrollY - oldScrollY;
+                    if (x > 0) {
+                        //scroll up
+                        setAlpha(0);
+                        tvPipTitle.setTextColor(getResources().getColor(R.color.black));
+                        tvMcpTilte.setTextColor(getResources().getColor(R.color.light_grey));
+
+                        tvPIPScore.setTextColor(Color.parseColor("#ff6666"));
+                        tvMcpScore.setTextColor(getResources().getColor(R.color.light_grey));
+
+                    } else if (x < 0) {
+                        //scroll down
+                        setAlpha(1);
+                        tvPipTitle.setTextColor(getResources().getColor(R.color.light_grey));
+                        tvMcpTilte.setTextColor(getResources().getColor(R.color.black));
+
+                        tvPIPScore.setTextColor(getResources().getColor(R.color.light_grey));
+                        tvMcpScore.setTextColor(Color.parseColor("#ff6666"));
+                    } else {
+                        tvPipCartTitle.setTextColor(getResources().getColor(R.color.light_grey));
+                        tvMcpChartTitle.setTextColor(getResources().getColor(R.color.light_grey));
+                    }
+
+                }
+            });
+
+            ivThumbIndicator.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    //pipLayout.setVisibility(View.VISIBLE);
+                    setClickAnimation(ivThumbIndicator, event, 55, 130, 55, 115);
+                    ivIndexIndicator.setColorFilter(null);
+                    ivThumbIndicator.setColorFilter(Color.RED);
+                    ivMiddleIndicator.setColorFilter(null);
+                    ivRingIndicator.setColorFilter(null);
+                    ivLittleIndicator.setColorFilter(null);
+                    ivWristIndicator.setColorFilter(null);
 
 
 //                setLineChart("PIP of Thumb",pipThumb);
 //                setMcpData("MCP of Thumb");
-                setFingerDataOnScreenLoad("Tpip");
-                tvFingerNames.setText("Thumb\nFinger");
-                tvFingerNames.setTextSize(30);
-                tvMcpTilte.setText("MCP");
-                tvPipTitle.setText("PIP");
-                tvMcpScore.setText("34");
-                tvPIPScore.setText("16");
-                setVisibility(1);
-                return true;
-            }
-        });
+                    setFingerDataOnScreenLoad("Tpip");
+                    tvFingerNames.setText("Thumb\nFinger");
+                    tvFingerNames.setTextSize(30);
+                    tvMcpTilte.setText("MCP");
+                    tvPipTitle.setText("PIP");
+                    tvMcpScore.setText("34");
+                    tvPIPScore.setText("16");
+                    setVisibility(1);
+                    return true;
+                }
+            });
 
-        ivIndexIndicator.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                //pipLayout.setVisibility(View.VISIBLE);
-                setClickAnimation(ivIndexIndicator,event,55,90,55,90);
-                ivIndexIndicator.setColorFilter(Color.RED);
-                ivThumbIndicator.setColorFilter(null);
-                ivMiddleIndicator.setColorFilter(null);
-                ivRingIndicator.setColorFilter(null);
-                ivLittleIndicator.setColorFilter(null);
-                ivWristIndicator.setColorFilter(null);
-                setFingerDataOnScreenLoad("Ipip");
+            ivIndexIndicator.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    //pipLayout.setVisibility(View.VISIBLE);
+                    setClickAnimation(ivIndexIndicator, event, 55, 90, 55, 90);
+                    ivIndexIndicator.setColorFilter(Color.RED);
+                    ivThumbIndicator.setColorFilter(null);
+                    ivMiddleIndicator.setColorFilter(null);
+                    ivRingIndicator.setColorFilter(null);
+                    ivLittleIndicator.setColorFilter(null);
+                    ivWristIndicator.setColorFilter(null);
+                    setFingerDataOnScreenLoad("Ipip");
 //                setLineChart("PIP of Index",pipIndex);
 //                setMcpData("MCP of Index");
-                tvFingerNames.setText("Index\nFinger");
-                tvFingerNames.setTextSize(30);
-                tvMcpTilte.setText("MCP");
-                tvPipTitle.setText("PIP");
-                tvMcpScore.setText("23");
-                tvPIPScore.setText("35");
-                setVisibility(2);
-                return true;
-            }
-        });
+                    tvFingerNames.setText("Index\nFinger");
+                    tvFingerNames.setTextSize(30);
+                    tvMcpTilte.setText("MCP");
+                    tvPipTitle.setText("PIP");
+                    tvMcpScore.setText("23");
+                    tvPIPScore.setText("35");
+                    setVisibility(2);
+                    return true;
+                }
+            });
 
-        ivMiddleIndicator.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                //pipLayout.setVisibility(View.VISIBLE);
-                setClickAnimation(ivMiddleIndicator,event,55,90,55,90);
-                ivIndexIndicator.setColorFilter(null);
-                ivThumbIndicator.setColorFilter(null);
-                ivMiddleIndicator.setColorFilter(Color.RED);
-                ivRingIndicator.setColorFilter(null);
-                ivLittleIndicator.setColorFilter(null);
-                ivWristIndicator.setColorFilter(null);
+            ivMiddleIndicator.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    //pipLayout.setVisibility(View.VISIBLE);
+                    setClickAnimation(ivMiddleIndicator, event, 55, 90, 55, 90);
+                    ivIndexIndicator.setColorFilter(null);
+                    ivThumbIndicator.setColorFilter(null);
+                    ivMiddleIndicator.setColorFilter(Color.RED);
+                    ivRingIndicator.setColorFilter(null);
+                    ivLittleIndicator.setColorFilter(null);
+                    ivWristIndicator.setColorFilter(null);
 
-                setFingerDataOnScreenLoad("Mpip");
+                    setFingerDataOnScreenLoad("Mpip");
 //                setLineChart("PIP of Middle",pipMiddle);
 //                setMcpData("MCP of Middle");
-                tvFingerNames.setText("Middle\nFinger");
-                tvFingerNames.setTextSize(30);
-                tvMcpTilte.setText("MCP");
-                tvPipTitle.setText("PIP");
-                tvMcpScore.setText("11");
-                tvPIPScore.setText("16");
-                setVisibility(3);
-                return true;
-            }
-        });
+                    tvFingerNames.setText("Middle\nFinger");
+                    tvFingerNames.setTextSize(30);
+                    tvMcpTilte.setText("MCP");
+                    tvPipTitle.setText("PIP");
+                    tvMcpScore.setText("11");
+                    tvPIPScore.setText("16");
+                    setVisibility(3);
+                    return true;
+                }
+            });
 
-        ivRingIndicator.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                //pipLayout.setVisibility(View.VISIBLE);
-                setClickAnimation(ivRingIndicator,event,55,80,55,80);
-                ivIndexIndicator.setColorFilter(null);
-                ivThumbIndicator.setColorFilter(null);
-                ivMiddleIndicator.setColorFilter(null);
-                ivRingIndicator.setColorFilter(Color.RED);
-                ivLittleIndicator.setColorFilter(null);
-                ivWristIndicator.setColorFilter(null);
-                setFingerDataOnScreenLoad("Rpip");
+            ivRingIndicator.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    //pipLayout.setVisibility(View.VISIBLE);
+                    setClickAnimation(ivRingIndicator, event, 55, 80, 55, 80);
+                    ivIndexIndicator.setColorFilter(null);
+                    ivThumbIndicator.setColorFilter(null);
+                    ivMiddleIndicator.setColorFilter(null);
+                    ivRingIndicator.setColorFilter(Color.RED);
+                    ivLittleIndicator.setColorFilter(null);
+                    ivWristIndicator.setColorFilter(null);
+                    setFingerDataOnScreenLoad("Rpip");
 //                setLineChart("PIP of Ring",pipRing);
 //                setMcpData("MCP of Ring");
-                tvFingerNames.setText("Ring\nFinger");
-                tvFingerNames.setTextSize(30);
-                tvMcpTilte.setText("MCP");
-                tvPipTitle.setText("PIP");
-                tvMcpScore.setText("9");
-                tvPIPScore.setText("17");
-                setVisibility(4);
-                return true;
-            }
-        });
+                    tvFingerNames.setText("Ring\nFinger");
+                    tvFingerNames.setTextSize(30);
+                    tvMcpTilte.setText("MCP");
+                    tvPipTitle.setText("PIP");
+                    tvMcpScore.setText("9");
+                    tvPIPScore.setText("17");
+                    setVisibility(4);
+                    return true;
+                }
+            });
 
-        ivLittleIndicator.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                //pipLayout.setVisibility(View.VISIBLE);
-                setClickAnimation(ivLittleIndicator,event,55,75,55,75);
-                ivIndexIndicator.setColorFilter(null);
-                ivThumbIndicator.setColorFilter(null);
-                ivMiddleIndicator.setColorFilter(null);
-                ivRingIndicator.setColorFilter(null);
-                ivLittleIndicator.setColorFilter(Color.RED);
-                ivWristIndicator.setColorFilter(null);
-                setFingerDataOnScreenLoad("Lpip");
+            ivLittleIndicator.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    //pipLayout.setVisibility(View.VISIBLE);
+                    setClickAnimation(ivLittleIndicator, event, 55, 75, 55, 75);
+                    ivIndexIndicator.setColorFilter(null);
+                    ivThumbIndicator.setColorFilter(null);
+                    ivMiddleIndicator.setColorFilter(null);
+                    ivRingIndicator.setColorFilter(null);
+                    ivLittleIndicator.setColorFilter(Color.RED);
+                    ivWristIndicator.setColorFilter(null);
+                    setFingerDataOnScreenLoad("Lpip");
 //                setLineChart("PIP of Little",pipLittle);
 //                setMcpData("MCP of Little");
-                tvFingerNames.setText("Little\nFinger");
-                tvFingerNames.setTextSize(30);
-                tvMcpTilte.setText("MCP");
-                tvPipTitle.setText("PIP");
-                tvMcpScore.setText("46");
-                tvPIPScore.setText("67");
-                setVisibility(5);
-                return true;
-            }
-        });
+                    tvFingerNames.setText("Little\nFinger");
+                    tvFingerNames.setTextSize(30);
+                    tvMcpTilte.setText("MCP");
+                    tvPipTitle.setText("PIP");
+                    tvMcpScore.setText("46");
+                    tvPIPScore.setText("67");
+                    setVisibility(5);
+                    return true;
+                }
+            });
 
-        ivWristIndicator.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                //pipLayout.setVisibility(View.INVISIBLE);
-                pipPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
-                mcpPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
-                svCardScroll.smoothScrollTo(0,cardParent.getTop());
-                setClickAnimation(ivWristIndicator,event,55,100,55,100);
-                ivIndexIndicator.setColorFilter(null);
-                ivThumbIndicator.setColorFilter(null);
-                ivMiddleIndicator.setColorFilter(null);
-                ivRingIndicator.setColorFilter(null);
-                ivLittleIndicator.setColorFilter(null);
-                ivWristIndicator.setColorFilter(Color.RED);
-                popChartLayout(pipChartLayout,275,465);
-                popChartLayout(mcpChartLayout,250,450);
+            ivWristIndicator.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    //pipLayout.setVisibility(View.INVISIBLE);
+                    pipPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
+                    mcpPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
+                    svCardScroll.smoothScrollTo(0, cardParent.getTop());
+                    setClickAnimation(ivWristIndicator, event, 55, 100, 55, 100);
+                    ivIndexIndicator.setColorFilter(null);
+                    ivThumbIndicator.setColorFilter(null);
+                    ivMiddleIndicator.setColorFilter(null);
+                    ivRingIndicator.setColorFilter(null);
+                    ivLittleIndicator.setColorFilter(null);
+                    ivWristIndicator.setColorFilter(Color.RED);
+                    popChartLayout(pipChartLayout, 275, 465);
+                    popChartLayout(mcpChartLayout, 250, 450);
 
-                setFingerDataOnScreenLoad("W");
-                //setLineChart("Flex of Wrist",wrist);
-                //setMcpData("MCP of Wrist");
-                mcpLineChart.setVisibility(View.INVISIBLE);
-                tvFingerNames.setText("Wrist");
-                tvFingerNames.setTextSize(30);
-                tvMcpTilte.setText("Flex");
-                tvPipTitle.setText("");
-                tvMcpScore.setText("13");
-                tvPIPScore.setText("");
-                setMcp();
-                setVisibility(0);
-                return true;
+                    setFingerDataOnScreenLoad("W");
+                    //setLineChart("Flex of Wrist",wrist);
+                    //setMcpData("MCP of Wrist");
+                    mcpLineChart.setVisibility(View.INVISIBLE);
+                    tvFingerNames.setText("Wrist");
+                    tvFingerNames.setTextSize(30);
+                    tvMcpTilte.setText("Flex");
+                    tvPipTitle.setText("");
+                    tvMcpScore.setText("13");
+                    tvPIPScore.setText("");
+                    setMcp();
+                    setVisibility(0);
+                    return true;
+                }
+            });
+
+            sessionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    setSessionData(sessionSpinner.getSelectedItem().toString());
+                    String indexSession[] = sessionSpinner.getSelectedItem().toString().split("_");
+                    int index = Integer.parseInt(indexSession[indexSession.length - 1]);
+                    setFingerDataOnScreenLoad("W");
+                    startCountAnimation(gameScore.get(index-1), gameScoreText);
+//
+                    ArrayList<PieEntry> entries = new ArrayList<>();
+//
+                    entries.add(new PieEntry(successRate.get(index-1)));
+                    entries.add(new PieEntry(100 - successRate.get(index-1)));
+                    graphPlot.createPieChart(successScorePieChart, entries, String.valueOf(Math.round(successRate.get(index-1))), Color.parseColor("#48a36c"));
+
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }catch (Exception ex){
+            Toast.makeText(getContext(),"Error in main HomeDasboard:"+ex.toString(),Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void  setSpinnerData(){
+        String response="";
+        //sessionSpinner.setBackgroundColor(Color.RED);
+        try{
+            response= fileDataBase.readFile("Galanto/RehabRelive/patient_"+String.valueOf(p_id),"all_sessions.json");
+            if (response.isEmpty()){
+                return;
             }
-        });
+            //isNewUser=false;
+            JSONObject jsonObject=new JSONObject(response);
+
+            JSONArray jsonArray=jsonObject.getJSONArray("allSessionDatas");
+//            JSONObject lastJsonObject=jsonArray.getJSONObject(jsonArray.length()-1);
+
+            ArrayList<String> sessionSpinnerData=new ArrayList<>();
+            for (int i=jsonArray.length()-1;i>=0;i--){
+                sessionSpinnerData.add(jsonArray.getJSONObject(i).getString("session_id"));
+            }
+            ArrayAdapter<String> spinnerAdapter=new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item,sessionSpinnerData);
+            sessionSpinner.setAdapter(spinnerAdapter);
+            //sessionSpinner.setSelection(sessionSpinnerData.size()-1);
+
+
+        }catch (Exception ex){
+            Toast.makeText(getContext(),"Error in setSpinnerData: "+ex.toString(),Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void setSessionData(String sessionName){
+        String lastSessionData=fileDataBase.readFile("Galanto/RehabRelive/patient_"+String.valueOf(p_id),sessionName+".json");
+        if (lastSessionData.isEmpty()){
+            return;
+        }
+        try{
+        JSONObject object=new JSONObject(lastSessionData);
+        JSONArray array=object.getJSONArray("fineSessionDatas");
+
+        // Only read 100 data points
+        int increment=1;
+        if (array.length()>100){
+            increment=array.length()/100;
+            //arrayLength=array.length();
+        }
+
+        timeStamp=new ArrayList<>();
+        mcpThumb  =new ArrayList<>();
+        mcpIndex	=new ArrayList<>();
+        mcpMiddle=new ArrayList<>();
+        mcpRing		=new ArrayList<>();
+        mcpLittle=new ArrayList<>();
+        pipIndex	=new ArrayList<>();
+        pipMiddle=new ArrayList<>();
+        pipRing		=new ArrayList<>();
+        pipLittle=new ArrayList<>();
+        pipThumb	=new ArrayList<>();
+        wrist		=new ArrayList<>();
+
+        for (int i =0;i<array.length();i+=increment){
+            JSONObject arrayObject=array.getJSONObject(i);
+
+
+            timeStamp.add(Float.parseFloat(arrayObject.getString("time_since_startup")));
+
+            mcpThumb.add(Float.parseFloat(arrayObject.getString("thumb_mcp")));
+            mcpIndex.add(Float.parseFloat(arrayObject.getString("index_mcp")));
+            mcpMiddle.add(Float.parseFloat(arrayObject.getString("middle_mcp")));
+            mcpRing.add(Float.parseFloat(arrayObject.getString("ring_mcp")));
+            mcpLittle.add(Float.parseFloat(arrayObject.getString("pinky_mcp")));
+
+            pipIndex.add(Float.parseFloat(arrayObject.getString("index_pip")));
+            pipMiddle.add(Float.parseFloat(arrayObject.getString("middle_pip")));
+            pipRing.add(Float.parseFloat(arrayObject.getString("ring_pip")));
+            pipLittle.add(Float.parseFloat(arrayObject.getString("ring_mcp")));
+            pipThumb.add(Float.parseFloat(arrayObject.getString("pinky_pip")));
+
+            wrist.add(Float.parseFloat(arrayObject.getString("wrist")));
+
+        }
+        }catch (Exception ex){
+
+            ex.printStackTrace();
+        }
     }
 
     public void createSessionFile(){
@@ -1087,7 +1212,7 @@ public class HomeDashboard extends Fragment {
         if (intent!=null){
             Toast.makeText(getActivity().getApplicationContext().getApplicationContext(),"Opening Game",Toast.LENGTH_SHORT).show();
             startActivity(intent);
-            getActivity().finishAndRemoveTask();
+            //getActivity().finishAndRemoveTask();
         }else
         {
             Toast.makeText(getActivity().getApplicationContext(), "App not installed",Toast.LENGTH_SHORT).show();
@@ -1125,9 +1250,9 @@ public class HomeDashboard extends Fragment {
 //            if(lastJsonObject.has("movement_score")){
 //                movementScore1=Float.parseFloat(lastJsonObject.getString("movement_score"));
 //            }
-            if(lastJsonObject.has("hand_segments")){
-                handSegment=lastJsonObject.getString("hand_segments");
-            }
+//            if(lastJsonObject.has("hand_segments")){
+//                handSegment=lastJsonObject.getString("hand_segments");
+//            }
             if(jsonArray.length()>=3) {
                 movementScore1 = Integer.parseInt(jsonArray.getJSONObject(jsonArray.length() - 3).getString("movement_score"));
                 movementScore2 = Integer.parseInt(jsonArray.getJSONObject(jsonArray.length() - 2).getString("movement_score"));
@@ -1153,12 +1278,18 @@ public class HomeDashboard extends Fragment {
             ssnEndTime=LocalDateTime.parse(lastJsonObject.getString("stop_time_stamp"),formatter1);
             timeElapsedSession= ssnStTime.until(ssnEndTime, ChronoUnit.MINUTES);
 
-            if(jsonArray.length()>1){
+            gameScore=new ArrayList<>();
+            successRate=new ArrayList<>();
+            handSegment=new ArrayList<>();
+            if(jsonArray.length()>0){
                 totalTimePlayed=0l;
                 for(int i=0;i<jsonArray.length();i++){
                     ssnStTime= LocalDateTime.parse(jsonArray.getJSONObject(i).getString("start_time_stamp"),formatter1);
                     ssnEndTime=LocalDateTime.parse(jsonArray.getJSONObject(i).getString("stop_time_stamp"),formatter1);
                     totalTimePlayed+=ssnStTime.until(ssnEndTime, ChronoUnit.MINUTES);
+                    gameScore.add(Math.round(Float.parseFloat(jsonArray.getJSONObject(i).getString("game_score"))));
+                    successRate.add(Math.round(Float.parseFloat(jsonArray.getJSONObject(i).getString("hit_rate"))));
+                    handSegment.add(jsonArray.getJSONObject(i).getString("hand_segments"));
                 }
             }else {
                 totalTimePlayed=timeElapsedSession;
@@ -1207,12 +1338,10 @@ public class HomeDashboard extends Fragment {
                 JSONArray array=object.getJSONArray("fineSessionDatas");
 
                 // Only read 100 data points
-                int arrayLength=0;
-                if (array.length()>300){
-                    arrayLength=300;
+                int increment=1;
+                if (array.length()>100){
+                    increment=array.length()/100;
                     //arrayLength=array.length();
-                }else{
-                    arrayLength=array.length();
                 }
 
                 timeStamp=new ArrayList<>();
@@ -1228,7 +1357,7 @@ public class HomeDashboard extends Fragment {
                 pipThumb	=new ArrayList<>();
                 wrist		=new ArrayList<>();
 
-                for (int i =0;i<arrayLength;i++){
+                for (int i =0;i<array.length();i+=increment){
                     JSONObject arrayObject=array.getJSONObject(i);
 
 

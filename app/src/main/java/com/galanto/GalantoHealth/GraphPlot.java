@@ -51,7 +51,8 @@ public class GraphPlot {
 
 
         YAxis yAxis=chart.getAxisLeft();
-        yAxis.setTextColor(Color.GRAY);
+        yAxis.setTextColor(Color.BLACK);
+        //yAxis.setTextSize(13);
         yAxis.setGranularity(20f);
         yAxis.setAxisLineColor(Color.BLACK);
         yAxis.setGridColor(Color.parseColor("#d4d4d4"));
@@ -67,7 +68,7 @@ public class GraphPlot {
         LineDataSet set =new LineDataSet(graphData,legendText);
         set.setDrawHighlightIndicators(false);
         set.setFillAlpha(30);
-        set.setLineWidth(3);
+        set.setLineWidth(2.5f);
         set.setColor(graphColor);
         set.setDrawCircles(false);
 

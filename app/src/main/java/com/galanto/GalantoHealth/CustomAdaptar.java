@@ -57,7 +57,9 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
         String usrNameText=arrayList.get(position).getName();
         String arr[]=usrNameText.split(" ",2);
         String firstName=arr[0];
-        holder.usrName.setText(firstName);
+
+
+        holder.usrName.setText(firstName.substring(0,1).toUpperCase()+firstName.substring(1));
         handImp=arrayList.get(position).getHandImp();
         gender=arrayList.get(position).getGender();
         age=arrayList.get(position).getAge();
@@ -161,9 +163,10 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
 
                     }
                 }else if(flag==0){
-                    if (!dir.exists()) {
+                    if (dir.exists()) {
                         //dir.delete();
-                        fileDataBase.deleteFolder("Galanto/RehabRelive/patient_"+String.valueOf(p_id));
+                        deleteRecursive(dir);
+                        //fileDataBase.deleteFolder("Galanto/RehabRelive/patient_"+String.valueOf(p_id));
                     }
                 }
             }catch (Exception e){
@@ -217,6 +220,14 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
                 Toast.makeText(cv.getContext(),"Deletion Error:"+ex.toString(),Toast.LENGTH_SHORT).show();
 
             }
+        }
+
+         private void   deleteRecursive(File fileOrDirectory) {
+            if (fileOrDirectory.isDirectory())
+                for (File child : fileOrDirectory.listFiles())
+                    deleteRecursive(child);
+
+            fileOrDirectory.delete();
         }
 
 
