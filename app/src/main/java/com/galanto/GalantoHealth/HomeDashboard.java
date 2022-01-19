@@ -87,6 +87,7 @@ public class HomeDashboard extends Fragment {
     Long timeElapsedSession,totalTimePlayed;
     Float hitRate,avRomScore;
     int movementScore1=0,movementScore2=0,movementScore3=0,romPercChange=0;
+    boolean isGameSarted=false;
     //String handSegment;
     public HomeDashboard() {
         // Required empty public constructor
@@ -197,6 +198,7 @@ public class HomeDashboard extends Fragment {
             tvUserName.setText(userName.substring(0, 1).toUpperCase() + userName.substring(1));
             pidText.setText("UsrID: " + p_id);
 
+            getActivity().getIntent().setAction("Already created");
 
             animate = new Animate(getContext());
             hitRate = 0f;
@@ -684,6 +686,7 @@ public class HomeDashboard extends Fragment {
         }catch (Exception ex){
             Toast.makeText(getContext(),"Error in main HomeDasboard:"+ex.toString(),Toast.LENGTH_SHORT).show();
         }
+
     }
     public void  setSpinnerData(){
         String response="";
@@ -819,12 +822,37 @@ public class HomeDashboard extends Fragment {
     }
 
     public static void startCountAnimation(int leng, final TextView view){
-        final ValueAnimator animator=ValueAnimator.ofInt(0,leng);
+        int  animateNumber= leng;
+        int numOfDigits = (int) (Math.log10(leng) + 1);
+
+        if (numOfDigits>4){
+            //animateNumber=Float.parseFloat(df.format((float) (leng/1000.0)));
+            animateNumber=Math.round(leng/1000);
+        }
+        final ValueAnimator animator=ValueAnimator.ofInt(0,animateNumber);
         animator.setDuration(1000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                view.setText(format((Integer) animator.getAnimatedValue()));
+
+//                if (numOfDigits>3){
+//                    view.setTextSize(40-(numOfDigits-3)*13);
+//                }else {
+//                    view.setTextSize(40);
+//                }
+                if (numOfDigits==4){
+                    view.setTextSize(26);
+                }else {
+                    view.setTextSize(40);
+                }
+
+                if(numOfDigits>4){
+                    view.setText((format((Integer) animator.getAnimatedValue()))+"k");
+                }else {
+                    view.setText(format((Integer) animator.getAnimatedValue()));
+                }
+
+
             }
         });
         animator.start();
@@ -973,7 +1001,7 @@ public class HomeDashboard extends Fragment {
             String response=fileDataBase.readFile("Galanto/RehabRelive","current_patient.json");
             if(!response.isEmpty()){
                 JSONObject jsonObject=new JSONObject(response);
-                ageValueText.setText(jsonObject.getString("age")+" yrs, ");
+                ageValueText.setText(jsonObject.getString("age")+" yrs ");
                 genderValueText.setText(jsonObject.getString("gender"));
                 p_id=jsonObject.getInt("p_id");
             }
@@ -1217,6 +1245,7 @@ public class HomeDashboard extends Fragment {
         {
             Toast.makeText(getActivity().getApplicationContext(), "App not installed",Toast.LENGTH_SHORT).show();
         }
+        isGameSarted=true;
     }
 
     public void refreshActivity(){
@@ -1383,6 +1412,26 @@ public class HomeDashboard extends Fragment {
         }catch (Exception ex){
             Toast.makeText(getContext(),"Error in read session data: "+ex.toString(),Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+//        String action= getActivity().getIntent().getAction();
+//        if( action==null || (!action.equals("Already created"))){
+//            refreshActivity();
+//        }else {
+//            getActivity().getIntent().setAction(null);
+//        }
+        //Toast.makeText(getContext(),"On resume started: "+isGameSarted,Toast.LENGTH_SHORT).show();
+        if(isGameSarted){
+
+            //refreshActivity();
+//            Intent intent=new Intent(getContext(),HomeDashboard.class);
+            getActivity().startActivity(getActivity().getIntent());
+        }
+        isGameSarted=false;
+
     }
 
 }

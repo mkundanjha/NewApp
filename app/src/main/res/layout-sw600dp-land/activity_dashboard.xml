@@ -5,12 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:padding="3dp"
+    android:background="@color/white"
     tools:context="com.galanto.GalantoHealth.Dashboard">
 
-
+     <androidx.cardview.widget.CardView
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"
+         app:cardCornerRadius="30dp"
+         app:cardElevation="30dp">
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="160dp"
+        android:layout_width="140dp"
         android:layout_height="match_parent"
         android:orientation="horizontal"
 
@@ -19,6 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent=".4">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -38,7 +45,7 @@
                 android:drawableTint="@color/white"
                 android:fontFamily="@font/surce_sans_pro_regular"
                 android:gravity="center_vertical"
-                android:paddingLeft="50dp"
+                android:paddingLeft="30dp"
                 android:text="@string/homeButton"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -56,7 +63,7 @@
                 android:background="@drawable/rounded_buttons"
                 android:fontFamily="@font/surce_sans_pro_regular"
                 android:gravity="center_vertical"
-                android:paddingLeft="50dp"
+                android:paddingLeft="30dp"
                 android:text="Activity"
 
                 android:textAllCaps="false"
@@ -74,7 +81,7 @@
                 android:background="@drawable/rounded_buttons"
                 android:fontFamily="@font/surce_sans_pro_regular"
                 android:gravity="center_vertical"
-                android:paddingLeft="50dp"
+                android:paddingLeft="30dp"
                 android:text="Settings"
                 android:textAllCaps="false"
                 android:textColor="@color/lighter_gray"
@@ -91,7 +98,7 @@
                 android:background="@drawable/rounded_buttons"
                 android:fontFamily="@font/surce_sans_pro_regular"
                 android:gravity="center_vertical"
-                android:paddingLeft="50dp"
+                android:paddingLeft="30dp"
                 android:text="Signout"
                 android:textAllCaps="false"
                 android:textColor="@color/lighter_gray"
@@ -115,7 +122,9 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
+</androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -127,5 +136,9 @@
         app:layout_constraintStart_toEndOf="@+id/linearLayout1"
         app:layout_constraintTop_toTopOf="parent"
         android:padding="0dp"
-        app:layout_constraintWidth_percent=".6"></LinearLayout>
+        app:layout_constraintWidth_percent=".6">
+
+
+    </LinearLayout>
+
 </LinearLayout>
