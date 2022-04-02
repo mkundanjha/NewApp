@@ -5,22 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:padding="3dp"
+    android:padding="0dp"
     android:background="@color/white"
     tools:context="com.galanto.GalantoHealth.Dashboard">
 
      <androidx.cardview.widget.CardView
          android:layout_width="wrap_content"
          android:layout_height="match_parent"
-         app:cardCornerRadius="30dp"
+         app:cardCornerRadius="0dp"
          app:cardElevation="30dp">
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="140dp"
+        android:layout_width="100dp"
         android:layout_height="match_parent"
         android:orientation="horizontal"
 
-        android:background="@color/light_purple2"
+        android:background="@color/accent_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -36,89 +36,96 @@
             android:paddingLeft="0dp"
             android:paddingTop="20dp">
 
-            <Button
-                android:id="@+id/home"
+            <ImageButton
+                android:id="@+id/logo"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="100dp"
-                android:background="@drawable/button_tab"
-                android:drawableTint="@color/white"
-                android:fontFamily="@font/surce_sans_pro_regular"
-                android:gravity="center_vertical"
-                android:paddingLeft="30dp"
-                android:text="@string/homeButton"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="25dp"
-
-                android:textStyle="bold"
+                android:layout_height="77dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_tab_logo" />
 
-            <Button
-                android:id="@+id/activity"
+
+            <ImageButton
+                android:id="@+id/homeIbtn"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/rounded_buttons"
-                android:fontFamily="@font/surce_sans_pro_regular"
-                android:gravity="center_vertical"
-                android:paddingLeft="30dp"
-                android:text="Activity"
-
-                android:textAllCaps="false"
-                android:textColor="@color/lighter_gray"
-                android:textSize="20dp"
-                android:textStyle="bold"
+                android:layout_height="77dp"
+                android:layout_marginTop="130dp"
+                android:background="@null"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/home_icon" />
 
-            <Button
-                android:id="@+id/settings"
+            <ImageButton
+                android:id="@+id/gameIbtn"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/rounded_buttons"
-                android:fontFamily="@font/surce_sans_pro_regular"
-                android:gravity="center_vertical"
-                android:paddingLeft="30dp"
-                android:text="Settings"
-                android:textAllCaps="false"
-                android:textColor="@color/lighter_gray"
-                android:textSize="20dp"
-                android:textStyle="bold"
+                android:layout_height="77dp"
+                android:background="@null"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/activity" />
+                app:layout_constraintTop_toBottomOf="@+id/homeIbtn"
+                app:srcCompat="@drawable/game_icon" />
 
-            <Button
-                android:id="@+id/btnUsrScreen"
+            <ImageButton
+                android:id="@+id/reportIbtn"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/rounded_buttons"
-                android:fontFamily="@font/surce_sans_pro_regular"
-                android:gravity="center_vertical"
-                android:paddingLeft="30dp"
-                android:text="Signout"
-                android:textAllCaps="false"
-                android:textColor="@color/lighter_gray"
-                android:textSize="20dp"
-                android:textStyle="bold"
+                android:layout_height="77dp"
+                android:background="@null"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/settings" />
+                app:layout_constraintTop_toBottomOf="@+id/gameIbtn"
+                app:srcCompat="@drawable/report_icon" />
 
-            <TextView
-                android:id="@+id/textView25"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:text="GALANTO"
-                android:textColor="@color/light_grey"
-                android:textSize="30dp"
-                android:fontFamily="@font/surce_sans_pro_regular"
+            <ImageButton
+                android:id="@+id/settingsIbtn"
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:background="@null"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reportIbtn"
+                app:srcCompat="@drawable/ic_setting" />
+
+            <ImageButton
+                android:id="@+id/signoutIbtn"
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:layout_marginBottom="20dp"
+                android:background="@null"
+                android:scaleX="-1"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/ic_exit" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coming Soon"
+                android:textColor="@color/white"
+                android:textSize="9sp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:fontFamily="@font/surce_sans_pro_regular"
+                android:background="@color/red"
+                app:layout_constraintBottom_toBottomOf="@+id/gameIbtn"
+                app:layout_constraintEnd_toEndOf="@+id/gameIbtn" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

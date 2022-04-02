@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#501769"
+    android:background="#259cb8"
     android:foregroundTint="#D55D5D"
     tools:context="com.galanto.GalantoHealth.LoginActivity">
 
@@ -17,8 +17,8 @@
         android:layout_marginEnd="1132dp"
         android:layout_marginBottom="49dp"
         android:text="GALANTO"
-        android:fontFamily="@font/surce_sans_pro_regular"
-        android:textColor="@color/grey"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:textColor="@color/white"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

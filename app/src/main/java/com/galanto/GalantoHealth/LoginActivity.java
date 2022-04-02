@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     ArrayList<Patients> arrayList;
     ActivityResultLauncher<Intent> activityResultLauncher;
 
+
     @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {

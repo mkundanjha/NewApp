@@ -95,7 +95,8 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
                     p_id=arrayList.get(getAdapterPosition()).getP_id();
                     deleteOrCurrPatient(p_id,1);
                     createOrDeletePatientFolder(p_id,1);
-                    goToDashboard();
+                    goToDashboard(Dashboard.class);
+
                 }
             });
 
@@ -231,9 +232,9 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
         }
 
 
-        public void goToDashboard(){
+        public void goToDashboard(Class className){
             p_id=arrayList.get(this.getAdapterPosition()).getP_id();
-            Intent intent=new Intent(context, Dashboard.class);
+            Intent intent=new Intent(context, className);
             intent.putExtra("user_name",usrName.getText().toString());
             intent.putExtra("p_id",String.valueOf( p_id));
             intent.putExtra("hand_imp",handImp);

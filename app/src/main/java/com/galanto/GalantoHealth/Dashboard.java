@@ -8,71 +8,95 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.newapp.R;
 import com.galanto.GalantoHealth.ui.Activity;
 
 public class Dashboard extends AppCompatActivity {
-    private Button homeButton,settingsButton,activityButton,btnUsrScreen;
-    private TextView title;
+    private ImageButton homeIbtn,gameIbtn,reportIbtn,settingsIbtn,signoutIbtn;
+    private ImageButton[] buttnAttrs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        homeButton=findViewById(R.id.home);
-        settingsButton=findViewById(R.id.settings);
-        activityButton=findViewById(R.id.activity);
-        btnUsrScreen=findViewById(R.id.btnUsrScreen);
-        homeButton.setEnabled(false);
+
+        //Image buttons
+        homeIbtn=findViewById(R.id.homeIbtn);
+        gameIbtn=findViewById(R.id.gameIbtn);
+        reportIbtn=findViewById(R.id.reportIbtn);
+        settingsIbtn=findViewById(R.id.settingsIbtn);
+        signoutIbtn=findViewById(R.id.signoutIbtn);
+
+        buttnAttrs=new ImageButton[]{homeIbtn,gameIbtn,reportIbtn,settingsIbtn};
+
+//        homeIbtn.setBackgroundColor(Color.WHITE);
+//        homeIbtn.setColorFilter(Color.parseColor("#7ACBDD"));
+//        gameIbtn.setColorFilter(Color.BLACK);
+//        reportIbtn.setColorFilter(Color.BLACK);
+        setButtonAttributes(homeIbtn);
 
 
         //title=findViewById(R.id.textView5);
-        homeButton.setTextSize(25);
-        replaceFragment(new HomeDashboard(), android.R.animator.fade_in, android.R.animator.fade_out);
 
-        //replaceFragment(new Home(), android.R.animator.fade_in, android.R.animator.fade_out);
-        homeButton.setOnClickListener(new View.OnClickListener() {
+        replaceFragment(new Home(), android.R.animator.fade_in, android.R.animator.fade_out);
+
+        homeIbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonUI(homeButton,activityButton,settingsButton);
+
+                setButtonAttributes(homeIbtn);
+                replaceFragment(new Home(), android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+
+
+
+            }
+        });
+
+        gameIbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                setButtonAttributes(gameIbtn);
+                replaceFragment(new Activity(), android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+            }
+        });
+
+        reportIbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                setButtonAttributes(reportIbtn);
+
                 replaceFragment(new HomeDashboard(), android.R.anim.slide_in_left,android.R.anim.slide_out_right);
-                //replaceFragment(new Home(), android.R.anim.slide_in_left,android.R.anim.slide_out_right);
             }
         });
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        signoutIbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonUI(settingsButton,homeButton,activityButton);
-
-                replaceFragment(new Settings(),android.R.anim.slide_in_left,android.R.anim.slide_out_right);
-            }
-        });
-
-        activityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                setButtonUI(activityButton,homeButton,settingsButton);
-
-                replaceFragment(new Activity(),android.R.anim.slide_in_left,android.R.anim.slide_out_right);
-            }
-        });
-
-        btnUsrScreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setButtonUI(btnUsrScreen,homeButton,activityButton);
+                //signoutIbtn.setPadding(10,10,10,10);
                 goToUsrScreen();
+            }
+        });
+        settingsIbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setButtonAttributes(settingsIbtn);
+                replaceFragment(new Settings(), android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+//                replaceFragment(new DetailsPage(), android.R.anim.slide_in_left,android.R.anim.slide_out_right);
 
             }
         });
+        //replaceFragment(new Home(), android.R.animator.fade_in, android.R.animator.fade_out);
+
     }
 
     public void replaceFragment(Fragment fragment,int animEnter,int animExit) {
@@ -143,5 +167,20 @@ public class Dashboard extends AppCompatActivity {
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private void setButtonAttributes(ImageButton imageButton){
+        imageButton.setBackgroundColor(Color.WHITE);
+        imageButton.setColorFilter(Color.parseColor("#7ACBDD"));
+        imageButton.setEnabled(false);
+
+        for(int i=0;i<buttnAttrs.length;i++){
+            if (buttnAttrs[i]!=imageButton){
+                buttnAttrs[i].setBackground(null);
+                buttnAttrs[i].setColorFilter(Color.WHITE);
+                buttnAttrs[i].setEnabled(true);
+            }
+        }
+
     }
 }
