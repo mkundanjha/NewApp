@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.newapp.R;
+import com.galanto.GalantoHealth.ui.SessionsLogic;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -59,9 +60,9 @@ import java.util.Map;
 
 public class HomeDashboard extends Fragment {
 
-    TextView movScore,tvUserName,tvFingerNames,tvMcpScore,tvPIPScore,tvMcpTilte,tvPipTitle,tvPipCartTitle,tvMcpChartTitle,statsHeader,romIncreaseText,totalPlayTime;
+    TextView movScore,tvUserName,tvFingerNames,tvMcpScore,tvPIPScore,tvMcpTilte,tvPipTitle,tvPipCartTitle,tvMcpChartTitle,romIncreaseText,totalPlayTime;
     TextView currentDate,noticeTv, tvSessionTime,handImpairedValue,ageValueText,genderValueText,welcome_message,welcome_header,romPointerScore,gameScoreText,pidText;
-    LineChart romChart,mcpLineChart;
+    LineChart romChart,fingerRomChart;
     BarChart barChart,successRateBarChart;
     PieChart successScorePieChart,romPC;
     CardView gameCard,timeUsagesCard,romCard,hrCard,game1Card,game2Card,calibrateCard,statsCard,barGraphCard;
@@ -91,6 +92,7 @@ public class HomeDashboard extends Fragment {
     ArrayList<RomPerSession> romPerSessionsArray;
     ArrayList<String> dateSpinnerArray,sessionSpinnerArray;
     int totalSessionsCount=0;
+    String[] jointNames=new String[]{"wrist","thumb","index","middle","ring","pinky"};
     Map<Integer,ArrayList<Float>> mcpJoints;//=new HashMap<Integer,ArrayList<Float>>() {};
     Map<Integer,ArrayList<Float>> pipJoints;//=new HashMap<Integer,ArrayList<Float>>() {};
     int[] romPip;
@@ -98,6 +100,11 @@ public class HomeDashboard extends Fragment {
     int gameScoreData=0;
     int successScoreData=0;
     String handSegmentData="";
+    ArrayList<Float> pipTrend,mcpTrend;
+    SessionsLogic sessionsLogic;
+    ArrayList<LocalDate> romDates;
+    Logics logics;
+    String mcpScore="0",pipScore="0";
 
     //String handSegment;
     public HomeDashboard() {
@@ -127,23 +134,23 @@ public class HomeDashboard extends Fragment {
         game2Card=view.findViewById(R.id.game2Card);
         refreshBtn=view.findViewById(R.id.refreshBtn);
         calibrateCard=view.findViewById(R.id.calibrateCard);
-
+        fingerRomChart=view.findViewById(R.id.fingerRomChart);
 
 
         successScorePieChart =view.findViewById(R.id.scorePiechart);
-        romPC=view.findViewById(R.id.romPiechart);
+
 
         romCard=view.findViewById(R.id.romCard);
         pipPointer=view.findViewById(R.id.pipPointerLayout);
         mcpPointer=view.findViewById(R.id.mcpPointerLayout);
         romPointerScore=view.findViewById(R.id.romPointerScore);
-        statsHeader=view.findViewById(R.id.yourStatsHeader);
+
         pipChartLayout=view.findViewById(R.id.pipChartLayout);
 
         gameScoreText=view.findViewById(R.id.gameScoreText);
-        romIncreaseIcon=view.findViewById(R.id.romIncreaseIcon);
-        romIncreaseText=view.findViewById(R.id.romIncreaseText);
-        gameScoreLayout=view.findViewById(R.id.gameScoreLayout);
+
+
+
         sessionSpinner=view.findViewById(R.id.sessionSpinner);
 
         ivThumbIndicator =view.findViewById(R.id.thumbIndicator);
@@ -155,16 +162,8 @@ public class HomeDashboard extends Fragment {
         tvFingerNames=view.findViewById(R.id.fingName);
         tvSessionTime =view.findViewById(R.id.ssnTime);
 
-        tvMcpTilte=view.findViewById(R.id.mcpTitle);
-        tvPipTitle=view.findViewById(R.id.pipTitle);
-        tvMcpScore=view.findViewById(R.id.mcpScore);
-        tvPIPScore=view.findViewById(R.id.pipScore);
         movScore=view.findViewById(R.id.movScore);
-//        tvMcpChartTitle=view.findViewById(R.id.tvMcpChartTitle);
-//        tvPipCartTitle=view.findViewById(R.id.tvPipChartTitle);
 
-        cardParent=view.findViewById(R.id.cardParent);
-        svCardScroll=view.findViewById(R.id.cardScrollview);
 
         ivThumbPIPInd=view.findViewById(R.id.ivThumbPIP);
         ivThumbMCPInd=view.findViewById(R.id.ivThumbMCP);
@@ -178,19 +177,18 @@ public class HomeDashboard extends Fragment {
         ivLittleMCPInd=view.findViewById(R.id.ivLittleMCP);
         pidText=view.findViewById(R.id.pidText);
 
-        pipLayout=view.findViewById(R.id.pip_score_layot);
-        mcpLayout=view.findViewById(R.id.mcp_score_layout);
 
         barGraphCard=view.findViewById(R.id.barGraphCard);
         statsCard=view.findViewById(R.id.statsCard);
-        gameScoreCard=view.findViewById(R.id.gameScoreCard);
+
         dateSpinner=view.findViewById(R.id.dateSpinner);
         deleteSessionCard=view.findViewById(R.id.deleteSessionCard);
 
 
 
         fileDataBase=new FileDataBase(getActivity().getApplicationContext());
-
+        logics=new Logics(getActivity().getApplicationContext());
+        sessionsLogic=new SessionsLogic(getActivity().getApplicationContext());
 
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -226,31 +224,17 @@ public class HomeDashboard extends Fragment {
 
             if (isNewUser) {
 
-//                animate.runAnimation(welcome_header, 1000);
-//                animate.runAnimation(welcome_message, 1200);
-//                animate.runAnimation(game1Card, 200);
-//                animate.runAnimation(game2Card, 400);
-//                animate.runAnimation(calibrateCard, 600);
-
                 romCard.setVisibility(View.INVISIBLE);
-//                mcpChartCard.setVisibility(View.INVISIBLE);
-//                statsHeader.setVisibility(View.INVISIBLE);
 
-//                romPointerScore.setVisibility(View.INVISIBLE);
                 ivThumbIndicator.setVisibility(View.INVISIBLE);
                 ivIndexIndicator.setVisibility(View.INVISIBLE);
                 ivMiddleIndicator.setVisibility(View.INVISIBLE);
                 ivRingIndicator.setVisibility(View.INVISIBLE);
                 ivLittleIndicator.setVisibility(View.INVISIBLE);
                 ivWristIndicator.setVisibility(View.INVISIBLE);
-//                pipLayout.setVisibility(View.INVISIBLE);
-//                mcpLayout.setVisibility(View.INVISIBLE);
 
-
-//                statsCard.setVisibility(View.INVISIBLE);
                 barGraphCard.setVisibility(View.INVISIBLE);
-//                svCardScroll.setVisibility(View.INVISIBLE);
-//                gameScoreCard.setVisibility(View.INVISIBLE);
+
                 pipPointer.setClickable(false);
                 mcpPointer.setClickable(false);
                 fingerIndex = 0;
@@ -264,9 +248,6 @@ public class HomeDashboard extends Fragment {
             ivRingIndicator.setVisibility(View.INVISIBLE);
             ivLittleIndicator.setVisibility(View.INVISIBLE);
             ivWristIndicator.setVisibility(View.INVISIBLE);
-//            pipLayout.setVisibility(View.INVISIBLE);
-//            mcpLayout.setVisibility(View.INVISIBLE);
-
 
 //            statsCard.setVisibility(View.INVISIBLE);
             barGraphCard.setVisibility(View.INVISIBLE);
@@ -290,10 +271,9 @@ public class HomeDashboard extends Fragment {
                 avRomEntries.add(new PieEntry(100 - avRomScore));
 
                 //game score
-                startCountAnimation(gmScore3, gameScoreText);
+//                startCountAnimation(gmScore3, gameScoreText);
 
-                pipLayout.setVisibility(View.VISIBLE);
-                mcpLayout.setVisibility(View.VISIBLE);
+
                 ivThumbIndicator.setVisibility(View.VISIBLE);
                 ivIndexIndicator.setVisibility(View.VISIBLE);
                 ivMiddleIndicator.setVisibility(View.VISIBLE);
@@ -305,27 +285,14 @@ public class HomeDashboard extends Fragment {
                 setAlpha(0);
                 statsCard.setVisibility(View.VISIBLE);
                 barGraphCard.setVisibility(View.VISIBLE);
-                svCardScroll.setVisibility(View.VISIBLE);
+
 
 
                 //handSegment.add("W");
                 tvFingerNames.setTextSize(20);
                 int colour=Color.parseColor("#cc5656");
                 //set rom percentage change
-                if (romPercChange != 0) {
-                    romIncreaseIcon.setVisibility(View.VISIBLE);
-                    romIncreaseText.setVisibility(View.VISIBLE);
-                    romIncreaseText.setText(String.valueOf(romPercChange) + "%");
 
-
-                    if (romPercChange >= 0) {
-                        romIncreaseIcon.setBackground(getResources().getDrawable(R.drawable.ic_baseline_arrow_drop_up_24));
-                        colour=Color.parseColor("#62c489");
-                    } else {
-                        romIncreaseIcon.setBackground(getResources().getDrawable(R.drawable.ic_baseline_arrow_drop_down_24));
-                        colour=Color.parseColor("#cc5656");
-                    }
-                }
 
 
                 pipScoreList = new int[]{wScore, tPipScore, iPipScore, mPipScore, rPipScore, lPipScore};
@@ -338,37 +305,14 @@ public class HomeDashboard extends Fragment {
                 }
 
 
-//                ArrayList<BarEntry> barData = new ArrayList<>();
-//                barData.add(new BarEntry(0, getPeakData(mcpThumb)));
-//                barData.add(new BarEntry(1, Math.round(movementScore2)));
-//                barData.add(new BarEntry(2, Math.round(movementScore3)));
-//
-//                int maxYaxis = 0;
-//                if (movementScore1 > movementScore2) {
-//                    if (movementScore1 > movementScore3) {
-//                        maxYaxis = movementScore1;
-//                    } else {
-//                        maxYaxis = movementScore3;
-//                    }
-//                } else if (movementScore2 > movementScore3) {
-//                    maxYaxis = movementScore2;
-//                } else {
-//                    maxYaxis = movementScore3;
-//                }
 
-                romPointerScore.setText(String.valueOf(pipScoreList[fingerIndex]));
+                romPointerScore.setText(mcpScore);
 
 //                graphPlot.setBarChartData(successRateBarChart, "Last 3 game score", barData, maxYaxis);
-                graphPlot.createPieChart(successScorePieChart, entries, String.valueOf(Math.round(hitRate)), Color.parseColor("#c2934e"));
-                graphPlot.createPieChart(romPC, avRomEntries, String.valueOf(Math.round(avRomScore)),colour);
-
-//                lastSessionTime.setText(String.valueOf(timeElapsedSession) + " min");
-//                totalPlayTime.setText(String.valueOf(totalTimePlayed) + " min");
-//                tvSessionTime.setText(String.valueOf(sessionPlayTime) + " min");
+                graphPlot.createPieChart(successScorePieChart, entries, String.valueOf(Math.round(hitRate)), Color.parseColor("#4287f5"));
 
             }
-            pipLayout.setVisibility(View.INVISIBLE);
-            mcpLayout.setVisibility(View.INVISIBLE);
+
 
 
             refreshBtn.setOnClickListener(new View.OnClickListener() {
@@ -390,7 +334,8 @@ public class HomeDashboard extends Fragment {
                     setAlpha(0);
 
 
-                    romPointerScore.setText(String.valueOf(romPip[fingerIndex]));
+//                    romPointerScore.setText(String.valueOf(romPip[fingerIndex]));
+                    romPointerScore.setText(pipScore);
                     setLineChart(romChart, "Thumb (MCP)", pipJoints.get(fingerIndex), Color.parseColor("#e85f56"));
                     pipPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab));
                     mcpPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
@@ -406,8 +351,10 @@ public class HomeDashboard extends Fragment {
                     }
 //                    setMcp();
                     setAlpha(1);
+
 //                    romPointerScore.setText(String.valueOf(getPeakData(mcpJoints.get(fingerIndex))));
-                    romPointerScore.setText(String.valueOf(romMcp[fingerIndex]));
+//                    romPointerScore.setText(String.valueOf(romMcp[fingerIndex]));
+                    romPointerScore.setText(mcpScore);
                     setLineChart(romChart, "Thumb (MCP)", mcpJoints.get(fingerIndex), Color.parseColor("#4a9150"));
 //                    popChartLayout(mcpChartLayout, 275, 465);
 //                    popChartLayout(pipChartLayout, 250, 450);
@@ -418,71 +365,9 @@ public class HomeDashboard extends Fragment {
                 }
             });
 
-            pipLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //setPIP();
-
-                    isTextClicked = true;
-                    svCardScroll.smoothScrollTo(0, cardParent.getTop());
-
-                }
-            });
-
-            mcpLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //setMcp();
-                    isTextClicked = true;
-                    svCardScroll.smoothScrollTo(0, cardParent.getBottom());
-
-                }
-            });
 
 
-            // check if scrollview has been triggered by touch
-            svCardScroll.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    isTextClicked = false;
-                    return false;
-                }
-            });
 
-
-            svCardScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    // for scrollview triggered by title click then return
-                    if (isTextClicked) {
-                        return;
-                    }
-                    pipLayout.setVisibility(View.VISIBLE);
-                    int x = scrollY - oldScrollY;
-                    if (x > 0) {
-                        //scroll up
-                        setAlpha(0);
-                        tvPipTitle.setTextColor(getResources().getColor(R.color.black));
-                        tvMcpTilte.setTextColor(getResources().getColor(R.color.light_grey));
-
-                        tvPIPScore.setTextColor(Color.parseColor("#ff6666"));
-                        tvMcpScore.setTextColor(getResources().getColor(R.color.light_grey));
-
-                    } else if (x < 0) {
-                        //scroll down
-                        setAlpha(1);
-                        tvPipTitle.setTextColor(getResources().getColor(R.color.light_grey));
-                        tvMcpTilte.setTextColor(getResources().getColor(R.color.black));
-
-                        tvPIPScore.setTextColor(getResources().getColor(R.color.light_grey));
-                        tvMcpScore.setTextColor(Color.parseColor("#ff6666"));
-                    } else {
-                        tvPipCartTitle.setTextColor(getResources().getColor(R.color.light_grey));
-                        tvMcpChartTitle.setTextColor(getResources().getColor(R.color.light_grey));
-                    }
-
-                }
-            });
 
             ivThumbIndicator.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -499,10 +384,8 @@ public class HomeDashboard extends Fragment {
                     setFingerDataOnScreenLoad("T");
                     tvFingerNames.setText("Thumb\nFinger");
                     tvFingerNames.setTextSize(20);
-                    tvMcpTilte.setText("MCP");
-                    tvPipTitle.setText("PIP");
-                    tvMcpScore.setText("34");
-                    tvPIPScore.setText("16");
+
+
                     setVisibility(1);
                     return true;
                 }
@@ -525,10 +408,7 @@ public class HomeDashboard extends Fragment {
 //                setMcpData("MCP of Index");
                     tvFingerNames.setText("Index\nFinger");
                     tvFingerNames.setTextSize(20);
-                    tvMcpTilte.setText("MCP");
-                    tvPipTitle.setText("PIP");
-                    tvMcpScore.setText("23");
-                    tvPIPScore.setText("35");
+
                     setVisibility(2);
                     return true;
                 }
@@ -551,10 +431,7 @@ public class HomeDashboard extends Fragment {
 //                setMcpData("MCP of Middle");
                     tvFingerNames.setText("Middle\nFinger");
                     tvFingerNames.setTextSize(20);
-                    tvMcpTilte.setText("MCP");
-                    tvPipTitle.setText("PIP");
-                    tvMcpScore.setText("11");
-                    tvPIPScore.setText("16");
+
                     setVisibility(3);
                     return true;
                 }
@@ -575,10 +452,7 @@ public class HomeDashboard extends Fragment {
 
                     tvFingerNames.setText("Ring\nFinger");
                     tvFingerNames.setTextSize(20);
-                    tvMcpTilte.setText("MCP");
-                    tvPipTitle.setText("PIP");
-                    tvMcpScore.setText("9");
-                    tvPIPScore.setText("17");
+
                     setVisibility(4);
                     return true;
                 }
@@ -598,10 +472,7 @@ public class HomeDashboard extends Fragment {
                     setFingerDataOnScreenLoad("P");
                     tvFingerNames.setText("Little\nFinger");
                     tvFingerNames.setTextSize(20);
-                    tvMcpTilte.setText("MCP");
-                    tvPipTitle.setText("PIP");
-                    tvMcpScore.setText("46");
-                    tvPIPScore.setText("67");
+
                     setVisibility(5);
                     return true;
                 }
@@ -613,7 +484,7 @@ public class HomeDashboard extends Fragment {
 
                     pipPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
                     mcpPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
-//                    svCardScroll.smoothScrollTo(0, cardParent.getTop());
+
                     setClickAnimation(ivWristIndicator, event, 55, 100, 55, 100);
                     ivIndexIndicator.setColorFilter(null);
                     ivThumbIndicator.setColorFilter(null);
@@ -625,10 +496,7 @@ public class HomeDashboard extends Fragment {
 
                     tvFingerNames.setText("Wrist");
                     tvFingerNames.setTextSize(20);
-                    tvMcpTilte.setText("Flex");
-                    tvPipTitle.setText("");
-                    tvMcpScore.setText("13");
-                    tvPIPScore.setText("");
+
                     setVisibility(0);
                     return true;
                 }
@@ -643,6 +511,7 @@ public class HomeDashboard extends Fragment {
                     int index = Integer.parseInt(indexSession[indexSession.length - 1]);
                         setSessionDetails(sessionSpinner.getSelectedItem().toString().trim(),p_id);
                         String arr[] = handSegmentData.split(",", 2);
+                        setRomPerJointData(index-1);
                         setFingerDataOnScreenLoad(arr[0]);
 
                     }catch (Exception ex){
@@ -732,7 +601,7 @@ public class HomeDashboard extends Fragment {
                 dateSpinnerArray.add(date);
                 sessionSpinnerArray.add(sessionId);
             }
-
+            setRomPerJointData(jsonArray.length()-1);
             ArrayList<String> dateSpinnerData=new ArrayList<>();
 
             for (int i=0;i<dateSpinnerArray.size();i++){
@@ -784,8 +653,8 @@ public class HomeDashboard extends Fragment {
 
         // Only read 100 data points
         int increment=1;
-        if (array.length()>300){
-            increment=array.length()/300;
+        if (array.length()>100){
+            increment=array.length()/100;
             //arrayLength=array.length();
         }
 
@@ -938,6 +807,49 @@ public class HomeDashboard extends Fragment {
         animator.start();
     }
 
+    public void setFingerRom(int fingerIndex){
+        try{
+            String romData= fileDataBase.readFile("Galanto/RehabRelive/patient_"+String.valueOf(p_id),"all_rom.json");
+            if(!romData.isEmpty()){
+                JSONObject jsonObject1=new JSONObject(romData);
+                JSONArray jsonArray=jsonObject1.getJSONArray("allRomDatas");
+
+                sessionsLogic.getAverageRom(p_id);
+                romDates=sessionsLogic.getDailyRomDates();
+                int start=0;
+                String fingerNamePip="";
+                String fingerNameMcp="";
+                if (fingerIndex!=0){
+                    fingerNamePip=jointNames[fingerIndex]+"PipRom";
+                    fingerNameMcp=jointNames[fingerIndex]+"McpRom";
+                }else{
+                    fingerNamePip=jointNames[fingerIndex]+"Rom";
+                }
+
+                mcpTrend=new ArrayList<>();
+                pipTrend=new ArrayList<>();
+
+//                if (jsonArray.length()>100)
+                for(int i=0;i<jsonArray.length();i++){
+                        if(!fingerNamePip.isEmpty()) {
+                            pipTrend.add(Float.parseFloat(jsonArray.getJSONObject(i).getString(fingerNamePip)));
+                        }
+                        if(!fingerNameMcp.isEmpty()){
+                            mcpTrend.add(Float.parseFloat(jsonArray.getJSONObject(i).getString(fingerNameMcp)));
+                        }
+                }
+                if(fingerNameMcp.isEmpty()){
+                    mcpTrend=null;
+                }
+                logics.setLineChart(fingerRomChart,"PIP",romDates,pipTrend,mcpTrend,Color.parseColor("#7818c7"),"Trends");
+//                graphPlot.createLineChart(fingerRomChart,romDates,);
+            }
+        }catch (Exception e){
+            Toast.makeText(getContext(),"Error in setFingerRom(): "+e.toString(),Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     public void setRomData(int p_id){
         try{
 
@@ -1002,12 +914,16 @@ public class HomeDashboard extends Fragment {
                     break;
                 }
             }
-            startCountAnimation(gameScoreData, gameScoreText);
-            tvSessionTime.setText(String.valueOf(sessionPlayTime)+" min");
+//            startCountAnimation(gameScoreData, gameScoreText);
+            gameScoreText.setText(String.valueOf(gameScoreData));
+            tvSessionTime.setText(String.valueOf(sessionPlayTime));
+//            startCountAnimation(Math.toIntExact(sessionPlayTime),tvSessionTime);
             ArrayList<PieEntry> entries = new ArrayList<>();
             entries.add(new PieEntry(successScoreData));
             entries.add(new PieEntry(100 - successScoreData));
-            graphPlot.createPieChart(successScorePieChart, entries, String.valueOf(Math.round(successScoreData)), Color.parseColor("#c2934e"));
+            graphPlot.createPieChart(successScorePieChart, entries, String.valueOf(Math.round(successScoreData)), Color.parseColor("#4a6fe8"));
+
+
         }catch (Exception e){
             Toast.makeText(getContext(), "Error in setSessionDetails:"+e.toString(), Toast.LENGTH_SHORT).show();
         }
@@ -1142,24 +1058,37 @@ public class HomeDashboard extends Fragment {
 
     public void plotAllFigureRom(String joint,int color){
         try{
+            int thumb=0,index=0,middle=0,ring=0,pinky=0,wrist=0;
+            int max=Integer.MIN_VALUE;
+            int min=Integer.MAX_VALUE;
             ArrayList<BarEntry> barData = new ArrayList<>();
             if (joint.toLowerCase().equals("pip")) {
+                thumb=romPerSession.getThumbPipMax()-romPerSession.getThumbPipMin();
+                index=romPerSession.getIndexPipMax()-romPerSession.getIndexPipMin();
+                middle=romPerSession.getMiddlePipMax()-romPerSession.getMiddlePipMin();
+                ring=romPerSession.getRingPipMax()-romPerSession.getRingPipMin();
+                pinky=romPerSession.getLittlePipMax()-romPerSession.getLittlePipMin();
+                wrist=romPerSession.getWristMax()-romPerSession.getWristMin();
+//
 
-                barData.add(new BarEntry(0, getPeakData(pipThumb)));
-                barData.add(new BarEntry(1, getPeakData(pipIndex)));
-                barData.add(new BarEntry(2, getPeakData(pipMiddle)));
-                barData.add(new BarEntry(3, getPeakData(pipRing)));
-                barData.add(new BarEntry(4, getPeakData(pipLittle)));
-                barData.add(new BarEntry(5, getPeakData(wrist)));
             }else {
-                barData.add(new BarEntry(0, getPeakData(mcpThumb)));
-                barData.add(new BarEntry(1, getPeakData(mcpIndex)));
-                barData.add(new BarEntry(2, getPeakData(mcpMiddle)));
-                barData.add(new BarEntry(3, getPeakData(mcpRing)));
-                barData.add(new BarEntry(4, getPeakData(mcpLittle)));
-                barData.add(new BarEntry(5, getPeakData(wrist)));
+                thumb=romPerSession.getThumbMcpMax()-romPerSession.getThumbMcpMin();
+                index=romPerSession.getIndexMcpMax()-romPerSession.getIndexMcpMin();
+                middle=romPerSession.getMiddleMcpMax()-romPerSession.getMiddleMcpMin();
+                ring=romPerSession.getRingMcpMax()-romPerSession.getRingMcpMin();
+                pinky=romPerSession.getLittleMcpMax()-romPerSession.getRingMcpMin();
+                wrist=romPerSession.getWristMax()-romPerSession.getWristMin();
             }
-            graphPlot.setBarChartData(successRateBarChart, "", barData, 90,color);
+            max=Math.max(thumb,Math.max(index,Math.max(middle,Math.max(ring,Math.max(pinky,wrist)))));
+            min=Math.min(thumb,Math.min(index,Math.min(middle,Math.min(ring,Math.min(pinky,wrist)))));
+
+            barData.add(new BarEntry(0, thumb));
+            barData.add(new BarEntry(1, index));
+            barData.add(new BarEntry(2, middle));
+            barData.add(new BarEntry(3, ring));
+            barData.add(new BarEntry(4, pinky));
+            barData.add(new BarEntry(5, wrist));
+            graphPlot.setBarChartData(successRateBarChart, "", barData, 90,color,min,max);
 
         }catch (Exception e){
 
@@ -1170,14 +1099,18 @@ public class HomeDashboard extends Fragment {
 
     public  void  setFingerDataOnScreenLoad(String handSegment){
         try{
+            setAlpha(0);
             plotAllFigureRom("pip",Color.parseColor("#DC6868"));
         switch (handSegment) {
             case "T":
                 setLineChart(romChart, "Thumb (PIP)", pipThumb, Color.parseColor("#e85f56"));
-//                setLineChart(mcpLineChart, "Thumb (MCP)", mcpThumb, Color.parseColor("#4a9150"));
                 fingerIndex = 1;
                 setVisibility(1);
-                romPointerScore.setText(String.valueOf(getPeakData(pipThumb)));
+                romPointerScore.setText(String.valueOf(romPerSession.getThumbPipMax()-romPerSession.getThumbPipMin()));
+                mcpScore=String.valueOf(romPerSession.getThumbMcpMax()-romPerSession.getThumbMcpMin());
+                pipScore=String.valueOf(romPerSession.getThumbPipMax()-romPerSession.getThumbPipMin());
+//                romPointerScore.setText(String.valueOf(getPeakData(pipThumb)));
+//                romPointerScore.setText(String.valueOf(pipScoreList[fingerIndex]));
                 ivIndexIndicator.setColorFilter(null);
                 ivThumbIndicator.setColorFilter(Color.RED);
                 ivMiddleIndicator.setColorFilter(null);
@@ -1194,8 +1127,11 @@ public class HomeDashboard extends Fragment {
 //                setLineChart(mcpLineChart, "Index (MCP)", mcpIndex, Color.parseColor("#4a9150"));
                 fingerIndex = 2;
                 setVisibility(2);
-                romPointerScore.setText(String.valueOf(getPeakData(pipIndex)));
+//                romPointerScore.setText(String.valueOf(getPeakData(pipIndex)));
 //                romPointerScore.setText(String.valueOf(pipScoreList[fingerIndex]));
+                romPointerScore.setText(String.valueOf(romPerSession.getIndexPipMax()-romPerSession.getIndexPipMin()));
+                mcpScore=String.valueOf(romPerSession.getIndexMcpMax()-romPerSession.getIndexMcpMin());
+                pipScore=String.valueOf(romPerSession.getIndexPipMax()-romPerSession.getIndexPipMin());
                 ivIndexIndicator.setColorFilter(Color.RED);
                 ivThumbIndicator.setColorFilter(null);
                 ivMiddleIndicator.setColorFilter(null);
@@ -1213,8 +1149,10 @@ public class HomeDashboard extends Fragment {
 //                setLineChart(mcpLineChart, "Middle (MCP)", mcpMiddle, Color.parseColor("#4a9150"));
                 fingerIndex = 3;
                 setVisibility(3);
-//                romPointerScore.setText(String.valueOf(romPerSession.getMiddlePipMax()-romPerSession.getMiddlePipMin()));
-                romPointerScore.setText(String.valueOf(getPeakData(pipMiddle)));
+                romPointerScore.setText(String.valueOf(romPerSession.getMiddlePipMax()-romPerSession.getMiddlePipMin()));
+                mcpScore=String.valueOf(romPerSession.getMiddleMcpMax()-romPerSession.getMiddleMcpMin());
+                pipScore=String.valueOf(romPerSession.getMiddlePipMax()-romPerSession.getMiddlePipMin());
+//                romPointerScore.setText(String.valueOf(getPeakData(pipMiddle)));
 //                romPointerScore.setText(String.valueOf(pipScoreList[fingerIndex]));
                 ivIndexIndicator.setColorFilter(null);
                 ivThumbIndicator.setColorFilter(null);
@@ -1232,8 +1170,11 @@ public class HomeDashboard extends Fragment {
 //                setLineChart(mcpLineChart, "Ring (MCP)", mcpRing, Color.parseColor("#4a9150"));
                 fingerIndex = 4;
                 setVisibility(4);
+                romPointerScore.setText(String.valueOf(romPerSession.getRingPipMax()-romPerSession.getRingPipMin()));
+                mcpScore=String.valueOf(romPerSession.getRingMcpMax()-romPerSession.getRingMcpMin());
+                pipScore=String.valueOf(romPerSession.getRingPipMax()-romPerSession.getRingPipMin());
 //                romPointerScore.setText(String.valueOf(romPerSession.getRingPipMax()-romPerSession.getRingPipMin()));
-                romPointerScore.setText(String.valueOf(getPeakData(pipRing)));
+//                romPointerScore.setText(String.valueOf(getPeakData(pipRing)));
 //                romPointerScore.setText(String.valueOf(pipScoreList[fingerIndex]));
                 ivIndexIndicator.setColorFilter(null);
                 ivThumbIndicator.setColorFilter(null);
@@ -1250,7 +1191,10 @@ public class HomeDashboard extends Fragment {
                 setLineChart(romChart, "Pinky (PIP)", pipLittle, Color.parseColor("#e85f56"));
                 fingerIndex = 5;
                 setVisibility(5);
-                romPointerScore.setText(String.valueOf(getPeakData(pipLittle)));
+                romPointerScore.setText(String.valueOf(romPerSession.getLittlePipMax()-romPerSession.getLittlePipMin()));
+                mcpScore=String.valueOf(romPerSession.getLittleMcpMax()-romPerSession.getLittleMcpMin());
+                pipScore=String.valueOf(romPerSession.getLittlePipMax()-romPerSession.getLittlePipMin());
+//                romPointerScore.setText(String.valueOf(getPeakData(pipLittle)));
                 ivIndexIndicator.setColorFilter(null);
                 ivThumbIndicator.setColorFilter(null);
                 ivMiddleIndicator.setColorFilter(null);
@@ -1267,6 +1211,9 @@ public class HomeDashboard extends Fragment {
 //                mcpLineChart.setVisibility(View.INVISIBLE);
                 fingerIndex = 0;
                 setVisibility(0);
+                romPointerScore.setText(String.valueOf(romPerSession.getWristMax()-romPerSession.getWristMin()));
+//                mcpScore=String.valueOf(romPerSession.getMiddleMcpMax()-romPerSession.getMiddleMcpMin());
+
                 ivIndexIndicator.setColorFilter(null);
                 ivThumbIndicator.setColorFilter(null);
                 ivMiddleIndicator.setColorFilter(null);
@@ -1275,40 +1222,42 @@ public class HomeDashboard extends Fragment {
                 ivWristIndicator.setColorFilter(Color.RED);
                 tvFingerNames.setText("Wrist");
                 ivWristIndicator.performClick();
-                romPointerScore.setText(String.valueOf(getPeakData(wrist)));
+//                romPointerScore.setText(String.valueOf(getPeakData(wrist)));
 //                romPointerScore.setText(String.valueOf(pipScoreList[fingerIndex]));
                 pipPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
                 mcpPointer.setBackground(getResources().getDrawable(R.drawable.pip_tab_grey));
                 break;
 
         }
+
+        setFingerRom(fingerIndex);
         }catch(Exception ex){
             Toast.makeText(getContext(),"Error in setFingerDataOnScreenLoad()"+ex.toString(),Toast.LENGTH_SHORT).show();
 
         }
     }
 
-    public void setPIP(){
-
-        tvPIPScore.setTextColor(Color.parseColor("#ff6666"));
-        tvMcpScore.setTextColor(getResources().getColor(R.color.grey));
-        tvPipTitle.setTextColor(Color.parseColor("#cf5151"));
-        tvMcpTilte.setTextColor(getResources().getColor(R.color.grey));
-//        tvPipCartTitle.setTextColor(getResources().getColor(R.color.dark_blue));
-//        tvMcpChartTitle.setTextColor(getResources().getColor(R.color.light_grey));
-        setAlpha(0);
-        isTextClicked=true;
-
-    }
-    public void setMcp(){
-        tvPIPScore.setTextColor(getResources().getColor(R.color.grey));
-        tvMcpScore.setTextColor(Color.parseColor("#4a9150"));
-        tvPipTitle.setTextColor(getResources().getColor(R.color.grey));
-        tvMcpTilte.setTextColor(Color.parseColor("#2ea638"));
-//        tvPipCartTitle.setTextColor(getResources().getColor(R.color.light_grey));
-//        tvMcpChartTitle.setTextColor(getResources().getColor(R.color.dark_blue));
-        setAlpha(1);
-    }
+//    public void setPIP(){
+//
+//        tvPIPScore.setTextColor(Color.parseColor("#ff6666"));
+//        tvMcpScore.setTextColor(getResources().getColor(R.color.grey));
+//        tvPipTitle.setTextColor(Color.parseColor("#cf5151"));
+//        tvMcpTilte.setTextColor(getResources().getColor(R.color.grey));
+////        tvPipCartTitle.setTextColor(getResources().getColor(R.color.dark_blue));
+////        tvMcpChartTitle.setTextColor(getResources().getColor(R.color.light_grey));
+//        setAlpha(0);
+//        isTextClicked=true;
+//
+//    }
+//    public void setMcp(){
+//        tvPIPScore.setTextColor(getResources().getColor(R.color.grey));
+//        tvMcpScore.setTextColor(Color.parseColor("#4a9150"));
+//        tvPipTitle.setTextColor(getResources().getColor(R.color.grey));
+//        tvMcpTilte.setTextColor(Color.parseColor("#2ea638"));
+////        tvPipCartTitle.setTextColor(getResources().getColor(R.color.light_grey));
+////        tvMcpChartTitle.setTextColor(getResources().getColor(R.color.dark_blue));
+//        setAlpha(1);
+//    }
 
 
         // to make click animation of fingers touch points
@@ -1473,32 +1422,14 @@ public class HomeDashboard extends Fragment {
                 maxYaxis=arrayList.get(i);
             }
 
-
-           // romData.add(new Entry(i,Float.parseFloat(String.valueOf(Math.random()*10))));
-//            mcpLineChart.setVisibility(View.VISIBLE);
             romData.add(new Entry(xValues,arrayList.get(i)));
         }
-        //romChart.setVisibility(View.VISIBLE);
 
-        graphPlot.createLineChart(lineChart,null,romData,label,graphColor,minXaxis,minYaxis,maxXaxis,maxYaxis);
-        //createLineChart(romChart,romData,label,Color.WHITE);
+
+        graphPlot.createLineChart(lineChart,null,romData,null,label,graphColor,minXaxis,minYaxis,maxXaxis,maxYaxis,"");
+
     }
 
-
-
-
-    public void openGame(String packageName){
-        Intent intent =getActivity().getApplicationContext().getPackageManager().getLaunchIntentForPackage(packageName);
-        if (intent!=null){
-            Toast.makeText(getActivity().getApplicationContext().getApplicationContext(),"Opening Game",Toast.LENGTH_SHORT).show();
-            startActivity(intent);
-            //getActivity().finishAndRemoveTask();
-        }else
-        {
-            Toast.makeText(getActivity().getApplicationContext(), "App not installed",Toast.LENGTH_SHORT).show();
-        }
-        isGameSarted=true;
-    }
 
     public void refreshActivity(){
         getActivity().finish();
@@ -1510,9 +1441,6 @@ public class HomeDashboard extends Fragment {
         int lastGameId=0;
         fileDataBase=new FileDataBase(getActivity().getApplicationContext());
         String folderName="patient_"+String.valueOf(p_id);
-//        LocalDateTime ssnStTime,ssnEndTime;
-//
-//        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyy   HH:mm");
 
         try {
             String allSessionData= fileDataBase.readFile("Galanto/RehabRelive/"+folderName,"all_sessions.json");
@@ -1524,39 +1452,30 @@ public class HomeDashboard extends Fragment {
 
             JSONArray jsonArray=jsonObject.getJSONArray("allSessionDatas");
             JSONObject lastJsonObject=jsonArray.getJSONObject(jsonArray.length()-1);
+            lastSession=lastJsonObject.getString("session_id");
 
-//            totalSessionsCount=jsonArray.length();
-//            if(lastJsonObject.has("hit_rate")){
-//                hitRate=Float.parseFloat(lastJsonObject.getString("hit_rate"));
-//            }
-//
-//            ssnStTime= LocalDateTime.parse(lastJsonObject.getString("start_time_stamp"),formatter1);
-//            ssnEndTime=LocalDateTime.parse(lastJsonObject.getString("stop_time_stamp"),formatter1);
-//            timeElapsedSession= ssnStTime.until(ssnEndTime, ChronoUnit.MINUTES);
-//
-//            gameScore=new ArrayList<>();
-//            successRate=new ArrayList<>();
             handSegment=new ArrayList<>();
-//            romPerSessionsArray=new ArrayList<>();
+            romPerSessionsArray=new ArrayList<>();
             handSegment.add(lastJsonObject.getString("hand_segments"));
+            setRomPerJointData(jsonArray.length()-1);
 
 //            if(jsonArray.length()>0){
 ////                sessionPlayTime =0l;
 //                for(int i=0;i<jsonArray.length();i++){
-//                    ssnStTime= LocalDateTime.parse(jsonArray.getJSONObject(i).getString("start_time_stamp"),formatter1);
-//                    ssnEndTime=LocalDateTime.parse(jsonArray.getJSONObject(i).getString("stop_time_stamp"),formatter1);
+////                    ssnStTime= LocalDateTime.parse(jsonArray.getJSONObject(i).getString("start_time_stamp"),formatter1);
+////                    ssnEndTime=LocalDateTime.parse(jsonArray.getJSONObject(i).getString("stop_time_stamp"),formatter1);
 //
-//
+////
 ////                    sessionPlayTime +=ssnStTime.until(ssnEndTime, ChronoUnit.MINUTES);
 ////                    gameScore.add(Math.round(Float.parseFloat(jsonArray.getJSONObject(i).getString("game_score"))));
 ////                    successRate.add(Math.round(Float.parseFloat(jsonArray.getJSONObject(i).getString("hit_rate"))));
 ////                    handSegment.add(jsonArray.getJSONObject(i).getString("hand_segments"));
-////                    romPerSessionsArray.add(new RomPerSession(jsonArray.getJSONObject(i).getInt("thumb_mcp_max"),jsonArray.getJSONObject(i).getInt("thumb_mcp_min"),jsonArray.getJSONObject(i).getInt("thumb_pip_max"),jsonArray.getJSONObject(i).getInt("thumb_pip_min"),
-////                            jsonArray.getJSONObject(i).getInt("index_mcp_max"),jsonArray.getJSONObject(i).getInt("index_mcp_min"),jsonArray.getJSONObject(i).getInt("index_pip_max"),jsonArray.getJSONObject(i).getInt("index_pip_min"),
-////                            jsonArray.getJSONObject(i).getInt("middle_mcp_max"),jsonArray.getJSONObject(i).getInt("middle_mcp_min"),jsonArray.getJSONObject(i).getInt("middle_pip_max"),jsonArray.getJSONObject(i).getInt("middle_pip_min"),
-////                            jsonArray.getJSONObject(i).getInt("ring_mcp_max"),jsonArray.getJSONObject(i).getInt("ring_mcp_min"),jsonArray.getJSONObject(i).getInt("ring_pip_max"),jsonArray.getJSONObject(i).getInt("ring_pip_min"),
-////                            jsonArray.getJSONObject(i).getInt("pinky_mcp_max"),jsonArray.getJSONObject(i).getInt("pinky_mcp_min"),jsonArray.getJSONObject(i).getInt("pinky_pip_max"),jsonArray.getJSONObject(i).getInt("pinky_pip_min"),
-////                            jsonArray.getJSONObject(i).getInt("wrist_max"),jsonArray.getJSONObject(i).getInt("wrist_min")));
+//                    romPerSessionsArray.add(new RomPerSession(jsonArray.getJSONObject(i).getInt("thumb_mcp_max"),jsonArray.getJSONObject(i).getInt("thumb_mcp_min"),jsonArray.getJSONObject(i).getInt("thumb_pip_max"),jsonArray.getJSONObject(i).getInt("thumb_pip_min"),
+//                            jsonArray.getJSONObject(i).getInt("index_mcp_max"),jsonArray.getJSONObject(i).getInt("index_mcp_min"),jsonArray.getJSONObject(i).getInt("index_pip_max"),jsonArray.getJSONObject(i).getInt("index_pip_min"),
+//                            jsonArray.getJSONObject(i).getInt("middle_mcp_max"),jsonArray.getJSONObject(i).getInt("middle_mcp_min"),jsonArray.getJSONObject(i).getInt("middle_pip_max"),jsonArray.getJSONObject(i).getInt("middle_pip_min"),
+//                            jsonArray.getJSONObject(i).getInt("ring_mcp_max"),jsonArray.getJSONObject(i).getInt("ring_mcp_min"),jsonArray.getJSONObject(i).getInt("ring_pip_max"),jsonArray.getJSONObject(i).getInt("ring_pip_min"),
+//                            jsonArray.getJSONObject(i).getInt("pinky_mcp_max"),jsonArray.getJSONObject(i).getInt("pinky_mcp_min"),jsonArray.getJSONObject(i).getInt("pinky_pip_max"),jsonArray.getJSONObject(i).getInt("pinky_pip_min"),
+//                            jsonArray.getJSONObject(i).getInt("wrist_max"),jsonArray.getJSONObject(i).getInt("wrist_min")));
 //                }
 //            }
 
@@ -1593,59 +1512,60 @@ public class HomeDashboard extends Fragment {
 //
 //                }
 //
-//            }else{
+//            }
+//            else{
 //
-////                String lastSessionData=fileDataBase.readFile("Galanto/RehabRelive/"+folderName,lastSession+".json");
-////                if (lastSessionData.isEmpty()){
-////                    return;
-////                }
-////                JSONObject object=new JSONObject(lastSessionData);
-////                JSONArray array=object.getJSONArray("fineSessionDatas");
+                String lastSessionData=fileDataBase.readFile("Galanto/RehabRelive/"+folderName,lastSession+".json");
+                if (lastSessionData.isEmpty()){
+                    return;
+                }
+                JSONObject object=new JSONObject(lastSessionData);
+                JSONArray array=object.getJSONArray("fineSessionDatas");
 ////
 ////                // Only read 100 data points
-////                int increment=1;
-////                if (array.length()>200){
-////                    increment=array.length()/200;
-////                    //arrayLength=array.length();
-////                }
+                int increment=1;
+                if (array.length()>100){
+                    increment=array.length()/100;
+                    //arrayLength=array.length();
+                }
 //
-////                timeStamp=new ArrayList<>();
-////                mcpThumb  =new ArrayList<>();
-////                mcpIndex	=new ArrayList<>();
-////                mcpMiddle=new ArrayList<>();
-////                mcpRing		=new ArrayList<>();
-////                mcpLittle=new ArrayList<>();
-////                pipIndex	=new ArrayList<>();
-////                pipMiddle=new ArrayList<>();
-////                pipRing		=new ArrayList<>();
-////                pipLittle=new ArrayList<>();
-////                pipThumb	=new ArrayList<>();
-////                wrist		=new ArrayList<>();
-////                mcpJoints=new HashMap<Integer,ArrayList<Float>>() {};
-////                pipJoints=new HashMap<Integer,ArrayList<Float>>() {};
-//
-//
-////                for (int i =0;i<array.length();i+=increment){
-////                    JSONObject arrayObject=array.getJSONObject(i);
-////
-////
-////                    timeStamp.add(Float.parseFloat(arrayObject.getString("time_since_startup")));
-////
-////                    mcpThumb.add(Float.parseFloat(arrayObject.getString("thumb_mcp")));
-////                    mcpIndex.add(Float.parseFloat(arrayObject.getString("index_mcp")));
-////                    mcpMiddle.add(Float.parseFloat(arrayObject.getString("middle_mcp")));
-////                    mcpRing.add(Float.parseFloat(arrayObject.getString("ring_mcp")));
-////                    mcpLittle.add(Float.parseFloat(arrayObject.getString("pinky_mcp")));
-////
-////                    pipIndex.add(Float.parseFloat(arrayObject.getString("index_pip")));
-////                    pipMiddle.add(Float.parseFloat(arrayObject.getString("middle_pip")));
-////                    pipRing.add(Float.parseFloat(arrayObject.getString("ring_pip")));
-////                    pipLittle.add(Float.parseFloat(arrayObject.getString("pinky_pip")));
-////                    pipThumb.add(Float.parseFloat(arrayObject.getString("thumb_pip")));
-////
-////                    wrist.add(Float.parseFloat(arrayObject.getString("wrist")));
-////
-////                }
+                timeStamp=new ArrayList<>();
+                mcpThumb  =new ArrayList<>();
+                mcpIndex	=new ArrayList<>();
+                mcpMiddle=new ArrayList<>();
+                mcpRing		=new ArrayList<>();
+                mcpLittle=new ArrayList<>();
+                pipIndex	=new ArrayList<>();
+                pipMiddle=new ArrayList<>();
+                pipRing		=new ArrayList<>();
+                pipLittle=new ArrayList<>();
+                pipThumb	=new ArrayList<>();
+                wrist		=new ArrayList<>();
+                mcpJoints=new HashMap<Integer,ArrayList<Float>>() {};
+                pipJoints=new HashMap<Integer,ArrayList<Float>>() {};
+
+
+                for (int i =0;i<array.length();i+=increment){
+                    JSONObject arrayObject=array.getJSONObject(i);
+
+
+                    timeStamp.add(Float.parseFloat(arrayObject.getString("time_since_startup")));
+
+                    mcpThumb.add(Float.parseFloat(arrayObject.getString("thumb_mcp")));
+                    mcpIndex.add(Float.parseFloat(arrayObject.getString("index_mcp")));
+                    mcpMiddle.add(Float.parseFloat(arrayObject.getString("middle_mcp")));
+                    mcpRing.add(Float.parseFloat(arrayObject.getString("ring_mcp")));
+                    mcpLittle.add(Float.parseFloat(arrayObject.getString("pinky_mcp")));
+
+                    pipIndex.add(Float.parseFloat(arrayObject.getString("index_pip")));
+                    pipMiddle.add(Float.parseFloat(arrayObject.getString("middle_pip")));
+                    pipRing.add(Float.parseFloat(arrayObject.getString("ring_pip")));
+                    pipLittle.add(Float.parseFloat(arrayObject.getString("pinky_pip")));
+                    pipThumb.add(Float.parseFloat(arrayObject.getString("thumb_pip")));
+
+                    wrist.add(Float.parseFloat(arrayObject.getString("wrist")));
+
+                }
 ////                mcpJoints.put(1,mcpThumb);
 ////                mcpJoints.put(2,mcpIndex);
 ////                mcpJoints.put(3,mcpMiddle);
@@ -1669,14 +1589,14 @@ public class HomeDashboard extends Fragment {
         }
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-     if(isGameSarted){
-            getActivity().startActivity(getActivity().getIntent());
-        }
-        isGameSarted=false;
-
-    }
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//     if(isGameSarted){
+//            getActivity().startActivity(getActivity().getIntent());
+//        }
+//        isGameSarted=false;
+//
+//    }
 
 }

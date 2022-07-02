@@ -27,6 +27,7 @@ public class SessionsLogic {
 
     public SessionsLogic(Context context) {
         this.context = context;
+        fileDataBase=new FileDataBase(context);
     }
 
     ArrayList<Float> timeStampPerSessionArray,mcpThumbArray, mcpIndexArray, mcpMiddleArray, mcpRingArray, mcpLittleArray

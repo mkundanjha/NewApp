@@ -6,4 +6,45 @@
     android:layout_height="match_parent"
     tools:context="com.galanto.GalantoHealth.LoginActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/usrIconsScrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="500dp"
+        android:layout_marginBottom="50dp"
+        android:fillViewport="true"
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            tools:ignore="InvalidId" />
+    </androidx.core.widget.NestedScrollView>
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="409dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/rounded_corner2"
+        android:foregroundTintMode="add"
+        android:iconifiedByDefault="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/gotoAddUsrBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/add_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

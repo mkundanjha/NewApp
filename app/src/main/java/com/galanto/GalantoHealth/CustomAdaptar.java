@@ -39,6 +39,10 @@ public class CustomAdaptar extends RecyclerView.Adapter<CustomAdaptar.ViewHolder
         this.arrayList = arrayList;
     }
 
+    public void filterList(ArrayList<Patients> filteredList){
+        arrayList=filteredList;
+        notifyDataSetChanged();
+    }
 
 
 
