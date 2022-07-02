@@ -6,4 +6,31 @@
     android:layout_height="match_parent"
     tools:context="com.galanto.GalantoHealth.SplashScreen">
 
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="203dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="278dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/splash_logo_main" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Galanto\nInnovation"
+        android:textSize="25dp"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:textAlignment="center"
+        android:textColor="@color/accent_blue"
+        app:layout_constraintEnd_toEndOf="@+id/imageView20"
+        app:layout_constraintStart_toStartOf="@+id/imageView20"
+        app:layout_constraintTop_toBottomOf="@+id/imageView20" />
 </androidx.constraintlayout.widget.ConstraintLayout>

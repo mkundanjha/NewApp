@@ -45,11 +45,11 @@ import app.futured.donut.DonutProgressView;
 public class Home extends Fragment {
 
     View view;
-    ImageView animImage;
+    ImageView animImage,ivRomChange;
     ConstraintLayout setGoalCard;
     DonutProgressView goalGraph,mvScGoalGraph;
     TextView tvGameScore,tvMovementScore,tvRomLast,tvRomBest,tvUsername,tvDay,tvDate,tvLastSessionTime,tvTotalSessionsTime,tvGoalstext
-            , tvResetGoals;
+            , tvResetGoals,romPercentageChange,tvUserId,goalHeader;
     Button btnMvScore,btnRom,btnSpeed,btnSetGoals, btnSetGoalValue,cancelGoals;
     Button[] buttons;
     EditText etGetGoalValue;
@@ -67,8 +67,9 @@ public class Home extends Fragment {
     Float lastRom=0f,totalTime,lastTime;
     GraphPlot graphPlot;
     Logics logics;
-    Boolean isGameSarted;
-    int romGoal=0;
+    Boolean isGameSarted=false,isMovGoalSet=false;
+    int romGoal=0,movValue=0,romValue=0;
+    String romGoalValue="",movGoalValue="";
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,7 +134,10 @@ public class Home extends Fragment {
             tvGoalstext=view.findViewById(R.id.goalDataText);
             tvResetGoals =view.findViewById(R.id.resetGoals);
             cancelGoals=view.findViewById(R.id.cancelGoalValue);
-
+            romPercentageChange=view.findViewById(R.id.romPerChange);
+            ivRomChange=view.findViewById(R.id.ivRomChange);
+            tvUserId=view.findViewById(R.id.userId);
+            goalHeader=view.findViewById(R.id.goalHeader);
 
 
             tvUsername.setText(userName);
@@ -155,7 +159,7 @@ public class Home extends Fragment {
 
             if (isNewUser == false) {
                 try {
-
+                    tvUserId.setText("ID: "+String.valueOf(p_id));
                     // Read the data of All rom file
                     sessionsLogic.getAverageRom(p_id);
 
@@ -174,12 +178,13 @@ public class Home extends Fragment {
                     totalMovementScore = (int) logics.sumOfArrayFloat(movementScoreArray);
                     bestRom = (int) logics.findMax(averageRomArray);
                     lastRom = averageRomArray.get((averageRomArray.size() - 1));
+                    int romPerChange= Math.round((lastRom-averageRomArray.get(0))/averageRomArray.get(0))*100;
                     initializeTimeDiffArray();
                     totalTime = logics.sumOfArrayFloat(timeDiffArray);
                     lastTime = timeDiffArray.get(timeDiffArray.size() - 1);
 
 
-                    //Toast.makeText(getContext(),String.valueOf(bestRom),Toast.LENGTH_SHORT).show();
+
 
                     //Set values of text views
                     tvMovementScore.setText(String.valueOf(totalMovementScore));
@@ -191,6 +196,15 @@ public class Home extends Fragment {
                     tvTotalSessionsTime.setText(String.valueOf(Math.round(totalTime)) + " min");
                     tvLastSessionTime.setText(String.valueOf(Math.round(lastTime)) + " min");
 
+                    romPercentageChange.setText(String.valueOf(romPerChange));
+                    if (romPerChange>0){
+
+                        ivRomChange.setImageDrawable(getResources().getDrawable(R.drawable.ic_increase));
+                    }else if(romPerChange<0){
+
+                        ivRomChange.setImageDrawable(getResources().getDrawable(R.drawable.ic_decrease));
+                    }
+
                     // Set value for a pie chart
                     ArrayList<PieEntry> entries = new ArrayList<>();
                     Float score = 0.4f;
@@ -198,9 +212,9 @@ public class Home extends Fragment {
                     entries.add(new PieEntry(1 - score));
 
                     //Rom graph
-                    logics.setLineChart(homePageGraph, "", dailyRomDate, averageRomArray, Color.RED);
+                    logics.setLineChart(homePageGraph, "", dailyRomDate, averageRomArray,null, Color.RED,"");
                     romGoal=readGoalData(p_id);
-
+//                    readGoalData(p_id);
                     mvScGoalGraph.setVisibility(View.INVISIBLE);
                     if (romGoal>0) {
                         tvResetGoals.setVisibility(View.VISIBLE);
@@ -209,10 +223,20 @@ public class Home extends Fragment {
                         btnSetGoals.setVisibility(View.INVISIBLE);
                         tvGoalstext.setText("  ROM:\n" + Math.round(lastRom)+"/"+romGoal);
                         graphPlot.setupDonutChart(goalGraph, (float) Math.round(lastRom), (float) romGoal, Color.parseColor("#5493f7"));
+
                     }else {
-                        graphPlot.setupDonutChart(goalGraph, 0f, 0f, Color.parseColor("#5493f7"));
+                        graphPlot.setupDonutChart(goalGraph, 0f, (float) romValue, Color.parseColor("#5493f7"));
+
                     }
-                    graphPlot.setupDonutChart(mvScGoalGraph, 0f, 0f, Color.parseColor("#ff636d"));
+//                    if (movValue>0){
+//                        mvScGoalGraph.setVisibility(View.VISIBLE);
+//                        mvScGoalGraph.setAlpha(1);
+//                        graphPlot.setupDonutChart(mvScGoalGraph, 40f, (float) movValue, Color.parseColor("#54c4b0"));
+//
+//                    }else {
+//                        mvScGoalGraph.setVisibility(View.INVISIBLE);
+//                    }
+//                    graphPlot.setupDonutChart(mvScGoalGraph, 0f, 0f, Color.parseColor("#ff636d"));
 //                graphPlot.createPieChart(homePieChart,entries,String.valueOf(score), getResources().getColor(R.color.accent_blue));
                 } catch (Exception e) {
                     Toast.makeText(getContext(), "Error: " + e.toString(), Toast.LENGTH_SHORT).show();
@@ -224,7 +248,7 @@ public class Home extends Fragment {
                 public void onClick(View v) {
                     setButtonAttributes(btnMvScore);
                     //Movement Graph
-                    logics.setLineChart(homePageGraph, "", null, movementScoreArray, Color.BLUE);
+                    logics.setLineChart(homePageGraph, "", null, movementScoreArray,null, Color.BLUE,"");
                 }
             });
 
@@ -233,7 +257,7 @@ public class Home extends Fragment {
                 public void onClick(View v) {
                     setButtonAttributes(btnRom);
                     //Rom Graph
-                    logics.setLineChart(homePageGraph, "", dailyRomDate, averageRomArray, Color.RED);
+                    logics.setLineChart(homePageGraph, "", dailyRomDate, averageRomArray,null, Color.RED,"");
                 }
             });
 
@@ -253,6 +277,8 @@ public class Home extends Fragment {
                     mvScGoalGraph.setVisibility(View.INVISIBLE);
                     goalGraph.setVisibility(View.INVISIBLE);
                 setGoalCard.setVisibility(View.VISIBLE);
+                    cancelGoals.setEnabled(false);
+                    cancelGoals.setBackgroundColor(Color.GRAY);
 
                 }
             });
@@ -262,6 +288,9 @@ public class Home extends Fragment {
                     goalGraph.setAlpha(0.1f);
                     btnSetGoals.setVisibility(View.VISIBLE);
                     tvResetGoals.setVisibility(View.INVISIBLE);
+                    romGoalValue="";
+                    movGoalValue="";
+                    isMovGoalSet=false;
                 }
             });
 
@@ -276,6 +305,52 @@ public class Home extends Fragment {
                         Toast.makeText(myContext,"Goals cannot be non numeric or zero",Toast.LENGTH_SHORT).show();
                     }
                 }
+//                String goal=etGetGoalValue.getText().toString().trim();
+////                romGoalValue="";
+//
+//                    if(isMovGoalSet==false) {
+//                        if(!goal.isEmpty()){
+//                            romGoalValue = goal.trim();
+//                        }else {
+//                            romGoalValue="0";
+//                        }
+//
+//
+//
+//                        etGetGoalValue.setHint("Movement Goal");
+//                        goalHeader.setText("\nSet Daily Movement Goal\n");
+//                        etGetGoalValue.setText("");
+//                        cancelGoals.setEnabled(true);
+//                        cancelGoals.setBackgroundColor(Color.parseColor("#db515a"));
+//                    }else{
+//                        if(!goal.isEmpty()){
+//                            movGoalValue=goal.trim();
+//                        }else {
+//                            movGoalValue="0";
+//                        }
+//
+//                        etGetGoalValue.setHint("Daily Rom Goal");
+//                        goalHeader.setText("\nSet Daily Rom Goals\n\tMin:0\t\t Max:88");
+//                    }
+//
+//
+//
+//                if(isMovGoalSet==false){
+//                    isMovGoalSet=true;
+//                    return;
+//                }
+//
+//                try{
+////                    romGoalValue=goal;
+//                    if(Integer.parseInt(romGoalValue)!=0 && Integer.parseInt(movGoalValue)!=0) {
+//                        saveGoalData(p_id,romGoalValue,movGoalValue);
+//                    }else {
+//                        Toast.makeText(myContext,"Goals cannot be non numeric or zero",Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                }catch (Exception e){
+//                        Toast.makeText(myContext,"Goals cannot be non numeric or zero",Toast.LENGTH_SHORT).show();
+//                }
 
 //                mvScGoalGraph.setVisibility(View.VISIBLE);
                 goalGraph.setVisibility(View.VISIBLE);
@@ -284,7 +359,7 @@ public class Home extends Fragment {
                 goalGraph.setAlpha(1f);
                 setGoalCard.setVisibility(View.INVISIBLE);
                 romGoal=readGoalData(p_id);
-
+//                readGoalData(p_id);
                 Date currentDate=new Date();
                 SimpleDateFormat sdf=new SimpleDateFormat("yyy-MM-dd");
                 try {
@@ -314,7 +389,8 @@ public class Home extends Fragment {
                 mvScGoalGraph.setAlpha(1f);
                 goalGraph.setAlpha(1f);
                 setGoalCard.setVisibility(View.INVISIBLE);
-                romGoal=readGoalData(p_id);
+                romGoal= readGoalData(p_id);
+//                readGoalData(p_id);
                 if (romGoal>0) {
                     btnSetGoals.setVisibility(View.INVISIBLE);
                     tvResetGoals.setVisibility(View.VISIBLE);
@@ -409,28 +485,34 @@ public class Home extends Fragment {
     public int readGoalData(int p_id){
         FileDataBase fileDataBase=new FileDataBase(getContext());
         String result="";
-        int goalValue=0;
+
         try {
             result=fileDataBase.readFile("Galanto/RehabRelive/patient_" + String.valueOf(p_id), "goals.json");
             if (!result.isEmpty()){
                 JSONObject jsonObject=new JSONObject(result);
-                goalValue=Integer.parseInt(jsonObject.getString("romGoal"));
+                romGoal=Integer.parseInt(jsonObject.getString("romGoal"));
+//                movValue=Integer.parseInt(jsonObject.getString("movGoal"));
             }
 
         }catch (Exception e){
             Toast.makeText(getContext(),"Error in readGoalData: "+e.toString(),Toast.LENGTH_SHORT).show();
 
         }
-        return  goalValue;
+        return  romGoal;
     }
 
-//    @Override
-//    public void onResume(){
-//        super.onResume();
-//        if(isGameSarted){
-//            getActivity().startActivity(getActivity().getIntent());
-//        }
-//        isGameSarted=false;
-//
-//    }
+    public void refreshActivity(){
+        getActivity().finish();
+        getActivity().startActivity(getActivity().getIntent());
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(isGameSarted){
+            getActivity().startActivity(getActivity().getIntent());
+        }
+        isGameSarted=false;
+
+    }
 }

@@ -17,9 +17,6 @@
         android:paddingLeft="10dp"
         >
 
-
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout7"
             android:layout_width="wrap_content"
@@ -323,7 +320,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/source_sans_pro_bold"
-            android:text="Sessions"
+            android:text="Your Performance Report"
             android:textColor="@color/black"
             android:textSize="30dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -342,47 +339,64 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-            <LinearLayout
-                android:layout_width="110dp"
-                android:layout_height="140dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:orientation="vertical"
-                >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="130dp"
+                android:layout_height="160dp"
+                android:background="@color/accent_blue2">
+
                 <TextView
+                    android:id="@+id/textView46"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:text="Time"
-                    android:padding="5dp"
-                    android:background="@color/accent_blue2"
-                    android:gravity="center"
-                    android:textAlignment="gravity"
-                    android:textSize="23dp"
+                    android:background="@null"
                     android:fontFamily="@font/source_sans_pro_bold"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Time"
+                    android:textAlignment="gravity"
                     android:textColor="@color/white"
-                    />
+                    android:textSize="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/ssnTime"
                     android:layout_width="match_parent"
-                    android:layout_height="88dp"
-                    android:text="0 min"
-                    android:textColor="@color/grey"
+                    android:layout_height="70dp"
                     android:layout_margin="10dp"
+                    android:fontFamily="@font/quicksand_bold"
                     android:gravity="center"
+                    android:text="0"
                     android:textAlignment="gravity"
-                    android:fontFamily="@font/source_sans_pro_bold"
-                    android:textSize="35dp"/>
+                    android:textColor="@color/white"
+                    android:textSize="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView46" />
 
+                <TextView
+                    android:id="@+id/textView38"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:gravity="center"
+                    android:text="min"
+                    android:textAlignment="gravity"
+                    android:textSize="20dp"
 
-            </LinearLayout>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ssnTime" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/movCard"
             android:layout_width="130dp"
-            android:layout_height="140dp"
-            android:layout_marginStart="20dp"
+            android:layout_height="160dp"
+            android:layout_marginStart="45dp"
             android:layout_marginTop="20dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
@@ -393,20 +407,21 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/accent_blue2">
 
                 <TextView
                     android:id="@+id/textView36"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:background="@color/accent_blue2"
+                    android:background="@null"
                     android:fontFamily="@font/source_sans_pro_bold"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Mov Score"
                     android:textAlignment="gravity"
                     android:textColor="@color/white"
-                    android:textSize="23dp"
+                    android:textSize="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -414,15 +429,15 @@
                 <TextView
                     android:id="@+id/movScore"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="70dp"
                     android:layout_margin="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:fontFamily="@font/quicksand_bold"
                     android:gravity="center"
                     android:text="0"
-                    android:textColor="@color/grey"
                     android:textAlignment="gravity"
+                    android:textColor="@color/white"
                     android:textSize="40dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -432,10 +447,10 @@
                     android:id="@+id/textView37"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
                     android:text="moves"
-                    android:textSize="18dp"
-                    android:textColor="@color/grey"
-                    android:fontFamily="@font/source_sans_pro_bold"
+
+                    android:textSize="20dp"
                     app:layout_constraintEnd_toEndOf="@+id/movScore"
                     app:layout_constraintStart_toStartOf="@+id/movScore"
                     app:layout_constraintTop_toBottomOf="@+id/movScore" />
@@ -443,36 +458,22 @@
 
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/yourStatsHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/source_sans_pro_bold"
-            android:text="Your Performance"
-            android:textColor="@color/black"
-            android:textSize="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/statsCard" />
-
         <androidx.cardview.widget.CardView
             android:id="@+id/barGraphCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="20dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/statsCard"
-            app:layout_constraintStart_toEndOf="@+id/movCard"
-            app:layout_constraintTop_toTopOf="@+id/statsCard">
+            app:layout_constraintBottom_toBottomOf="@+id/romCard"
+            app:layout_constraintStart_toEndOf="@+id/romCard">
 
 
             <LinearLayout
-                android:layout_width="300dp"
-                android:layout_height="150dp"
+                android:layout_width="310dp"
+                android:layout_height="170dp"
                 android:orientation="vertical"
                 android:padding="10dp">
 
@@ -489,112 +490,15 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <ScrollView
-            android:id="@+id/cardScrollview"
-            android:layout_width="wrap_content"
-            android:layout_height="370dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="50dp"
-            android:paddingBottom="5dp"
-            android:scrollbars="none"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout7">
-
-            <LinearLayout
-                android:id="@+id/cardParent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-
-            </LinearLayout>
-        </ScrollView>
-
-
-
-
-        <LinearLayout
-            android:id="@+id/pip_score_layot"
-            android:layout_width="110dp"
-            android:layout_height="45dp"
-            android:background="@drawable/pip_tab"
-
-            android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout7">
-
-            <TextView
-                android:id="@+id/pipTitle"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:gravity="center"
-                android:text="PIP"
-                android:textAlignment="gravity"
-                android:textColor="#cf5151"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/pipScore"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:gravity="center"
-                android:text="30"
-                android:textAlignment="gravity"
-                android:textColor="#ff6666"
-                android:textSize="30dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/mcp_score_layout"
-            android:layout_width="110dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/pip_tab"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout7">
-
-            <TextView
-                android:id="@+id/mcpTitle"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:gravity="center"
-                android:text="MCP"
-                android:textAlignment="gravity"
-                android:textColor="@color/grey"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/mcpScore"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:gravity="center"
-                android:padding="0dp"
-                android:text="20"
-                android:textAlignment="gravity"
-                android:textColor="@color/grey"
-                android:textSize="30dp" />
-        </LinearLayout>
-
 
         <ImageButton
             android:id="@+id/refreshBtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_refresh"
             android:background="@drawable/rounded_corner2"
+            android:src="@drawable/ic_refresh"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -604,20 +508,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="33dp"
 
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
+
             app:cardCornerRadius="30dp"
             app:cardElevation="5dp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView13">
+            app:layout_constraintBottom_toTopOf="@+id/textView52"
+            app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
                 android:id="@+id/pipChartLayout"
-                android:layout_width="620dp"
-                android:layout_height="180dp"
+                android:layout_width="320dp"
+                android:layout_height="170dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:padding="10dp">
@@ -626,8 +529,8 @@
                     android:id="@+id/romChart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="0dp"
-                    android:layout_margin="0dp"/>
+                    android:layout_margin="0dp"
+                    android:padding="0dp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -729,10 +632,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand_bold"
-            android:text="deg"
+            android:text="o"
             android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="@+id/romPointerScore"
-            app:layout_constraintStart_toEndOf="@+id/romPointerScore" />
+            app:layout_constraintStart_toEndOf="@+id/romPointerScore"
+            app:layout_constraintTop_toTopOf="@+id/romPointerScore" />
 
 
 
@@ -748,11 +651,10 @@
             app:layout_constraintTop_toBottomOf="@+id/romPointerScore" />
 
         <LinearLayout
-            android:layout_width="100dp"
+            android:layout_width="90dp"
             android:layout_height="2dp"
-            android:layout_marginBottom="0dp"
-            android:orientation="horizontal"
             android:background="@color/lighter_gray"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/textView33"
             app:layout_constraintEnd_toEndOf="@+id/textView33"
             app:layout_constraintStart_toStartOf="@+id/textView33"></LinearLayout>
@@ -774,10 +676,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="150dp"
+            android:foreground="?android:attr/selectableItemBackground"
             android:background="@drawable/rounded_corner2"
             android:popupBackground="@color/white"
             android:textSize="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/pidText"
+            app:layout_constraintBottom_toBottomOf="@+id/refreshBtn"
             app:layout_constraintEnd_toStartOf="@+id/refreshBtn"
             app:layout_constraintTop_toTopOf="@+id/refreshBtn" />
 
@@ -786,6 +689,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
             android:background="@drawable/rounded_corner2"
             android:popupBackground="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/sessionSpinner"
@@ -796,178 +700,59 @@
             android:id="@+id/cardView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="33dp"
-            android:layout_marginTop="18dp"
-            app:cardElevation="10dp"
+            android:visibility="invisible"
             app:cardCornerRadius="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/yourStatsHeader">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="230dp"
-                android:layout_height="200dp"
-                android:background="@color/white">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout11"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/romPiechart"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <ImageView
-                    android:id="@+id/romIncreaseIcon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-
-                    android:layout_marginTop="30dp"
-                    android:scaleType="fitXY"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/constraintLayout11"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/romIncreaseText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/quicksand_bold"
-                    android:text="18%"
-                    android:textColor="@color/purple_500"
-
-                    android:textSize="20dp"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/romIncreaseIcon"
-                    app:layout_constraintEnd_toEndOf="@+id/romIncreaseIcon"
-                    app:layout_constraintStart_toStartOf="@+id/romIncreaseIcon"
-                    app:layout_constraintTop_toBottomOf="@+id/romIncreaseIcon" />
-
-                <TextView
-                    android:id="@+id/textView32"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/source_sans_pro_bold"
-                    android:text="Average ROM"
-                    android:textColor="#259cb8"
-                    android:textSize="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout11" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+            app:cardElevation="10dp"
+            app:layout_constraintStart_toEndOf="@+id/cardView15"
+            app:layout_constraintTop_toTopOf="@+id/cardView15"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            app:cardCornerRadius="30dp"
+            android:layout_width="130dp"
+            android:layout_height="160dp"
+            android:layout_marginStart="45dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView13"
-            app:layout_constraintStart_toEndOf="@+id/cardView13"
-            app:layout_constraintTop_toTopOf="@+id/cardView13">
+
+            app:layout_constraintBottom_toBottomOf="@+id/movCard"
+            app:layout_constraintStart_toEndOf="@+id/movCard"
+            app:layout_constraintTop_toTopOf="@+id/movCard">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="380dp"
-                android:layout_height="200dp"
-                android:background="@color/white">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout9"
-
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/scorePiechart"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/gameScoreCard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="10dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/constraintLayout9"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/constraintLayout9"
-                    app:layout_constraintTop_toTopOf="@+id/constraintLayout9">
-
-                    <LinearLayout
-                        android:id="@+id/gameScoreLayout"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:background="#5d6acf"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:id="@+id/gameScoreText"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:fontFamily="@font/quicksand_bold"
-                            android:gravity="center"
-                            android:text="25"
-                            android:textAlignment="center"
-
-                            android:textColor="@color/white"
-                            android:textSize="40dp" />
-                    </LinearLayout>
-
-
-                </androidx.cardview.widget.CardView>
+                android:id="@+id/constraintLayout9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/accent_blue2"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/textView27"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
                     android:fontFamily="@font/source_sans_pro_bold"
+                    android:gravity="center"
                     android:text="Success Rate"
-                    android:textColor="#259cb8"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/white"
                     android:textSize="20dp"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout9"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout9"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout9" />
+                    app:layout_constraintBottom_toTopOf="@+id/scorePiechart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textView31"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/source_sans_pro_bold"
-                    android:text="Game Score"
-                    android:textColor="#259cb8"
-                    android:textSize="20dp"
-                    app:layout_constraintEnd_toEndOf="@+id/gameScoreCard"
-                    app:layout_constraintStart_toStartOf="@+id/gameScoreCard"
-                    app:layout_constraintTop_toBottomOf="@+id/gameScoreCard" />
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/scorePiechart"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView27">
+
+                </com.github.mikephil.charting.charts.PieChart>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -1000,6 +785,127 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:layout_constraintStart_toEndOf="@+id/cardView14"
+            app:layout_constraintTop_toTopOf="@+id/cardView14">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="130dp"
+                android:layout_height="160dp"
+                android:background="@color/accent_blue2">
+
+                <TextView
+                    android:id="@+id/textView31"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:gravity="center"
+                    android:text="Game Score"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/gameScoreText"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+                <TextView
+                    android:id="@+id/textView48"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:gravity="center"
+                    android:text="points"
+                    android:textSize="20dp"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gameScoreText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="650dp"
+                android:layout_height="200dp">
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/fingerRomChart"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Motion"
+            android:textColor="@color/accent_blue2"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/romCard"
+            app:layout_constraintStart_toStartOf="@+id/romCard" />
+
+        <TextView
+            android:id="@+id/textView49"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="ROM"
+            android:textColor="@color/accent_blue2"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/barGraphCard"
+            app:layout_constraintStart_toStartOf="@+id/barGraphCard" />
+
+        <TextView
+            android:id="@+id/textView52"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Joint's Trend"
+            android:textColor="@color/accent_blue2"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/cardView16"
+            app:layout_constraintStart_toStartOf="@+id/cardView16" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

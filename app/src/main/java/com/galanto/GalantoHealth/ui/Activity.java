@@ -59,6 +59,7 @@ public class Activity extends Fragment {
     Logics logics;
     SessionsLogic sessionsLogic;
     ArrayList<Integer> gameScoreArray;
+    String packageName="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,20 +90,20 @@ public class Activity extends Fragment {
             logics=new Logics(getContext());
             sessionsLogic=new SessionsLogic(getContext());
             boolean isNewUser=sessionsLogic.readAllSessionsData(p_id);
-            if (isNewUser){
-                return;
+            if (!isNewUser){
+                gameScoreArray=sessionsLogic.getMovementScoreArray();
+
+                gameScoreArray=sessionsLogic.getGameScoreArray();
+
+                tvGameScore.setText(String.valueOf((logics.sumOfArrayInt(gameScoreArray))));
+
             }
 
-            gameScoreArray=sessionsLogic.getMovementScoreArray();
-
-            gameScoreArray=sessionsLogic.getGameScoreArray();
-
-            tvGameScore.setText(String.valueOf((logics.sumOfArrayInt(gameScoreArray))));
 
             gameClassArrayList=new ArrayList<>();
             recommendedGameArray=new ArrayList<>();
 
-            gameClassArrayList.add(new GameClass("Runman",R.drawable.runman_icon));
+            gameClassArrayList.add(new GameClass("Runman",R.drawable.runman_icon,"com.Galanto.Game2"));
             gameClassArrayList.add(new GameClass("Squeezy",R.drawable.squuzy_icon));
             gameClassArrayList.add(new GameClass("Game 3",R.drawable.game1_crp));
             gameClassArrayList.add(new GameClass("Game 4",R.drawable.game1_icon));
@@ -139,6 +140,7 @@ public class Activity extends Fragment {
                     ivGameHeaderImage.setVisibility(View.VISIBLE);
                     tvGameHeaderText.setText(gameClass.getGameTitle());
                     ivGameHeaderImage.setBackgroundResource(gameClass.getGameImage());
+                    packageName=gameClass.getPackageName();
                 }
             });
 
@@ -150,9 +152,18 @@ public class Activity extends Fragment {
                     ivGameHeaderImage.setVisibility(View.VISIBLE);
                     tvGameHeaderText.setText(gameClass.getGameTitle());
                     ivGameHeaderImage.setBackgroundResource(gameClass.getGameImage());
+                    packageName=gameClass.getPackageName();
                 }
             });
 
+            btnPlayGame.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!packageName.isEmpty()){
+                        logics.openGame(packageName);
+                    }
+                }
+            });
 
 
 //            game1Card.setOnClickListener(new View.OnClickListener() {

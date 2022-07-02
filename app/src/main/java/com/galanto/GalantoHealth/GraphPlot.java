@@ -14,6 +14,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -52,20 +53,18 @@ public class GraphPlot {
     }
 
 
-    public  void createLineChart(LineChart chart, ArrayList<LocalDate> dateAxis , ArrayList<Entry> graphData, String legendText, int graphColor, Float minX, Float miny, Float maxX, Float maxY){
+    public  void createLineChart(LineChart chart, ArrayList<LocalDate> dateAxis , ArrayList<Entry> graphData, ArrayList<Entry> graphData2, String legendText, int graphColor, Float minX, Float miny, Float maxX, Float maxY, String description){
 
 
         XAxis xAxis=chart.getXAxis();
         xAxis.setDrawGridLines(false);      // remove vertical grid lines
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);      // set bottom x-axis
         xAxis.setTextColor(Color.BLACK);
-        //xAxis.setTextSize();
         xAxis.setAxisLineWidth(5);
         xAxis.setDrawAxisLine(false);
         xAxis.setGranularity(1f);
 
         xAxis.setSpaceMin(50f);
-        //xAxis.setSpaceMax(2f);
         xAxis.setAxisMinimum(0);
 
         xAxis.setAxisMaximum(maxX+1);
@@ -100,6 +99,7 @@ public class GraphPlot {
         yAxis.setDrawAxisLine(false);
         yAxis.setDrawGridLines(true);
         yAxis.setAxisMaximum(maxY+10);
+
 //        yAxis.setAxisMaximum(120f);
         yAxis.setAxisMinimum(miny-10);
 //        yAxis.setAxisMinimum(60f);
@@ -115,24 +115,57 @@ public class GraphPlot {
         set.setColor(graphColor);
         set.setDrawCircles(false);
 
-        ArrayList<ILineDataSet> dataSets=new ArrayList<>();
+
+
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(set);
+
+        if(graphData2!=null){
+            LineDataSet set2 =new LineDataSet(graphData2,"MCP");
+            set2.setDrawHighlightIndicators(false);
+            set2.setFillAlpha(30);
+            set2.setLineWidth(2.5f);
+            set2.setColor(Color.parseColor("#18c7a7"));
+            set2.setDrawCircles(false);
+            dataSets.add(set2);
+        }
+
+
+
 
         LineData data= new LineData(dataSets);
         data.setDrawValues(false);
 
         chart.clear();
         chart.setData(data);
-        chart.getDescription().setEnabled(false);
+//        chart.invalidate();
+        if(description.isEmpty()){
+            chart.getDescription().setEnabled(false);
+        }else {
+            chart.getDescription().setEnabled(false);
+//            chart.getDescription().setText(description);
+//            chart.getDescription().setTextSize(20);
+//            chart.getDescription().setPosition(xAxis.mAxisMaximum,0);
+        }
+
         chart.setTouchEnabled(true);
 
 
         chart.animateX(200);
         chart.setExtraOffsets(3f,5f,5f,10f);
-        chart.getXAxis().setEnabled(false);
+//        chart.getXAxis().setEnabled(false);
         chart.getAxisLeft().setEnabled(true);
 
         Legend legend = chart.getLegend();
+        if(graphData2!=null){
+            legend.setTextSize(15);
+            legend.setTextColor(Color.BLACK);
+            legend.setYOffset(1);
+            legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+            legend.setEnabled(true);
+        }else {
+            legend.setEnabled(false);
+        }
 
 //        if(!legendText.isEmpty()) {
 //
@@ -144,12 +177,12 @@ public class GraphPlot {
 //        }else {
 //            legend.setEnabled(false);
 //        }
-        legend.setEnabled(false);
+//        legend.setEnabled(false);
 
 
     }
 
-    public void setBarChartData(BarChart barChart,String graphlabel,ArrayList<BarEntry> barData,int maxYAxis,int color){
+    public void setBarChartData(BarChart barChart,String graphlabel,ArrayList<BarEntry> barData,int maxYAxis,int color,int yMin,int yMax){
 //        ArrayList<BarEntry> barData=new ArrayList<>();
 //
 //        for (int i=0;i<3;i++){
@@ -192,8 +225,10 @@ public class GraphPlot {
 
         yAxis.setDrawAxisLine(true);
         yAxis.setDrawGridLines(false);
-        yAxis.setAxisMaximum(maxYAxis);
-        yAxis.setAxisMinimum(0.5f);
+//        yAxis.setAxisMaximum(maxYAxis);
+//        yAxis.setAxisMinimum(0.5f);
+        yAxis.setAxisMaximum(yMax);
+        yAxis.setAxisMinimum(yMin);
         yAxis.setAxisLineWidth(3);
         yAxis.setSpaceMin(2f);
         yAxis.setAxisLineWidth(1f);
@@ -253,13 +288,14 @@ public class GraphPlot {
         pieChart.setData(data);
         pieChart.invalidate();
         pieChart.setDrawHoleEnabled(true);
+
         pieChart.setUsePercentValues(true);
         pieChart.setEntryLabelTextSize(10);
         pieChart.setEntryLabelColor(Color.GRAY);
         pieChart.setCenterText(centerText);
         pieChart.setCenterTextSize(20);
 
-        pieChart.setTouchEnabled(true);
+        pieChart.setTouchEnabled(false);
 
         pieChart.setCenterTextColor(Color.BLACK);
         pieChart.getDescription().setEnabled(false);

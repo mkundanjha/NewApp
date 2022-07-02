@@ -6,6 +6,7 @@
     <queries>
         <package android:name="com.kundan.testopenapp" />
         <package android:name="com.Galanto.Game1" />
+        <package android:name="com.Galanto.Game2" />
         <package android:name="com.Galanto.Juice" />
         <package android:name="com.Galanto.Calibration" />
         <package android:name="com.galanto.GalantoHealth" />
@@ -14,17 +15,13 @@
 
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-<!--        android:maxSdkVersion="30"-->
-<!--        tools:ignore="ScopedStorage" />-->
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29"/>
-<!--        tools:ignore="ScopedStorage" />-->
-<!--    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"-->
-<!--        tools:ignore="ScopedStorage"/>-->
+
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
-<!--        tools:ignore="ScopedStorage"/>-->
-<!--        android:maxSdkVersion="30"/>-->
+
 
     <application
         android:allowBackup="true"
@@ -51,12 +48,9 @@
         <activity
             android:name="com.galanto.GalantoHealth.LoginActivity"
             android:exported="true"
-            android:screenOrientation="sensorLandscape">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateVisible|adjustPan">
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
         <activity
             android:name="com.galanto.GalantoHealth.MainActivity2"
@@ -68,16 +62,6 @@
             android:name="com.galanto.GalantoHealth.Dashboard"
             android:screenOrientation="sensorLandscape">
 
-            <!-- <activity android:name=".MainActivity2"> -->
-
-
-            <!-- <activity android:name=".MainActivity"> -->
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
     </application>
 

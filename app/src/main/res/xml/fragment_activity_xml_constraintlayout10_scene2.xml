@@ -14,7 +14,7 @@
             motion:touchAnchorId="@id/cardView9"
             motion:dragThreshold="1"
             motion:dragDirection="dragUp"
-            motion:onTouchUp="stop"
+            motion:onTouchUp="autoCompleteToEnd"
             />
     </Transition>
 
@@ -78,7 +78,7 @@
         <Constraint
             android:id="@+id/cardView9"
             motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="880dp"
+            android:layout_width="830dp"
             android:layout_height="650dp"
             motion:layout_constraintTop_toBottomOf="@+id/space"
             motion:layout_constraintStart_toStartOf="parent" />

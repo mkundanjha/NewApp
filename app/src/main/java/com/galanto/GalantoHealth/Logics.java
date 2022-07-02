@@ -2,6 +2,7 @@ package com.galanto.GalantoHealth;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Environment;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +22,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 public class Logics {
@@ -32,15 +35,18 @@ public class Logics {
     }
 
     // Create a Line graph
-    public void setLineChart(LineChart lineChart, String label,ArrayList<LocalDate> dateData ,ArrayList<Float> arrayList, int graphColor){
+    public void setLineChart(LineChart lineChart, String label,ArrayList<LocalDate> dateData ,ArrayList<Float> arrayList,ArrayList<Float> arrayList2, int graphColor,String description){
         ArrayList<Entry> romData=new ArrayList<>();
+        ArrayList<Entry> dataSet2 = new ArrayList<>();
         graphPlot=new GraphPlot();
         Float xValues;
-        Float minXaxis,minYaxis,maxXaxis,maxYaxis;
+        Float minXaxis,minYaxis,maxXaxis,maxYaxis,minYaxis2,maxYaxis2;
         minXaxis=Float.MAX_VALUE;
         minYaxis=Float.MAX_VALUE;
         maxXaxis=Float.MIN_VALUE;
         maxYaxis=Float.MIN_VALUE;
+        minYaxis2=Float.MAX_VALUE;
+        maxYaxis2=Float.MIN_VALUE;
 
         minXaxis=0f;
         maxXaxis=10f;
@@ -49,20 +55,6 @@ public class Logics {
 
 
         for (int i=0;i<arrayList.size();i++){
-//            if(timeStamp.size()>0){
-//                xValues=(Float) timeStamp.get(i);
-//            }else {
-//                xValues=Float.parseFloat(String.valueOf(i));
-//            }
-
-            // Set Minimum and Maximum value of Axis based of Input Data
-//            if (xValues<minXaxis){
-//                minXaxis=xValues;
-//            }
-
-//            if(xValues>maxXaxis){
-//                maxXaxis=xValues;
-//            }
 
             if (arrayList.get(i)<minYaxis){
                 minYaxis=arrayList.get(i);
@@ -72,16 +64,38 @@ public class Logics {
                 maxYaxis=arrayList.get(i);
             }
 
-            // romData.add(new Entry(i,Float.parseFloat(String.valueOf(Math.random()*10))));
-            //mcpLineChart.setVisibility(View.VISIBLE);
-            //romData.add(new Entry(xValues,arrayList.get(i)));
             romData.add(new Entry(i,arrayList.get(i)));
         }
 
-        //romChart.setVisibility(View.VISIBLE);
+        if(arrayList2!=null) {
+            for (int i = 0; i < arrayList2.size(); i++) {
 
-        graphPlot.createLineChart(lineChart,dateData,romData,label,graphColor,minXaxis,minYaxis,maxXaxis,maxYaxis);
-        //createLineChart(romChart,romData,label,Color.WHITE);
+                if (arrayList2.get(i) < minYaxis2) {
+                    minYaxis2 = arrayList.get(i);
+                }
+
+                if (arrayList2.get(i) > maxYaxis2) {
+                    maxYaxis2 = arrayList.get(i);
+                }
+
+                dataSet2.add(new Entry(i, arrayList2.get(i)));
+            }
+            maxYaxis2= Collections.max(arrayList2);
+            minYaxis2=Collections.min(arrayList2);
+        }else {
+            dataSet2=null;
+        }
+
+
+
+        maxYaxis= Collections.max(arrayList);
+        minYaxis=Collections.min(arrayList);
+        maxYaxis=Math.max(maxYaxis,maxYaxis2);
+        minYaxis=Math.min(minYaxis,minYaxis2);
+            //romChart.setVisibility(View.VISIBLE);
+
+            graphPlot.createLineChart(lineChart, dateData, romData, dataSet2, label, graphColor, minXaxis, minYaxis, maxXaxis, maxYaxis,description);
+            //createLineChart(romChart,romData,label,Color.WHITE);
         }catch (Exception e){
             Toast.makeText(lineChart.getContext(), e.toString(),Toast.LENGTH_SHORT).show();
         }
@@ -170,6 +184,24 @@ public class Logics {
             return false;
         }
 
+    }
+
+    public  boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    //To dynamically set numbers data formant e.g. 2k, 11M,etc.
+    public String formatNumber(int inputNumber){
+        String returnFormat="";
+        try{
+            if(inputNumber>=1000 && inputNumber<100000){
+
+            }
+        }catch (Exception ex){
+
+        }
+        return returnFormat;
     }
 
     // To open a game from dashboard
